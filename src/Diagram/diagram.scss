@@ -1,0 +1,166 @@
+.bi.bi-diagram {
+  box-sizing: border-box;
+
+  @apply w-full h-full border border-solid border-default-light rounded shadow-lg min-h-full bg-default-lightest;
+  @apply relative overflow-hidden;
+
+  // ----------------------------
+  // Diagram node general wrapper
+  // ----------------------------
+  .bi.bi-diagram-node {
+    box-sizing: content-box;
+
+    @apply absolute z-50 cursor-move select-none;
+
+    .bi-port-wrapper {
+      @apply flex;
+
+      .bi-input-ports,
+      .bi-output-ports {
+        @apply flex-1;
+
+        .bi-diagram-port {
+          transition: background-color 0.25s ease-in-out;
+          background-color: rgba(0, 0, 0, 0.05);
+          @apply w-5 h-5 mb-1;
+
+          &:hover {
+            background-color: rgba(0, 0, 0, 0.1);
+          }
+        }
+      }
+
+      /* stylelint-disable-next-line no-descending-specificity */
+      .bi-output-ports .bi-diagram-port {
+        @apply ml-auto;
+      }
+    }
+
+
+    // ----------------------------
+    // Default node
+    // ----------------------------
+    &.bi-diagram-node-default {
+      transition: box-shadow 0.25s ease-in-out, border 0.3s ease-out;
+
+      @apply border border-solid border-default-dark bg-default-light text-default-darker rounded shadow p-2;
+
+      &:hover {
+        @apply shadow-lg;
+      }
+
+      .bi-port-wrapper {
+        @apply -mx-2;
+      }
+    }
+  }
+
+  // ----------------------------
+  // Link canvas layer
+  // ----------------------------
+  .bi-link-canvas-layer {
+    pointer-events: none;
+    @apply w-full h-full z-0 absolute inset-0;
+
+    // ----------------------------
+    // Segment
+    // ----------------------------
+    .bi-diagram-segment {
+      path {
+        stroke: theme('colors.default-light');
+        stroke-width: 0.25rem;
+        stroke-dasharray: 10, 2;
+        fill: transparent;
+        animation: BiDashSegmentAnimation 1s linear infinite;
+      }
+
+      circle {
+        stroke: theme('colors.default-light');
+        stroke-width: 0.15rem;
+        fill: theme('colors.primary-lighter');
+      }
+    }
+
+
+    // ----------------------------
+    // Link item
+    // ----------------------------
+    .bi-diagram-link {
+      pointer-events: stroke;
+
+      // link path
+      .bi-link-path {
+        stroke: theme('colors.default-light');
+        stroke-width: 0.25rem;
+        pointer-events: stroke;
+        fill: transparent;
+
+        @apply cursor-pointer select-none;
+      }
+
+      // link ghost
+      .bi-link-ghost {
+        pointer-events: stroke;
+        stroke: transparent;
+        stroke-width: 1.2rem;
+        fill: transparent;
+
+        @apply cursor-pointer;
+      }
+
+      // hover
+      &:hover .bi-link-path {
+        stroke: theme('colors.primary-lighter');
+        stroke-dasharray: 10, 2;
+        animation: BiDashSegmentAnimation 1s linear infinite;
+      }
+
+      // readonly link
+      &.readonly-link {
+        .bi-link-ghost {
+          cursor: not-allowed;
+        }
+
+        .bi-link-path {
+          cursor: not-allowed;
+          stroke: theme('colors.default');
+          stroke-dasharray: none;
+        }
+
+        &:hover {
+          stroke: theme('colors.default');
+          stroke-dasharray: none;
+          animation: none;
+        }
+      }
+
+      /* stylelint-disable-next-line */
+      foreignObject {
+        @apply w-full h-full overflow-visible pointer-events-none;
+      }
+
+      // ----------------------------
+      // Link label
+      // ----------------------------
+      .bi-diagram-link-label {
+        @apply inline-block text-white bg-default-darkest rounded p-1 text-center text-sm select-none;
+        min-width: 3rem;
+        transform: translate(-50%, -50%);
+      }
+    }
+  }
+}
+
+
+// ----------------------------
+// Involved animations
+// ----------------------------
+@keyframes BiDashSegmentAnimation {
+  from {
+    stroke-dashoffset: 24;
+  }
+
+  to {
+    stroke-dashoffset: 0;
+  }
+}

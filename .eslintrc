@@ -1,0 +1,34 @@
+{
+  "extends": "airbnb",
+  "parser": "babel-eslint",
+  "plugins": ["chai-expect", "jsx-a11y"],
+  "env": {
+    "browser": true,
+    "mocha": true
+  },
+  "rules": {
+    "max-len": ["error", { "code": 120 }],
+    "object-curly-newline": "off",
+    "react/jsx-filename-extension": [1, { "extensions": [ ".js", ".jsx" ] } ],
+    "react/prop-types": [2, { "ignore":  ["className", "children", "style"] }],
+    "react/jsx-props-no-spreading": "off"
+  },
+  "overrides": [
+    {
+      "files": [
+        "*.test.js",
+        "*.spec.js",
+        "*.test.jsx",
+        "*.spec.jsx"
+      ],
+      "globals": {
+        "expect": "readonly",
+        "should": "readonly",
+        "sinon": "readonly"
+      },
+      "rules": {
+        "no-unused-expressions": "off"
+      }
+    }
+  ]
+}
