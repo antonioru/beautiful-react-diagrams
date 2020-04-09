@@ -8,7 +8,7 @@ const SidebarItem = (props) => {
     <>
       {visibleName === 'Hooks' && <Sidebar.Divider />}
       <Sidebar.Item text={visibleName} current={selected} to={href} />
-      {visibleName === 'Customise' && <Sidebar.Divider />}
+      {visibleName === 'Concepts' && <Sidebar.Divider />}
     </>
   );
 };

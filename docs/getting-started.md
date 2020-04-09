@@ -10,10 +10,10 @@ Using `yarn`:
 $ yarn add beautiful-react-diagrams
 ```
 
-then just import any hook described by the documentation in your React component file:
+That's it. Seriously. 
 
-```js
+Start using the `Diagram` component by importing it from `beautiful-react-diagrams`:
+
+```js static 
 import Diagram from 'beautiful-react-diagrams';
 ```
-
-

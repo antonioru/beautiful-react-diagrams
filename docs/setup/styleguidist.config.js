@@ -19,17 +19,36 @@ module.exports = {
   skipComponentsWithoutExample: true,
   sections: [
     {
+      name: 'Concepts',
+      content: '../concepts.md',
+      sectionDepth: 1,
+    },
+    {
       name: 'Getting started',
       content: '../getting-started.md',
       sectionDepth: 1,
     },
     {
-      name: 'Components',
-      pagePerSection: true,
-      components: () => [
-        '../../src/Diagram/Diagram.js',
-      ],
+      name: 'Basic Usage',
+      content: '../basic-usage.md',
+      sectionDepth: 1,
     },
+    {
+      name: 'Linking nodes',
+      content: '../links.md',
+      sectionDepth: 1,
+    },
+    {
+      name: 'Ports',
+      content: '../ports.md',
+      sectionDepth: 1,
+    },
+    {
+      name: 'Customisation',
+      content: '../customisation.md',
+      sectionDepth: 1,
+    },
+    { divider: true },
     {
       name: 'Hooks',
       content: '../hooks.md',

@@ -1,7 +1,6 @@
-[![Build Status](https://travis-ci.org/antonio.ru/beautiful-react-diagrams.svg?branch=master)](https://travis-ci.org/antonio.ru/beautiful-react-diagrams)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Build Status](https://travis-ci.org/antonioru/beautiful-react-diagrams.svg?branch=master)](https://travis-ci.org/antonioru/beautiful-react-diagrams)[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 ![npm](https://img.shields.io/npm/v/beautiful-react-diagrams)
-![GitHub stars](https://img.shields.io/github/stars/antonio.ru/beautiful-react-diagrams?style=social)
+![GitHub stars](https://img.shields.io/github/stars/antonioru/beautiful-react-diagrams?style=social)
 
 <div align="center">
   <p align="center">
