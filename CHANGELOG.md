@@ -9,3 +9,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.1.0] - 2019-06-10
 
 - First release
+
+## [0.1.1] - 2020-04-09
+
+- Improving the documentation 
+- Adding types
+
+
+## [0.1.2] - 2020-04-09
+
+- Improving the documentation 
+- Updating the dependencies
+- Removing the .idea folder from the repository
+

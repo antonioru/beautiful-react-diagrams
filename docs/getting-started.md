@@ -1,7 +1,21 @@
-#TBD
+# Getting started
 
-but definitely something like:
 
+Using `npm`:
 ```bash
-npx create-beautiful-react-style ./my-tailwind.configuration.js
+$ npm i --save beautiful-react-diagrams
 ```
+
+Using `yarn`:
+```bash 
+$ yarn add beautiful-react-diagrams
+```
+
+then just import any hook described by the documentation in your React component file:
+
+```js
+import Diagram from 'beautiful-react-diagrams';
+```
+
+### Basic Usage:
+

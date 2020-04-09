@@ -146,6 +146,7 @@ $RECYCLE.BIN/
 .
 
 # User-specific stuff
+.idea/
 .idea/**/workspace.xml
 .idea/**/tasks.xml
 .idea/**/dictionaries

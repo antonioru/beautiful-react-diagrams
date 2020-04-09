@@ -2,7 +2,7 @@ const path = require('path');
 const theme = require('./styleguidist.theme');
 
 module.exports = {
-  title: 'beautiful-react-diagrams | A collection of lightweight controlled React components for building diagramming with ease',
+  title: 'beautiful-react-diagrams | A tiny collection of lightweight React components for building diagrams with ease',
   /* eslint-disable global-require */
   webpackConfig: require('./styleguidist.webpack'),
   /* eslint-enable global-require */

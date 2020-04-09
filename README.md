@@ -23,17 +23,18 @@
   </p>
 </div>
 
-![Diagrams banner](./beautiful-react-diagrams-banner.png)
+![Diagrams banner](./beautiful-react-diagrams.png)
 
 ## 💡 Why?
 
-Javascript diagramming libraries are often quite difficult to integrate with React so we've created an easy to customise
-and React-made diagramming library.
+Javascript diagramming libraries are often quite difficult to integrate in React projects, given the different natures of the involved libraries. 
+For example a React component's lifecylce may be quite hard to keep in in sync with a MVC diagramming library.
+For this reason we created `beautiful-react-diagrams` an easy-to-customise functional diagramming library built with React.
 
 ## 🎓 Principles
 
-- **Controlled components**: exports [controlled](https://reactjs.org/docs/forms.html#controlled-components) components only
-- **Render behaviour**: the majority of the exported components accept a `render` prop to easily customise their behaviour
+- **Controlled components**: exports [controlled](https://reactjs.org/docs/forms.html#controlled-components) components only.
+- **Renderers**: the majority of the exported components accept a `renderer` (a prop) to easily customise or extend their behaviour.
 - **Lightweights**: import nothing but lightweight javascript components.
 
 ## ☕️ Features
@@ -42,7 +43,6 @@ and React-made diagramming library.
 * Small and lightweight
 * Easy to use
 * Easy to customise
-* Fully written in old-school JS (although TS types are supported)
 
 <div>
   <p align="center">
