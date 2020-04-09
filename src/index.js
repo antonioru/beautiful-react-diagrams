@@ -1,2 +1,3 @@
-export { default as Diagram } from './Diagram';
+import Diagram from './Diagram';
+
 export default Diagram;

@@ -22,3 +22,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Updating the dependencies
 - Removing the .idea folder from the repository
 
+## [0.1.2] - 2020-04-09
+
+- Improving the documentation

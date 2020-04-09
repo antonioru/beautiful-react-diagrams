@@ -8,7 +8,7 @@ module.exports = {
   /* eslint-enable global-require */
   ignore: ['test/**/*.spec.{js,jsx}', 'node_modules', 'docs', 'test'],
   ribbon: {
-    url: 'https://github.com/beautifulinteractions/beautiful-react-ui',
+    url: 'https://github.com/antonioru/beautiful-react-diagrams',
     text: 'Fork me on GitHub',
   },
   styleguideDir: '../../dist-ghpages',

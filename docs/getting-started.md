@@ -1,5 +1,4 @@
-# Getting started
-
+Just install it.
 
 Using `npm`:
 ```bash
@@ -17,5 +16,4 @@ then just import any hook described by the documentation in your React component
 import Diagram from 'beautiful-react-diagrams';
 ```
 
-### Basic Usage:
 

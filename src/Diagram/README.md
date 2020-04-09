@@ -8,7 +8,7 @@ Optionally a `links` property can be set describing links between the nodes, sim
 be an array of valid link describing tuples, a valid link must have an `input` and an `output` property.
 
 ``` jsx
-import { Diagram } from 'beautiful-react-diagrams';
+import Diagram from 'beautiful-react-diagrams';
 
 // the diagram model
 const initialSchema = {
@@ -42,7 +42,7 @@ const UncontrolledDiagram = () => {
 ### Ports
 
 ``` jsx
-import { Diagram } from 'beautiful-react-diagrams';
+import Diagram from 'beautiful-react-diagrams';
 
 const initialSchema = {
   nodes: [
@@ -121,7 +121,7 @@ const UncontrolledDiagram = () => {
 ### Link labels & readonly links
 
 ``` jsx
-import { Diagram } from 'beautiful-react-diagrams';
+import Diagram from 'beautiful-react-diagrams';
 
 const initialSchema = {
   nodes: [
@@ -154,7 +154,7 @@ const UncontrolledDiagram = () => {
 ### Customizable
 
 ``` jsx
-import { Diagram } from 'beautiful-react-diagrams';
+import Diagram from 'beautiful-react-diagrams';
 
 const CustomNode = (props) => {
   const { inputs } = props;
