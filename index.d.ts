@@ -1,1 +1,3 @@
-export {default as Diagram} from './@types/Diagram';
+import Diagram from './@types/Diagram';
+
+export default Diagram;

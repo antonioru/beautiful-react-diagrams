@@ -1,8 +1,0 @@
-# Mocha options
-
-  --require @babel/register
-  --require @babel/polyfill
-  --require jsdom-global/register
-  --require ./test/setup.js
-  --require ignore-styles
-  --recursive ./src/**/*.spec.+(js|jsx)

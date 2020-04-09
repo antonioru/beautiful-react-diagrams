@@ -6,10 +6,10 @@
   "include": [ "src/**/*.js" ],
   "exclude": [
     "src/**/index.js",
-    "**/*.spec.js",
+    "**/*.spec.js"
   ],
-  "branches": 90,
-  "lines": 90,
-  "functions": 90,
-  "statements": 90
+  "branches": 40,
+  "lines": 40,
+  "functions": 40,
+  "statements": 40
 }
