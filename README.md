@@ -1,7 +1,7 @@
-[![Build Status](https://travis-ci.org/beautifulinteractions/beautiful-react-ui.svg?branch=master)](https://travis-ci.org/beautifulinteractions/beautiful-react-ui)
+[![Build Status](https://travis-ci.org/antonio.ru/beautiful-react-diagrams.svg?branch=master)](https://travis-ci.org/antonio.ru/beautiful-react-diagrams)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-![npm](https://img.shields.io/npm/v/beautiful-react-ui)
-![GitHub stars](https://img.shields.io/github/stars/beautifulinteractions/beautiful-react-ui?style=social)
+![npm](https://img.shields.io/npm/v/beautiful-react-diagrams)
+![GitHub stars](https://img.shields.io/github/stars/antonio.ru/beautiful-react-diagrams?style=social)
 
 <div align="center">
   <p align="center">
@@ -17,7 +17,7 @@
 
 <div>
   <p align="center">
-    <a href="https://beautifulinteractions.github.io/beautiful-react-ui/" target="_blank">
+    <a href="https://antonioru.github.io/beautiful-react-diagrams/" target="_blank">
     🌟 Live playground here 🌟
     </a>
   </p>
@@ -46,7 +46,7 @@ For this reason we created `beautiful-react-diagrams` an easy-to-customise funct
 
 <div>
   <p align="center">
-    <a href="https://beautifulinteractions.github.io/beautiful-react-ui/" target="_blank">
+    <a href="https://antonioru.github.io/beautiful-react-diagrams/" target="_blank">
     🌟 Live playground here 🌟
     </a>
   </p>
