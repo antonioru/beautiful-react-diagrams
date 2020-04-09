@@ -3,7 +3,7 @@ import { useWindowScroll } from 'beautiful-react-hooks';
 import isEqual from 'lodash/isEqual';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import DiagramContext from '../utils/DiagramContext';
+import DiagramContext from '../../Context/DiagramContext';
 
 /**
  * The DiagramCanvas component provides a context to the Diagram children.

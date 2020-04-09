@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import DiagramCanvas from './DiagramCanvas/DiagramCanvas';
 import NodesCanvas from './NodesCanvas/NodesCanvas';
 import LinksCanvas from './LinksCanvas/LinksCanvas';
-import { LinkType, NodeType } from './utils/Types';
+import { LinkType, NodeType } from '../shared/types/Types';
 
 import './diagram.scss';
 

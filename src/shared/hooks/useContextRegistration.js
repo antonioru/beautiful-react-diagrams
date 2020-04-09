@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useContext } from 'react';
-import DiagramContext from './DiagramContext';
+import DiagramContext from '../../Context/DiagramContext';
 
 /**
  * Returns a callback that will perform the onPortRegister function when the context is ready (canvas exists)

@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import CustomRenderer from './CustomRender';
 import getDiagramNodeStyle from './getDiagramNodeStyle';
-import { usePortRegistration, useNodeRegistration } from '../utils/useContextRegistration';
-import { PortType } from '../utils/Types';
+import { usePortRegistration, useNodeRegistration } from '../../shared/hooks/useContextRegistration';
+import { PortType } from '../../shared/types/Types';
 import portGenerator from './portGenerator';
 import useDrag from '../../shared/hooks/useDrag';
 

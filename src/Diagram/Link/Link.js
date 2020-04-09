@@ -1,13 +1,13 @@
 import React, { useEffect, useRef, useState, useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { LinkType, NodeType, PortType } from '../utils/Types';
-import usePortRefs from '../utils/usePortRefs';
-import useCanvas from '../utils/useCanvas';
+import { LinkType, NodeType, PortType } from '../../shared/types/Types';
+import usePortRefs from '../../shared/hooks/usePortRefs';
+import useCanvas from '../../shared/hooks/useCanvas';
 import getCoords from './getEntityCoordinates';
-import makeSvgPath from '../utils/makeSvgPath';
-import getPathMidpoint from '../utils/getPathMidpoint';
-import useNodeRefs from '../utils/useNodeRefs';
+import makeSvgPath from '../../shared/functions/makeSvgPath';
+import getPathMidpoint from '../../shared/functions/getPathMidpoint';
+import useNodeRefs from '../../shared/hooks/useNodeRefs';
 import LinkLabel from './LinkLabel';
 
 // local hook, returns portRefs & nodeRefs

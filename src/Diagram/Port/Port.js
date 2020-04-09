@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import useDrag from '../../shared/hooks/useDrag';
-import useCanvas from '../utils/useCanvas';
-import getRelativePoint from '../utils/getRelativePoint';
+import useCanvas from '../../shared/hooks/useCanvas';
+import getRelativePoint from '../../shared/functions/getRelativePoint';
 
 /**
  * Port

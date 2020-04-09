@@ -5,13 +5,13 @@
 
 <div align="center">
   <p align="center">
-    <img src="./logo.png" alt="beautiful-react-ui" width="750px" />
+    <img src="./logo.png" alt="beautiful-react-diagrams" width="750px" />
   </p>
 </div>
 <br />
 <div>
   <p align="center">
-    A collection of lightweight and easy-to-customise controlled React components
+    A tiny collection of lightweight React components for building diagrams with ease
   </p>
 </div>
 
@@ -23,26 +23,17 @@
   </p>
 </div>
 
+![Diagrams banner](./beautiful-react-diagrams-banner.png)
+
 ## 💡 Why?
 
-In the last few year we've had a chance to test a good number of UI libraries, each with its own strengths and 
-weaknesses, but none that matched our expectations in terms of ease of customization.
-
-In fact, our attempt at customizing the style and behavior of the libraries we've tested would generally result in 
-one or more of the following:
-- an inordinate growth in the number of dependencies of our projects, often in the form of language transpilers / compilers causing our build process to grow in complexity beyond reason;
-- a struggle with components carelessly implemented as stateful components where a stateless approach would have resulted in a much better, more performant, more reusable product.
-
-As a result, we've decided to develop a library putting ease of customization as our top priority, focusing on a solid, props-driven API and pure CSS. 
+Javascript diagramming libraries are often quite difficult to integrate with React so we've created an easy to customise
+and React-made diagramming library.
 
 ## 🎓 Principles
 
-- **Driven by grace**: instead of customising the padding/margin/color/whatever of a single component, 
-customise the value of padding/margin/color/whatever trough a [configuration file](./docs/customising.md), the library 
-will then generate a tailored style keeping grace between components.
-- **Render behaviour**: the majority of the exported components accept a `render` prop to possibly customise 
-their behaviour
 - **Controlled components**: exports [controlled](https://reactjs.org/docs/forms.html#controlled-components) components only
+- **Render behaviour**: the majority of the exported components accept a `render` prop to easily customise their behaviour
 - **Lightweights**: import nothing but lightweight javascript components.
 
 ## ☕️ Features
@@ -52,7 +43,6 @@ their behaviour
 * Easy to use
 * Easy to customise
 * Fully written in old-school JS (although TS types are supported)
-* Based on [Tailwindcss](https://tailwindcss.com/)
 
 <div>
   <p align="center">

@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import DiagramContext from './DiagramContext';
+import DiagramContext from '../../Context/DiagramContext';
 
 /**
  * Returns the canvas bounding box from the DiagramContext

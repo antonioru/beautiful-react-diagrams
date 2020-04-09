@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, cleanup } from '@testing-library/react';
-import DiagramContext from '../utils/DiagramContext';
+import DiagramContext from '../../Context/DiagramContext';
 import DiagramLink from './Link';
 
 describe('Link component', () => {

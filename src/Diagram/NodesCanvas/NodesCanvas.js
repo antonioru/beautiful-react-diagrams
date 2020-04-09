@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import isEqual from 'lodash/isEqual';
-import { NodeType } from '../utils/Types';
+import { NodeType } from '../../shared/types/Types';
 import DiagramNode from '../DiagramNode/DiagramNode';
 import updateNodeCoordinates from './updateNodeCoordinates';
 
