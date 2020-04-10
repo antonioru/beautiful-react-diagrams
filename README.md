@@ -26,9 +26,12 @@
 
 ## 💡 Why?
 
-Javascript diagramming libraries are often quite difficult to integrate in React projects, given the different natures of the involved libraries. 
-For example a React component's lifecylce may be quite hard to keep in in sync with a MVC diagramming library.
-For this reason we created `beautiful-react-diagrams` an easy-to-customise functional diagramming library built with React.
+Javascript diagramming libraries are often difficult to integrate in React projects. <br />
+Different patterns not always fit the React nature and having a component's state in in sync with an external
+diagramming library might be quite difficult especially when the latter had been built in a different paradigm (such as MVC, for example).
+
+For this reason we created `beautiful-react-diagrams` an easy-to-customise functional diagramming library to build 
+diagrams with ease.
 
 ## 🎓 Principles
 

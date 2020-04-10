@@ -11,17 +11,19 @@ Javascript diagramming libraries are often difficult to integrate in React proje
 Different patterns not always fit the React nature and having a component's state in in sync with an external
 diagramming library might be quite difficult especially when the latter had been built in a different paradigm (such as MVC, for example).
 
-For this reason we created `beautiful-react-diagrams` an easy-to-customise functional diagramming library.
+For this reason we created `beautiful-react-diagrams` an easy-to-customise functional diagramming library to build 
+diagrams with ease.
 
-<hr style="margin: 40px auto" />
+<hr />
 
 ## 💢 Easy to customise
 
 We developed `beautiful-react-diagrams` having in mind that each diagram is different from the other, so we tried to sum
-up our experience in React components customisation introducing the `renderers`
-
+up our experience in React components customisation introducing a number of `renderers` and a css built with `css vars`.
 
 # Controlled
+
+`Diagram` is a controlled component that emit a diagram schema trough an `onChange` function...
 
 # Functional
 
