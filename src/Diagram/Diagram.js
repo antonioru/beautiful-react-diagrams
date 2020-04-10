@@ -9,8 +9,10 @@ import { LinkType, NodeType } from '../shared/types/Types';
 import './diagram.scss';
 
 /**
- * The Diagram component is a controlled component allowing the edit and creation of diagrams through a quite
- * simple, extensible and functional data model.
+ * The Diagram component is the root-node of any diagram.<br />
+ * It accepts a `schema` prop defining the current state of the diagram and emits its possible changes through the
+ * `onChange` prop, allowing the developer to have the best possible control over the diagram and its interactions
+ * with the user.
  */
 const Diagram = (props) => {
   const { schema, onChange, ...rest } = props;

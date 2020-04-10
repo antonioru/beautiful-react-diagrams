@@ -35,9 +35,10 @@ diagrams with ease.
 
 ## 🎓 Principles
 
+- **Lightweights**: import nothing but a single lightweight javascript.
 - **Controlled components**: exports [controlled](https://reactjs.org/docs/forms.html#controlled-components) components only.
-- **Renderers**: the majority of the exported components accept a `renderer` (a prop) to easily customise or extend their behaviour.
-- **Lightweights**: import nothing but lightweight javascript components.
+- **Renderers**: the involved components can be easily replaced with your own by using the  `renderer` props.
+- **Easy to style**: built using CSS vars only.
 
 ## ☕️ Features
 

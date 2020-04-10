@@ -17,7 +17,7 @@ const SidebarCollapsible = (props) => {
   const { visibleName, selected, components, href } = props;
 
   return (
-    <Sidebar.Collapsible text={visibleName} current={selected}>
+    <Sidebar.Group text={visibleName} current={selected}>
       {components.map((compProps) => (
         <SidebarItem
           {...compProps}
@@ -26,7 +26,7 @@ const SidebarCollapsible = (props) => {
           key={compProps.name}
         />
       ))}
-    </Sidebar.Collapsible>
+    </Sidebar.Group>
   );
 };
 

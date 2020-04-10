@@ -12,6 +12,8 @@ or `yarn`:
 $ yarn add beautiful-react-diagrams
 ```
 
+<hr />
+
 ### Import style
 
 Then import the CSS file in your React project:
@@ -19,6 +21,8 @@ Then import the CSS file in your React project:
 ```js static
 import 'beautiful-react-diagrams/styles.css';
 ```
+
+<hr />
 
 ### Start using the Diagram component
 

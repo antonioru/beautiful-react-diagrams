@@ -31,9 +31,10 @@ const Port = (props) => {
     /* eslint-disable no-unused-expressions */
     if (targetPort && event.target !== ref.current && canLink(id, targetPort)) {
       onSegmentConnect && onSegmentConnect(id, targetPort);
-    } else {
-      onSegmentConnect && onSegmentFail(id);
+      return;
     }
+
+    onSegmentFail && onSegmentFail(id);
     /* eslint-enable no-unused-expressions */
   });
 

@@ -29,8 +29,10 @@ module.exports = {
       sectionDepth: 1,
     },
     {
-      name: 'Basic Usage',
-      content: '../basic-usage.md',
+      name: 'Components',
+      components: () => [
+        '../../src/Diagram/Diagram.js',
+      ],
       sectionDepth: 1,
     },
     {
