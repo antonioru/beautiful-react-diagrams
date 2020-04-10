@@ -45,8 +45,9 @@ const DiagramNode = (props) => {
   }, className), [type, className]);
 
   // generate ports
-  const InputPorts = inputs.map(portGenerator(registerPort, onDragNewSegment, onSegmentFail, onSegmentConnect));
-  const OutputPorts = outputs.map(portGenerator(registerPort, onDragNewSegment, onSegmentFail, onSegmentConnect));
+  const options = { registerPort, onDragNewSegment, onSegmentFail, onSegmentConnect };
+  const InputPorts = inputs.map(portGenerator(options, 'input'));
+  const OutputPorts = outputs.map(portGenerator(options, 'output'));
   const customRenderProps = { id, render, content, type, inputs: InputPorts, outputs: OutputPorts, data, className };
 
   return (
