@@ -11,7 +11,7 @@ import getRelativePoint from '../../shared/functions/getRelativePoint';
  * @constructor
  */
 const Port = (props) => {
-  const { id, canLink, alignment, onDragNewSegment, onSegmentFail, onSegmentConnect, onMount, ...rest } = props;
+  const { id, canLink, alignment, onDragNewSegment, onSegmentFail, onSegmentConnect, onMount, type, ...rest } = props;
   const canvas = useCanvas();
   const { ref, onDrag, onDragEnd } = useDrag();
 
@@ -28,13 +28,14 @@ const Port = (props) => {
 
   onDragEnd((event) => {
     const targetPort = event.target.getAttribute('data-port-id');
-    /* eslint-disable no-unused-expressions */
-    if (targetPort && event.target !== ref.current && canLink(id, targetPort)) {
-      onSegmentConnect && onSegmentConnect(id, targetPort);
+    if (targetPort && event.target !== ref.current && canLink(id, targetPort, type) && onSegmentConnect) {
+      const args = type === 'input' ? [id, targetPort, type] : [targetPort, id, type];
+
+      onSegmentConnect(...args);
       return;
     }
-
-    onSegmentFail && onSegmentFail(id);
+    /* eslint-disable no-unused-expressions */
+    onSegmentFail && onSegmentFail(id, type);
     /* eslint-enable no-unused-expressions */
   });
 
@@ -49,6 +50,7 @@ const Port = (props) => {
 
 Port.propTypes = {
   id: PropTypes.oneOfType([PropTypes.string, PropTypes.symbol]).isRequired,
+  type: PropTypes.oneOf(['input', 'output']).isRequired,
   onDragNewSegment: PropTypes.func,
   onSegmentFail: PropTypes.func,
   onSegmentConnect: PropTypes.func,
