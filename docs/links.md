@@ -1,6 +1,6 @@
 ### Standard Links
 
-``` jsx
+```js
 import Diagram from 'beautiful-react-diagrams';
 
 const initialSchema = {

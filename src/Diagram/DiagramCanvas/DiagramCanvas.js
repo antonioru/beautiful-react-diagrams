@@ -1,6 +1,6 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { useWindowScroll } from 'beautiful-react-hooks';
-import isEqual from 'lodash/isEqual';
+import React, { useEffect, useRef, useState } from 'react';
+import { useWindowScroll, useWindowResize } from 'beautiful-react-hooks';
+import isEqual from 'lodash.isequal';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import DiagramContext from '../../Context/DiagramContext';
@@ -17,20 +17,21 @@ const DiagramCanvas = (props) => {
   const classList = classNames('bi bi-diagram', className);
 
   // calculate the given element bounding box and save it into the bbox state
-  const calculateBBox = useCallback((el) => {
+  const calculateBBox = (el) => {
     if (el) {
       const nextBBox = el.getBoundingClientRect();
       if (!isEqual(nextBBox, bbox)) {
         setBoundingBox(nextBBox);
       }
     }
-  }, [bbox, setBoundingBox]);
+  };
 
   // when the canvas is ready and placed within the DOM, save its bounding box to be provided down
   // to children component as a context value for future calculations.
   useEffect(() => calculateBBox(canvasRef.current), [canvasRef.current]);
-  // same on window scroll
+  // same on window scroll and resize
   useWindowScroll(() => calculateBBox(canvasRef.current));
+  useWindowResize(() => calculateBBox(canvasRef.current));
 
   return (
     <div className={classList} ref={canvasRef} {...rest}>
@@ -52,6 +53,5 @@ DiagramCanvas.defaultProps = {
   nodeRefs: {},
   className: '',
 };
-
 
 export default React.memo(DiagramCanvas);

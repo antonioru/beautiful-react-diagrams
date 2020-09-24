@@ -1,5 +1,4 @@
 import React, { useCallback, useState, useRef } from 'react';
-import isEqual from 'lodash/isEqual';
 import PropTypes from 'prop-types';
 import DiagramCanvas from './DiagramCanvas/DiagramCanvas';
 import NodesCanvas from './NodesCanvas/NodesCanvas';
@@ -21,19 +20,19 @@ const Diagram = (props) => {
   const { current: nodeRefs } = useRef({}); // keeps the node elements references
 
   // when nodes change, performs the onChange callback with the new incoming data
-  const onNodesChange = useCallback((nextNodes) => {
+  const onNodesChange = (nextNodes) => {
     onChange({ ...schema, nodes: nextNodes });
-  }, [schema, onChange]);
+  };
 
   // when a port is registered, save it to the local reference
-  const onPortRegister = useCallback((portId, portEl) => {
+  const onPortRegister = (portId, portEl) => {
     portRefs[portId] = portEl;
-  }, [portRefs]);
+  };
 
   // when a node is registered, save it to the local reference
-  const onNodeRegister = useCallback((nodeId, nodeEl) => {
+  const onNodeRegister = (nodeId, nodeEl) => {
     nodeRefs[nodeId] = nodeEl;
-  }, [nodeRefs]);
+  };
 
   // when a new segment is dragged, save it to the local state
   const onDragNewSegment = useCallback((portId, from, to, alignment) => {
@@ -47,16 +46,16 @@ const Diagram = (props) => {
 
   // when a segment connects, update the links schema, perform the onChange callback
   // with the new data, then reset the segment state
-  const onSegmentConnect = useCallback((input, output) => {
+  const onSegmentConnect = (input, output) => {
     const nextLinks = [...(schema.links || []), { input, output }];
     onChange({ ...schema, links: nextLinks });
     setSegment(undefined);
-  }, [schema, onChange]);
+  };
 
   // when links change, performs the onChange callback with the new incoming data
-  const onLinkDelete = useCallback((nextLinks) => {
+  const onLinkDelete = (nextLinks) => {
     onChange({ ...schema, links: nextLinks });
-  }, [schema, onChange]);
+  };
 
   return (
     <DiagramCanvas portRefs={portRefs} nodeRefs={nodeRefs} {...rest}>
@@ -69,12 +68,7 @@ const Diagram = (props) => {
         onSegmentFail={onSegmentFail}
         onSegmentConnect={onSegmentConnect}
       />
-      <LinksCanvas
-        nodes={schema.nodes}
-        links={schema.links}
-        segment={segment}
-        onChange={onLinkDelete}
-      />
+      <LinksCanvas nodes={schema.nodes} links={schema.links} segment={segment} onChange={onLinkDelete} />
     </DiagramCanvas>
   );
 };
@@ -98,4 +92,4 @@ Diagram.defaultProps = {
   onChange: undefined,
 };
 
-export default React.memo(Diagram, isEqual);
+export default React.memo(Diagram);

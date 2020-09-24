@@ -1,4 +1,4 @@
-import removeLinkFromArray from './removeLinkFromArray';
+import removeLinkFromArray from '../src/Diagram/LinksCanvas/removeLinkFromArray';
 
 describe('removeLinkFromArray utility function', () => {
   it('should be a function', () => {

@@ -27,10 +27,10 @@ export const PortType = PropTypes.shape({
 export const NodeType = PropTypes.shape({
   id: PropTypes.string.isRequired,
   content: PropTypes.oneOfType([PropTypes.elementType, PropTypes.node]),
-  coordinates: PropTypes.arrayOf(PropTypes.number).isRequired,
+  coordinates: PropTypes.arrayOf(PropTypes.number).isRequired, // TODO: must be an array of 2 numbers only
   inputs: PropTypes.arrayOf(PortType),
   outputs: PropTypes.arrayOf(PortType),
   type: PropTypes.oneOf(['default']),
-  renderer: PropTypes.func,
+  render: PropTypes.elementType,
   className: PropTypes.string,
 });
