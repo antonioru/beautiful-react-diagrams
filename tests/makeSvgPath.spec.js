@@ -1,4 +1,4 @@
-import makeSvgPath from './makeSvgPath';
+import makeSvgPath from '../dist/shared/functions/makeSvgPath';
 
 describe('makeSvgPath utility', () => {
   it('should be a function', () => {

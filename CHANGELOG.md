@@ -54,3 +54,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - The linking process does not take into account the segment direction
+
+
+## [0.2.0] - 2020-09-24
+
+### Added
+
+- New, more efficient build system based on `rollup` instead of `gulp`
+
+### Fixed
+
+- Wrong link position after window resize
+- Minor types error in @types

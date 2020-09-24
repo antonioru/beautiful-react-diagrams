@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, cleanup } from '@testing-library/react';
-import Port from './Port';
+import Port from '../dist/Diagram/Port/Port';
 
 describe('Port component', () => {
   afterEach(cleanup);

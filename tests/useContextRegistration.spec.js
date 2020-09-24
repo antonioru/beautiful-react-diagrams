@@ -1,4 +1,4 @@
-import { useNodeRegistration, usePortRegistration } from './useContextRegistration';
+import { useNodeRegistration, usePortRegistration } from '../dist/shared/hooks/useContextRegistration';
 
 // TODO: test this hook
 describe('useNodeRegistration hook', () => {
@@ -6,7 +6,6 @@ describe('useNodeRegistration hook', () => {
     expect(useNodeRegistration).to.be.a('function');
   });
 });
-
 
 // TODO: test this hook
 describe('usePortRegistration hook', () => {

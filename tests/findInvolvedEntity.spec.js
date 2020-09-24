@@ -1,4 +1,4 @@
-import findInvolvedEntity from './findInvolvedEntity';
+import findInvolvedEntity from '../dist/Diagram/LinksCanvas/findInvolvedEntity';
 
 describe('findInvolvedEntity utility function', () => {
   it('should be a function', () => {

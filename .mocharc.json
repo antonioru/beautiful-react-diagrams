@@ -4,6 +4,6 @@
     "@babel/polyfill",
     "jsdom-global/register",
     "ignore-styles",
-    "./test/setup.js"
+    "./tests/_setup.js"
   ]
 }

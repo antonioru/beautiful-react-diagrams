@@ -229,6 +229,6 @@ bh_unicode_properties.cache
 # https://packagecontrol.io/packages/sublime-github
 GitHub.sublime-settings
 
+package-lock.json
+
 dist/
-beautiful-react-diagrams.css
-beautiful-react-diagrams.css.map

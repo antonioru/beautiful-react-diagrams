@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, cleanup } from '@testing-library/react';
-import Segment from './Segment';
+import Segment from '../dist/Diagram/Segment/Segment';
 
 describe('Segment component', () => {
   afterEach(cleanup);

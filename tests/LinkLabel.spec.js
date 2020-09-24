@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, cleanup } from '@testing-library/react';
-import LinkLabel from './LinkLabel';
+import LinkLabel from '../dist/Diagram/Link/LinkLabel';
 
 describe('LinkLabel component', () => {
   afterEach(cleanup);

@@ -1,6 +1,5 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import isEqual from 'lodash/isEqual';
 import { NodeType } from '../../shared/types/Types';
 import DiagramNode from '../DiagramNode/DiagramNode';
 import updateNodeCoordinates from './updateNodeCoordinates';
@@ -12,13 +11,12 @@ const NodesCanvas = (props) => {
   const { nodes, onPortRegister, onNodeRegister, onDragNewSegment, onSegmentFail, onSegmentConnect, onChange } = props;
 
   // when a node item update its position updates it within the nodes array
-  const onNodePositionChange = useCallback((nodeId, newCoordinates) => {
+  const onNodePositionChange = (nodeId, newCoordinates) => {
     if (onChange) {
       const nextNodes = updateNodeCoordinates(nodeId, newCoordinates, nodes);
       onChange(nextNodes);
     }
-  }, [nodes, onChange]);
-
+  };
   return nodes && nodes.length > 0 && nodes.map((node) => (
     <DiagramNode
       {...node}
@@ -53,4 +51,4 @@ NodesCanvas.defaultProps = {
   onSegmentConnect: undefined,
 };
 
-export default React.memo(NodesCanvas, isEqual);
+export default React.memo(NodesCanvas);

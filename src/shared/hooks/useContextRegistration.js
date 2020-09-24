@@ -6,17 +6,15 @@ import DiagramContext from '../../Context/DiagramContext';
  * and there's at least one input or one output
  */
 export const usePortRegistration = (inputs, outputs, onPortRegister) => {
-  const context = useContext(DiagramContext);
+  const { canvas, ports } = useContext(DiagramContext);
 
   return useCallback((portId, portElement) => {
-    const { canvas, ports } = context;
-
     if (canvas && (inputs || outputs)) {
       if (ports && !ports[portId]) {
         onPortRegister(portId, portElement);
       }
     }
-  }, [context, inputs, outputs]);
+  }, [!!canvas, !!ports, inputs, outputs]);
 };
 
 /**
@@ -30,5 +28,5 @@ export const useNodeRegistration = (ref, onNodeRegister, id) => {
     if (onNodeRegister && ref.current && canvas && nodes && !nodes[id]) {
       onNodeRegister(id, ref.current);
     }
-  }, [ref.current, canvas, nodes, onNodeRegister]);
+  }, [ref.current, onNodeRegister, !!canvas, !!nodes, id]);
 };
