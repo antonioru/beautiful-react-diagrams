@@ -19,7 +19,6 @@ const findInvolvedEntity = (nodes, entityId, type = 'node') => {
     index += 1;
   }
 
-
   return result;
 };
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, cleanup } from '@testing-library/react';
-import Diagram from './index';
+import Diagram from '../dist/Diagram';
 
 describe('Diagram component', () => {
   afterEach(cleanup);

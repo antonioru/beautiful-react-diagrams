@@ -62,7 +62,6 @@ const Link = (props) => {
   );
 };
 
-
 const InvolvedEntity = PropTypes.exact({
   type: PropTypes.oneOf(['node', 'port']),
   entity: PropTypes.oneOfType([PortType, NodeType]),

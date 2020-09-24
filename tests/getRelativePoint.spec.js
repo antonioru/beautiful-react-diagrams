@@ -1,4 +1,4 @@
-import getRelativePoint from './getRelativePoint';
+import getRelativePoint from '../dist/shared/functions/getRelativePoint';
 
 describe('getRelativePoint utility function', () => {
   it('should be a function', () => {

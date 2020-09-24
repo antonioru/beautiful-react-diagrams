@@ -1,4 +1,4 @@
-import getEntityCoordinates from './getEntityCoordinates';
+import getEntityCoordinates from '../dist/Diagram/Link/getEntityCoordinates';
 
 describe('getEntityCoordinates function', () => {
   const portRefs = { 'port-foo': document.createElement('div') };

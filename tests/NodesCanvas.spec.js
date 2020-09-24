@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, cleanup } from '@testing-library/react';
-import NodesCanvas from './NodesCanvas';
+import NodesCanvas from '../dist/Diagram/NodesCanvas/NodesCanvas';
 
 describe('NodesCanvas component', () => {
   afterEach(cleanup);

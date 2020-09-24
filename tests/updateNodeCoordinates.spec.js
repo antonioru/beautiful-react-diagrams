@@ -1,4 +1,4 @@
-import updateNodeCoordinates from './updateNodeCoordinates';
+import updateNodeCoordinates from '../dist/Diagram/NodesCanvas/updateNodeCoordinates';
 
 describe('updateNodeCoordinates utility function', () => {
   it('should be a function', () => {

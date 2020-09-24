@@ -6,7 +6,7 @@ module.exports = {
   /* eslint-disable global-require */
   webpackConfig: require('./styleguidist.webpack'),
   /* eslint-enable global-require */
-  ignore: ['test/**/*.spec.{js,jsx}', 'node_modules', 'docs', 'test'],
+  ignore: ['tests/**/*.spec.{js,jsx}', 'node_modules', 'docs', 'test'],
   ribbon: {
     url: 'https://github.com/antonioru/beautiful-react-diagrams',
     text: 'Fork me on GitHub',
@@ -50,7 +50,13 @@ module.exports = {
       content: '../customisation.md',
       sectionDepth: 1,
     },
+
     { divider: true },
+    {
+      name: 'Dynamic nodes',
+      content: '../dynamic-nodes.md',
+      sectionDepth: 1,
+    },
     {
       name: 'Hooks',
       content: '../hooks.md',

@@ -7,9 +7,9 @@ module.exports = {
     require('postcss-preset-env')({ stage: 0 }),
     require('tailwindcss')(path.join(__dirname, './tailwind.default.config.js')),
     require('postcss-fixes'),
-    require('autoprefixer'),
     require('postcss-will-change-transition'),
     require('postcss-will-change'),
+    require('autoprefixer'),
     require('cssnano')({
       preset: 'default',
       safe: true, // I would recommend using cssnano only in safe mode

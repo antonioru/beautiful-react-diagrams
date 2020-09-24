@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, cleanup } from '@testing-library/react';
-import DiagramCanvas from './DiagramCanvas';
+import DiagramCanvas from '../dist/Diagram/DiagramCanvas/DiagramCanvas';
 
 describe('DiagramCanvas component', () => {
   afterEach(cleanup);

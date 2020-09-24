@@ -1,5 +1,5 @@
-import findIndex from 'lodash/findIndex';
-import cloneDeep from 'lodash/cloneDeep';
+import findIndex from 'lodash.findindex';
+import cloneDeep from 'lodash.clonedeep';
 
 /**
  * Given a node id, an pair of new coordinates and the nodes array, clones the nodes array and update the node

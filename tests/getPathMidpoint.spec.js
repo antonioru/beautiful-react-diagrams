@@ -1,4 +1,4 @@
-import getPathMidpoint from './getPathMidpoint';
+import getPathMidpoint from '../dist/shared/functions/getPathMidpoint';
 
 describe('getPathMidpoint function utility', () => {
   it('should be a function', () => {
