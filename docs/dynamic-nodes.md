@@ -2,23 +2,12 @@
 import Diagram from 'beautiful-react-diagrams';
 import { Button } from 'beautiful-react-ui';
 
-
-const CustomRender = (props) => { 
-  return (
-    <div style={{background: 'red', padding: '20px'}}>
-        <Button onClick={props.data.onClick}>{props.content}</Button>
-    </div>
-  )
-};
-
 const initialSchema = {
   nodes: [
     { 
       id: 'node-1', 
       content: 'Node 1', 
-      coordinates: [150, 60], 
-      render: CustomRender,
-      data: {  onClick: () => alert('no') },
+      coordinates: [150, 60],
       outputs: [ { id: 'port-1', alignment: 'right' } ],
     },
   ]
@@ -28,8 +17,6 @@ const UncontrolledDiagram = () => {
   // create diagrams schema
   const [schema, setSchema] = React.useState(initialSchema);
 
-  const onClick = React.useCallback(() => console.log(schema), [JSON.stringify(schema)]);
-
   const addNewNode = () => {
     const nextNode = {
       id: `node-${schema.nodes.length + 1}`,
@@ -38,10 +25,6 @@ const UncontrolledDiagram = () => {
         schema.nodes[schema.nodes.length - 1].coordinates[0] + 10,
         schema.nodes[schema.nodes.length - 1].coordinates[1] + 20,
       ],
-      render: CustomRender,
-      data: {
-        onClick,
-      },
       inputs: [
         { id: `port-${schema.nodes.length + 1}` }
       ]
