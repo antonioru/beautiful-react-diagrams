@@ -1,4 +1,4 @@
-import useNodeRefs from './useNodeRefs';
+import useNodeRefs from '../src/shared/hooks/useNodeRefs';
 
 // TODO: test this hook
 describe('useNodeRefs hook', () => {

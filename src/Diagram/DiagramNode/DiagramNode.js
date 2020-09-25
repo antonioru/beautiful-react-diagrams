@@ -1,7 +1,6 @@
 import React, { useMemo, useRef } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import CustomRenderer from './CustomRender';
 import getDiagramNodeStyle from './getDiagramNodeStyle';
 import { usePortRegistration, useNodeRegistration } from '../../shared/hooks/useContextRegistration';
 import { PortType } from '../../shared/types/Types';
@@ -37,7 +36,7 @@ const DiagramNode = (props) => {
     }
   });
 
-  // perform the onMount callback when the note is allowed to register
+  // perform the onMount callback when the node is allowed to register
   useNodeRegistration(ref, onMount, id);
 
   const classList = useMemo(() => classNames('bi bi-diagram-node', {
@@ -52,7 +51,7 @@ const DiagramNode = (props) => {
 
   return (
     <div className={classList} ref={ref} style={getDiagramNodeStyle(coordinates)}>
-      {render && typeof render === 'function' && (<CustomRenderer {...customRenderProps} />)}
+      {render && typeof render === 'function' && render(customRenderProps)}
       {!render && (
         <>
           {content}
@@ -69,7 +68,6 @@ const DiagramNode = (props) => {
     </div>
   );
 };
-
 
 DiagramNode.propTypes = {
   /**

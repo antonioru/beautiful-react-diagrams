@@ -1,21 +1,21 @@
 import React from 'react';
 import { render, cleanup } from '@testing-library/react';
-import Port from './Port';
+import DiagramCanvas from '../src/Diagram/DiagramCanvas/DiagramCanvas';
 
-describe('Port component', () => {
+describe('DiagramCanvas component', () => {
   afterEach(cleanup);
 
   it('should render without explode', () => {
-    const { container } = render(<Port id="foo" />);
+    const { container } = render(<DiagramCanvas />);
 
     should.exist(container);
     expect(container.querySelector('div')).to.exist;
   });
 
   it('should have default classes', () => {
-    const { container } = render(<Port id="foo" />);
+    const { container } = render(<DiagramCanvas />);
     const wrapper = container.querySelector('div');
 
-    expect(wrapper.getAttribute('class').split(' ')).to.include.members(['bi', 'bi-diagram-port']);
+    expect(wrapper.getAttribute('class').split(' ')).to.include.members(['bi', 'bi-diagram']);
   });
 });

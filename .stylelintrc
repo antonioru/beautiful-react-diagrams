@@ -5,7 +5,7 @@
   ],
   "rules": {
     "max-empty-lines": 2,
-    "unit-whitelist": ["em", "rem", "%", "dpi", "dppx", "deg", "s", "vh", "vw"],
+    "unit-allowed-list": ["em", "rem", "%", "dpi", "dppx", "deg", "s", "vh", "vw"],
     "at-rule-empty-line-before": null,
     "declaration-empty-line-before": null
   }

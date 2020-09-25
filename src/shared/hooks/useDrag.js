@@ -1,4 +1,4 @@
-import throttleBy from 'lodash/fp/throttle';
+import throttle from 'lodash.throttle';
 import { useRef, useCallback, useEffect } from 'react';
 
 const defaultOptions = {
@@ -13,7 +13,6 @@ const defaultOptions = {
    */
   throttleBy: 0,
 };
-
 
 /**
  * Returns the click coordinates of a MouseEvent
@@ -86,7 +85,6 @@ const useDrag = (options = defaultOptions) => {
   const dragEndHandlerRef = useRef(); // a ref to user's onDragEnd handler
   // the dragging state is created from a useRef rather than a useState to avoid rendering during the dragging process
   const { current: info } = useRef({ isDragging: false, start: null, end: null, offset: null });
-  const throttle = throttleBy(options.throttleBy);
 
   /**
    * When the dragging starts, updates the state then perform the user's onDragStart handler if exists
@@ -115,7 +113,7 @@ const useDrag = (options = defaultOptions) => {
         dragHandlerRef.current(event, { ...info });
       }
     }
-  }), [targetRef.current, info, dragHandlerRef.current]);
+  }, options.throttleBy), [targetRef.current, info, dragHandlerRef.current]);
 
   /**
    * When the dragging ends, updates the state then perform the user's onDragEnd handler if exists
@@ -163,6 +161,5 @@ const useDrag = (options = defaultOptions) => {
     onDragEnd: createCallbackRef(dragEndHandlerRef),
   };
 };
-
 
 export default useDrag;
