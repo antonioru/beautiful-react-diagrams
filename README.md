@@ -1,4 +1,6 @@
-[![Build Status](https://travis-ci.org/antonioru/beautiful-react-diagrams.svg?branch=master)](https://travis-ci.org/antonioru/beautiful-react-diagrams)[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+![CI/CD](https://github.com/antonioru/beautiful-react-diagrams/workflows/CI/CD/badge.svg)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Coverage Status](https://coveralls.io/repos/github/antonioru/beautiful-react-diagrams/badge.svg?branch=master)](https://coveralls.io/github/antonioru/beautiful-react-diagrams?branch=master)
 ![npm](https://img.shields.io/npm/v/beautiful-react-diagrams)
 ![GitHub stars](https://img.shields.io/github/stars/antonioru/beautiful-react-diagrams?style=social)
 
