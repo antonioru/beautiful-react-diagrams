@@ -1,11 +1,8 @@
-const path = require('path');
-
 /* eslint-disable import/no-extraneous-dependencies, global-require */
 module.exports = {
   plugins: [
     require('postcss-normalize')({ browsers: 'last 2 versions' }),
     require('postcss-preset-env')({ stage: 0 }),
-    require('tailwindcss')(path.join(__dirname, './tailwind.default.config.js')),
     require('postcss-fixes'),
     require('postcss-will-change-transition'),
     require('postcss-will-change'),

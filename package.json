@@ -1,6 +1,6 @@
 {
   "name": "beautiful-react-diagrams",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A tiny collection of lightweight React components to build diagrams with ease",
   "main": "dist/index.js",
   "module": "dist/esm/index.js",
@@ -86,7 +86,6 @@
     "stylelint-config-sass-guidelines": "^7.1.0",
     "stylelint-config-standard": "^20.0.0",
     "stylelint-scss": "^3.18.0",
-    "tailwindcss": "^1.8.10",
     "url-loader": "^4.1.0",
     "webpack": "^4.44.2",
     "webpack-cli": "^3.3.12"

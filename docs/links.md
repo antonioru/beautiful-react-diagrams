@@ -13,7 +13,7 @@ const initialSchema = {
   links: [
     { input: 'node-1',  output: 'node-2', label: 'Link 1', readonly: true },
     { input: 'node-1',  output: 'node-3', label: 'Link 2', readonly: true },
-    { input: 'node-1',  output: 'node-4', label: 'Link 3', readonly: true },
+    { input: 'node-1',  output: 'node-4', label: 'Link 3', readonly: true, className: 'my-custom-link-class' },
   ]
 };
 
@@ -30,8 +30,3 @@ const UncontrolledDiagram = () => {
 
 <UncontrolledDiagram />
 ```
-
-### Labels
-
-
-### Readonly
