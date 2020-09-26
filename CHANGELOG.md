@@ -55,8 +55,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - The linking process does not take into account the segment direction
 
-
-## [0.2.0] - 2020-09-24
+## [0.2.0] - 2020-09-25
 
 ### Added
 
@@ -66,3 +65,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Wrong link position after window resize
 - Minor types error in @types
+
+## [0.2.1] - 2020-09-26
+
+### Added
+
+- className property to links
+
+### Fixed
+
+- `tailwind` removed

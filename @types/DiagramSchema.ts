@@ -26,6 +26,7 @@ export type Link = {
   output: string,
   label?: ReactNode,
   readonly?: boolean,
+  className?: string,
 }
 
 export type DiagramSchema = {
