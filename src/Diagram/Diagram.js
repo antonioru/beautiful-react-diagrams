@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import DiagramCanvas from './DiagramCanvas/DiagramCanvas';
 import NodesCanvas from './NodesCanvas/NodesCanvas';
 import LinksCanvas from './LinksCanvas/LinksCanvas';
-import { LinkType, NodeType } from '../shared/types/Types';
+import { SchemaType } from '../shared/Types';
 
 import './diagram.scss';
 
@@ -21,7 +21,7 @@ const Diagram = (props) => {
 
   // when nodes change, performs the onChange callback with the new incoming data
   const onNodesChange = (nextNodes) => {
-    onChange({ ...schema, nodes: nextNodes });
+    onChange({ nodes: nextNodes });
   };
 
   // when a port is registered, save it to the local reference
@@ -48,13 +48,13 @@ const Diagram = (props) => {
   // with the new data, then reset the segment state
   const onSegmentConnect = (input, output) => {
     const nextLinks = [...(schema.links || []), { input, output }];
-    onChange({ ...schema, links: nextLinks });
+    onChange({ links: nextLinks });
     setSegment(undefined);
   };
 
   // when links change, performs the onChange callback with the new incoming data
   const onLinkDelete = (nextLinks) => {
-    onChange({ ...schema, links: nextLinks });
+    onChange({ links: nextLinks });
   };
 
   return (
@@ -77,10 +77,7 @@ Diagram.propTypes = {
   /**
    * The diagram current schema
    */
-  schema: PropTypes.shape({
-    nodes: PropTypes.arrayOf(NodeType).isRequired,
-    links: PropTypes.arrayOf(LinkType),
-  }),
+  schema: SchemaType,
   /**
    * The callback to be performed every time the model changes
    */

@@ -1,4 +1,4 @@
-import useNodeRefs from '../dist/shared/hooks/useNodeRefs';
+import useNodeRefs from '../dist/shared/internal_hooks/useNodeRefs';
 
 // TODO: test this hook
 describe('useNodeRefs hook', () => {

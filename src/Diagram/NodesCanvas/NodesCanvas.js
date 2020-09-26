@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { NodeType } from '../../shared/types/Types';
+import { NodeType } from '../../shared/Types';
 import DiagramNode from '../DiagramNode/DiagramNode';
 import updateNodeCoordinates from './updateNodeCoordinates';
 
@@ -17,9 +17,11 @@ const NodesCanvas = (props) => {
       onChange(nextNodes);
     }
   };
-  return nodes && nodes.length > 0 && nodes.map((node) => (
+
+  return nodes && nodes.length > 0 && nodes.map(({ data, ...node }) => (
     <DiagramNode
       {...node}
+      data={data}
       onPositionChange={onNodePositionChange}
       onPortRegister={onPortRegister}
       onDragNewSegment={onDragNewSegment}

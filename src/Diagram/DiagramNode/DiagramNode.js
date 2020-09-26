@@ -2,10 +2,10 @@ import React, { useMemo, useRef } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import getDiagramNodeStyle from './getDiagramNodeStyle';
-import { usePortRegistration, useNodeRegistration } from '../../shared/hooks/useContextRegistration';
-import { PortType } from '../../shared/types/Types';
+import { usePortRegistration, useNodeRegistration } from '../../shared/internal_hooks/useContextRegistration';
+import { PortType } from '../../shared/Types';
 import portGenerator from './portGenerator';
-import useDrag from '../../shared/hooks/useDrag';
+import useDrag from '../../shared/internal_hooks/useDrag';
 
 /**
  * A Diagram Node component displays a single diagram node, handles the drag n drop business logic and fires the

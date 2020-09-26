@@ -6,10 +6,10 @@ Optionally a `links` property can be set describing links between the nodes, sim
 be an array of valid link describing tuples, a valid link must have an `input` and an `output` property.
 
 ``` jsx
-import Diagram from 'beautiful-react-diagrams';
+import Diagram, { createSchema, useSchema } from 'beautiful-react-diagrams';
 
 // the diagram model
-const initialSchema = {
+const initialSchema = createSchema({
   nodes: [
     { id: 'node-1', content: 'Node 1', coordinates: [250, 60], },
     { id: 'node-2', content: 'Node 2', coordinates: [100, 200], },
@@ -21,15 +21,15 @@ const initialSchema = {
     { input: 'node-1',  output: 'node-3' },
     { input: 'node-1',  output: 'node-4' },
   ]
-};
+});
 
 const UncontrolledDiagram = () => {
   // create diagrams schema
-  const [schema, setSchema] = React.useState(initialSchema);
+  const [schema, { onChange }] = useSchema(initialSchema);
 
   return (
     <div style={{ height: '22.5rem' }}>
-      <Diagram schema={schema} onChange={setSchema} />
+      <Diagram schema={schema} onChange={onChange} />
     </div>
   );
 };

@@ -1,5 +1,5 @@
 ```js
-import Diagram from 'beautiful-react-diagrams';
+import Diagram, { createSchema, useSchema } from 'beautiful-react-diagrams';
 
 const CustomNode = (props) => {
   const { inputs } = props;
@@ -18,7 +18,7 @@ const CustomNode = (props) => {
   );
 };
 
-const initialSchema = {
+const initialSchema = createSchema({
   nodes: [
     { 
       id: 'node-1', 
@@ -33,15 +33,15 @@ const initialSchema = {
       inputs: [ { id: 'custom-port-1',  alignment: 'left' } ],
     },
   ]
-};
+});
 
 const UncontrolledDiagram = () => {
   // create diagrams schema
-  const [schema, setSchema] = React.useState(initialSchema);
+  const [schema, { onChange }] = useSchema(initialSchema);
 
   return (
     <div style={{ height: '22.5rem' }}>
-      <Diagram schema={schema} onChange={setSchema} />
+      <Diagram schema={schema} onChange={onChange} />
     </div>
   );
 };

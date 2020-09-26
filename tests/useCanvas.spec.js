@@ -1,4 +1,4 @@
-import useCanvas from '../dist/shared/hooks/useCanvas';
+import useCanvas from '../dist/shared/internal_hooks/useCanvas';
 
 // TODO: test this hook
 describe('useCanvas hook', () => {
