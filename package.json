@@ -49,7 +49,7 @@
     "beautiful-react-ui": "^0.56.14",
     "chai": "^4.2.0",
     "css-loader": "^4.3.0",
-    "del": "^5.1.0",
+    "del": "^6.0.0",
     "eslint": "^7.9.0",
     "eslint-config-airbnb": "^18.2.0",
     "eslint-plugin-chai-expect": "^2.2.0",
