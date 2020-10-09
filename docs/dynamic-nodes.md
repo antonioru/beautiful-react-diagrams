@@ -4,9 +4,9 @@ import { Button } from 'beautiful-react-ui';
 
 const initialSchema = {
   nodes: [
-    { 
-      id: 'node-1', 
-      content: 'Node 1', 
+    {
+      id: 'node-1',
+      content: 'Node 1',
       coordinates: [150, 60],
       outputs: [ { id: 'port-1', alignment: 'right' } ],
     },
@@ -21,7 +21,7 @@ const UncontrolledDiagram = () => {
     const nextNode = {
       id: `node-${schema.nodes.length + 1}`,
       content: `Node ${schema.nodes.length + 1}`,
-      coordinates: [ 
+      coordinates: [
         schema.nodes[schema.nodes.length - 1].coordinates[0] + 10,
         schema.nodes[schema.nodes.length - 1].coordinates[1] + 20,
       ],
@@ -37,7 +37,7 @@ const UncontrolledDiagram = () => {
   };
 
   const removeLast = () => {
-    const nextNodes = [ ...schema.nodes ]; 
+    const nextNodes = [ ...schema.nodes ];
 
     nextNodes.length = nextNodes.length - 1;
 
