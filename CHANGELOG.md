@@ -75,3 +75,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - `tailwind` removed
+
+
+## [0.2.2] - 2020-10-10
+
+### Added
+
+- TS tests
+
+### Fixed
+
+- build system setup causing a missing `style.css` in the project `dist` directory

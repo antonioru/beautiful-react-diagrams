@@ -1,25 +1,19 @@
 {
   "name": "beautiful-react-diagrams",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "A tiny collection of lightweight React components to build diagrams with ease",
-  "main": "dist/index.js",
-  "module": "dist/esm/index.js",
-  "files": [
-    "dist/**",
-    "@types/**",
-    "index.d.ts",
-    "styles.css"
-  ],
-  "types": "index.d.ts",
+  "main": "index.js",
+  "module": "esm/index.js",
+  "typings": "index.d.ts",
   "scripts": {
     "build": "npx del-cli dist && rollup -c",
     "build-doc": "npx styleguidist build --config docs/setup/styleguidist.config.js",
     "start": "styleguidist server --config docs/setup/styleguidist.config.js",
     "lint-js": "eslint --ext .jsx,.js src/",
     "lint-scss": "stylelint '**/*.scss'",
-    "lint-ts": "tsc -p . --noEmit",
-    "lint": "npm run lint-js && npm run lint-scss && yarn run lint-ts",
-    "test": "nyc mocha --recursive --exit \"./tests/**/*.spec.+(js|jsx)\""
+    "lint": "npm run lint-js && npm run lint-scss",
+    "test": "nyc mocha --recursive --exit \"./tests/**/*.spec.+(js|jsx)\" && npm run test-types",
+    "test-types": "tsc -p . --noEmit"
   },
   "browserslist": [
     "> 0.25%",
@@ -45,7 +39,7 @@
     "@rollup/plugin-node-resolve": "^9.0.0",
     "@testing-library/react": "^11.0.4",
     "@types/react": "^16.9.51",
-    "autoprefixer": "^10.0.1",
+    "autoprefixer": "^9.0.0",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.1.0",
     "beautiful-react-ui": "^0.56.14",
@@ -73,7 +67,7 @@
     "postcss-loader": "^4.0.2",
     "postcss-normalize": "^9.0.0",
     "postcss-preset-env": "^6.7.0",
-    "postcss-will-change": "^4.0.1",
+    "postcss-will-change": "^3.0.0",
     "postcss-will-change-transition": "^1.2.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
