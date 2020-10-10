@@ -17,7 +17,8 @@
     "start": "styleguidist server --config docs/setup/styleguidist.config.js",
     "lint-js": "eslint --ext .jsx,.js src/",
     "lint-scss": "stylelint '**/*.scss'",
-    "lint": "npm run lint-js && npm run lint-scss",
+    "lint-ts": "tsc -p . --noEmit",
+    "lint": "npm run lint-js && npm run lint-scss && yarn run lint-ts",
     "test": "nyc mocha --recursive --exit \"./tests/**/*.spec.+(js|jsx)\""
   },
   "browserslist": [
@@ -43,6 +44,7 @@
     "@rollup/plugin-babel": "^5.2.1",
     "@rollup/plugin-node-resolve": "^9.0.0",
     "@testing-library/react": "^11.0.4",
+    "@types/react": "^16.9.51",
     "autoprefixer": "^10.0.1",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.1.0",
@@ -86,6 +88,7 @@
     "stylelint-config-sass-guidelines": "^7.1.0",
     "stylelint-config-standard": "^20.0.0",
     "stylelint-scss": "^3.18.0",
+    "typescript": "^4.0.3",
     "url-loader": "^4.1.0",
     "webpack": "^4.44.2",
     "webpack-cli": "^3.3.12"
@@ -93,9 +96,9 @@
   "dependencies": {
     "beautiful-react-hooks": "^0.30.1",
     "classnames": "^2.2.6",
-    "lodash.isequal": "^4.5.0",
     "lodash.clonedeep": "^4.5.0",
     "lodash.findindex": "^4.6.0",
+    "lodash.isequal": "^4.5.0",
     "lodash.throttle": "^4.1.1",
     "prop-types": "^15.7.2"
   },
