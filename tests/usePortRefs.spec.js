@@ -1,4 +1,4 @@
-import usePortRefs from '../dist/shared/hooks/usePortRefs';
+import usePortRefs from '../dist/shared/internal_hooks/usePortRefs';
 
 // TODO: test this hook
 describe('usePortRefs hook', () => {

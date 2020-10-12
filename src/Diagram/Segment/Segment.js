@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
-import { PortAlignment } from '../../shared/types/Types';
+import { PortAlignment } from '../../shared/Types';
 import makeSvgPath from '../../shared/functions/makeSvgPath';
 
 /**

@@ -1,4 +1,4 @@
-import type {ElementType, ReactNode} from "react";
+import { ElementType, ReactNode } from 'react';
 
 export type PortAlignment = 'right' | 'left' | 'top' | 'bottom';
 
@@ -12,8 +12,8 @@ export type NodeCoordinates = [number, number];
 
 export type Node = {
   id: string,
+  coordinates: NodeCoordinates,
   content?: ReactNode,
-  coordinates?: NodeCoordinates,
   inputs?: Port[],
   outputs?: Port[],
   type?: 'default',

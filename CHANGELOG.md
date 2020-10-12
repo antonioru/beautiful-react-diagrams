@@ -86,3 +86,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - build system setup causing a missing `style.css` in the project `dist` directory
+
+
+## [0.3.0] - 2020-09-26
+
+### Added
+
+- useSchema hook and tests
+- createSchema utility function + tests
+- validator functions + tests
+
+### Fixed
+
+- Child Nodes receive an outdated version of the schema bug

@@ -35,7 +35,7 @@ const DiagramCanvas = (props) => {
 
   return (
     <div className={classList} ref={canvasRef} {...rest}>
-      <DiagramContext.Provider value={{ canvas: bbox, ports: portRefs, nodes: nodeRefs }}>
+      <DiagramContext.Provider value={{ canvas: bbox, ports: portRefs, nodes: nodeRefs, _nodes: {} }}>
         {children}
       </DiagramContext.Provider>
     </div>

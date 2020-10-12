@@ -1,4 +1,4 @@
-import useDrag from '../dist/shared/hooks/useDrag';
+import useDrag from '../dist/shared/internal_hooks/useDrag';
 
 // TODO: test this hook
 describe('useDrag hook', () => {

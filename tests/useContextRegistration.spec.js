@@ -1,4 +1,4 @@
-import { useNodeRegistration, usePortRegistration } from '../dist/shared/hooks/useContextRegistration';
+import { useNodeRegistration, usePortRegistration } from '../dist/shared/internal_hooks/useContextRegistration';
 
 // TODO: test this hook
 describe('useNodeRegistration hook', () => {
