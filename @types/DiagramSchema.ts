@@ -3,34 +3,36 @@ import { ElementType, ReactNode } from 'react';
 export type PortAlignment = 'right' | 'left' | 'top' | 'bottom';
 
 export type Port = {
-  id: string,
-  canLink?: Function,
-  alignment?: PortAlignment,
-}
+  id: string;
+  canLink?: Function;
+  alignment?: PortAlignment;
+};
 
 export type NodeCoordinates = [number, number];
 
-export type Node<P>= {
-  id: string,
-  coordinates: NodeCoordinates,
-  content?: ReactNode,
-  inputs?: Port[],
-  outputs?: Port[],
-  type?: 'default',
-  render?: ElementType<P>,
-  className?: string,
-  data?: any
+export type Node<P> = {
+  id: string;
+  coordinates: NodeCoordinates;
+  content?: ReactNode;
+  inputs?: Port[];
+  outputs?: Port[];
+  type?: 'default';
+  render?: (
+    props: Pick<Node<P>, 'data' | 'content'>
+  ) => ElementType | ReactNode;
+  className?: string;
+  data?: P;
 };
 
 export type Link = {
-  input: string,
-  output: string,
-  label?: ReactNode,
-  readonly?: boolean,
-  className?: string,
-}
+  input: string;
+  output: string;
+  label?: ReactNode;
+  readonly?: boolean;
+  className?: string;
+};
 
 export type DiagramSchema<P> = {
-  nodes: Node<P>[],
-  links?: Link[],
-}
+  nodes: Node<P>[];
+  links?: Link[];
+};
