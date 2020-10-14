@@ -10,15 +10,16 @@ export type Port = {
 
 export type NodeCoordinates = [number, number];
 
-export type Node = {
+export type Node<P>= {
   id: string,
   coordinates: NodeCoordinates,
   content?: ReactNode,
   inputs?: Port[],
   outputs?: Port[],
   type?: 'default',
-  render?: ElementType,
+  render?: ElementType<P>,
   className?: string,
+  data?: any
 };
 
 export type Link = {
@@ -29,7 +30,7 @@ export type Link = {
   className?: string,
 }
 
-export type DiagramSchema = {
-  nodes: Node[],
+export type DiagramSchema<P> = {
+  nodes: Node<P>[],
   links?: Link[],
 }

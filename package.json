@@ -13,7 +13,7 @@
     "lint-scss": "stylelint '**/*.scss'",
     "lint": "npm run lint-js && npm run lint-scss",
     "test": "nyc mocha --recursive --exit \"./tests/**/*.spec.+(js|jsx)\"",
-    "test-types": "tsc -p . --noEmit"
+    "test-types": "npx tsc -p . --noEmit"
   },
   "browserslist": [
     "> 0.25%",

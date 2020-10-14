@@ -1,10 +1,11 @@
 import * as React from 'react';
-import Diagram, { DiagramSchema, Node } from '.';
+import Diagram, { useSchema } from '.';
 import { Button } from 'beautiful-react-ui';
 
 export const UncontrolledDiagram1 = () => {
-  const initialSchema: DiagramSchema = {
-    nodes: [
+  // create diagrams schema
+ const [schema, { onChange }] = useSchema({
+     nodes: [
       { id: 'node-1', content: 'Node 1', coordinates: [250, 60], },
       { id: 'node-2', content: 'Node 2', coordinates: [100, 200], },
       { id: 'node-3', content: 'Node 3', coordinates: [250, 220], },
@@ -15,21 +16,23 @@ export const UncontrolledDiagram1 = () => {
       { input: 'node-1',  output: 'node-3' },
       { input: 'node-1',  output: 'node-4' },
     ]
-  };
-
-  // create diagrams schema
-  const [schema, setSchema] = React.useState(initialSchema);
+  })
 
   return (
     <div style={{ height: '22.5rem' }}>
-      <Diagram schema={schema} onChange={setSchema} />
+      <Diagram schema={schema} onChange={onChange} />
     </div>
   );
 };
 
+const CustomRender: React.FC<{ data: { onDoubleClick: () => void }, content: React.ReactNode }> = ({ content, data }) => (
+  <div onDoubleClick={data.onDoubleClick} role="button" style={{padding: '15px', background: 'purple'}}>
+    {content}
+  </div>
+);
 
 export const UncontrolledDiagram2 = () => {
-  const initialSchema: DiagramSchema = {
+  const [schema, { onChange, addNode, removeNode }] = useSchema({
     nodes: [
       {
         id: 'node-1',
@@ -38,45 +41,34 @@ export const UncontrolledDiagram2 = () => {
         outputs: [ { id: 'port-1', alignment: 'right' } ],
       },
     ]
-  };
+  });
 
-  const [schema, setSchema] = React.useState(initialSchema);
-
-  const addNewNode = () => {
-    const nextNode: Node = {
-      id: `node-${schema.nodes.length + 1}`,
-      content: `Node ${schema.nodes.length + 1}`,
-      coordinates: [
-        (schema.nodes[schema.nodes.length - 1].coordinates || [])[0] || 0 + 10,
-        (schema.nodes[schema.nodes.length - 1].coordinates || [])[1] || 0 + 20,
-      ],
-      inputs: [
-        { id: `port-${schema.nodes.length + 1}` }
-      ]
-    };
-
-    setSchema({
-       ...schema,
-       nodes: [ ...schema.nodes, nextNode ],
-    });
-  };
+  const addNewNode = () => addNode({
+    id: `node-${schema.nodes.length + 1}`,
+    content: `Node ${schema.nodes.length + 1}`,
+    coordinates: [
+      schema.nodes[schema.nodes.length - 1].coordinates[0] + 10,
+      schema.nodes[schema.nodes.length - 1].coordinates[1] + 20,
+    ],
+    render: CustomRender,
+    data: {
+      onDoubleClick: () => alert(`Schema length is: ${schema.nodes.length}`),
+    },
+    inputs: [
+      { id: `port-${schema.nodes.length + 1}` }
+    ]
+  });
 
   const removeLast = () => {
-    const nextNodes = [ ...schema.nodes ];
-
-    nextNodes.length = nextNodes.length - 1;
-
-    setSchema({
-      ...schema,
-      nodes: nextNodes,
-    });
+    const lastNode = schema.nodes[schema.nodes.length - 1];
+    removeNode(lastNode);
   };
 
   return (
     <div style={{ height: '22.5rem' }}>
       <Button color="primary" icon="plus" onClick={addNewNode}>Add new node</Button>
       <Button color="secondary" icon="minus" onClick={removeLast}>Remove last node</Button>
-      <Diagram schema={schema} onChange={setSchema} />
+      <Diagram schema={schema} onChange={onChange} />
     </div>
   );
 };
