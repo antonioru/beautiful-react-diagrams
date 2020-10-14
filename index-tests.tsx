@@ -29,19 +29,6 @@ type CustomData = {
   onDoubleClick: () => void;
 };
 
-const CustomRender: React.FC<{
-  data: CustomData;
-  content: React.ReactNode;
-}> = ({ content, data }) => (
-  <div
-    onDoubleClick={data.onDoubleClick}
-    role='button'
-    style={{ padding: '15px', background: 'purple' }}
-  >
-    {content}
-  </div>
-);
-
 export const UncontrolledDiagram2 = () => {
   const [schema, { onChange, addNode, removeNode }] = useSchema<CustomData>({
     nodes: [
@@ -62,7 +49,15 @@ export const UncontrolledDiagram2 = () => {
         schema.nodes[schema.nodes.length - 1].coordinates[0] + 10,
         schema.nodes[schema.nodes.length - 1].coordinates[1] + 20,
       ],
-      render: CustomRender,
+      render: ({ content, data }) => (
+        <div
+          onDoubleClick={data?.onDoubleClick}
+          role='button'
+          style={{ padding: '15px', background: 'purple' }}
+        >
+          {content}
+        </div>
+      ),
       data: {
         onDoubleClick: () => alert(`Schema length is: ${schema.nodes.length}`),
       },

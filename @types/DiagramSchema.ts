@@ -18,7 +18,7 @@ export type Node<P> = {
   outputs?: Port[];
   type?: 'default';
   render?: (
-    props: Pick<Node<P>, 'data' | 'content'>
+    props: Omit<Node<P>, 'coordinates'>
   ) => ElementType | ReactNode;
   className?: string;
   data?: P;
