@@ -1,7 +1,7 @@
-import { DiagramSchema, Link, Node } from './DiagramSchema';
+import { DiagramSchema, Node } from './DiagramSchema';
 
 type DiagramMethods<P> = {
-  onChange: (schemaChanges: { links?: Link[]; nodes?: Node<P>[] }) => undefined;
+  onChange: (schemaChanges: DiagramSchema<P>) => undefined;
   addNode: (node: Node<P>) => undefined;
   removeNode: (node: Node<P>) => undefined;
   connect: (inputId: string, outputId: string) => undefined;
