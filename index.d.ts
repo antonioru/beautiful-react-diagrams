@@ -7,7 +7,7 @@ import {
   validateLink,
   validateNodes,
   validateNode,
-  validateLinks
+  validateLinks,
 } from './@types/validators';
 
 export {
@@ -19,6 +19,6 @@ export {
   validateLink,
   validateNodes,
   validateNode,
-  validateLinks
+  validateLinks,
 };
 export default Diagram;
