@@ -1,15 +1,12 @@
 {
-  "require": [ "@babel/register" ],
   "all": true,
+  "reporter": ["lcov", "text"],
   "check-coverage": true,
   "extension": [ ".js" ],
-  "include": [ "src/**/*.js" ],
-  "exclude": [
-    "src/**/index.js",
-    "**/*.spec.js"
-  ],
-  "branches": 40,
-  "lines": 40,
-  "functions": 40,
-  "statements": 40
+  "include": [ "dist/**/*.js" ],
+  "exclude": [ "dist/index.js", "dist/_virtual/**/*.js", "dist/esm/**/*.js" ],
+  "branches": 50,
+  "lines": 50,
+  "functions": 50,
+  "statements": 50
 }

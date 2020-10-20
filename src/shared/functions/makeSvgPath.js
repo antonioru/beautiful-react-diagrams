@@ -53,5 +53,4 @@ const makeSvgPath = (startPoint, endPoint, options = { type: 'curve' }) => {
   return `M ${start} Q ${ctrl}, ${end}`;
 };
 
-
 export default makeSvgPath;

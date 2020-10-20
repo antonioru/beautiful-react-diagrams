@@ -1,9 +1,9 @@
-import {FunctionComponent, MemoExoticComponent} from 'react';
-import {DiagramSchema} from "./DiagramSchema";
+import { FunctionComponent, MemoExoticComponent } from 'react';
+import { DiagramSchema } from './DiagramSchema';
 
-export type DiagramProps = {
-  schema?: DiagramSchema,
-  onChange?: (schema: DiagramSchema) => unknown,
+export type DiagramProps<P = unknown> = {
+  schema?: DiagramSchema<P>;
+  onChange?: (schema: DiagramSchema<P>) => unknown;
 };
 
 declare const Diagram: MemoExoticComponent<FunctionComponent<DiagramProps>>;

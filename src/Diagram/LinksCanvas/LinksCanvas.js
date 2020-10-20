@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import DiagramLink from '../Link/Link';
 import Segment from '../Segment/Segment';
-import { LinkType, NodeType, PortAlignment } from '../../shared/types/Types';
+import { LinkType, NodeType, PortAlignment } from '../../shared/Types';
 import findInvolvedEntity from './findInvolvedEntity';
 import removeLinkFromArray from './removeLinkFromArray';
 

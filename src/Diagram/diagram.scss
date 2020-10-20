@@ -1,28 +1,38 @@
 .bi.bi-diagram {
   box-sizing: border-box;
-
-  @apply w-full h-full border border-solid border-default-light rounded shadow-lg min-h-full bg-default-lightest;
-  @apply relative overflow-hidden;
+  width: 100%;
+  height: 100%;
+  border: 0.07rem solid #dae1e7;
+  border-radius: 0.25rem;
+  box-shadow: 0 0.8rem 1rem -0.2rem rgba(0, 0, 0, 0.1), 0 0.25rem 0.5rem -0.02rem rgba(0, 0, 0, 0.05);
+  min-height: 100%;
+  background-color: #f8fafc;
+  position: relative;
+  overflow: hidden;
 
   // ----------------------------
   // Diagram node general wrapper
   // ----------------------------
   .bi.bi-diagram-node {
     box-sizing: content-box;
-
-    @apply absolute z-50 cursor-move select-none;
+    position: absolute;
+    z-index: 50;
+    cursor: move;
+    user-select: none;
 
     .bi-port-wrapper {
-      @apply flex;
+      display: flex;
 
       .bi-input-ports,
       .bi-output-ports {
-        @apply flex-1;
+        flex: 1 1;
 
         .bi-diagram-port {
           transition: background-color 0.25s ease-in-out;
-          background-color: rgba(0, 0, 0, 0.05);
-          @apply w-5 h-5 mb-1;
+          background-color: rgba(0, 0, 0, 0.08);
+          width: 1.25rem;
+          height: 1.25rem;
+          margin-bottom: 0.25rem;
 
           &:hover {
             background-color: rgba(0, 0, 0, 0.1);
@@ -32,7 +42,7 @@
 
       /* stylelint-disable-next-line no-descending-specificity */
       .bi-output-ports .bi-diagram-port {
-        @apply ml-auto;
+        margin-left: auto;
       }
     }
 
@@ -42,15 +52,20 @@
     // ----------------------------
     &.bi-diagram-node-default {
       transition: box-shadow 0.25s ease-in-out, border 0.3s ease-out;
-
-      @apply border border-solid border-default-dark bg-default-light text-default-darker rounded shadow p-2;
+      border: 0.07rem solid #8795a1;
+      background-color: #dae1e7;
+      color: #606f7b;
+      border-radius: 0.25rem;
+      box-shadow: 0 0.07rem 0.2rem 0 rgba(0, 0, 0, 0.1), 0 0.07rem 0.125rem 0 rgba(0, 0, 0, 0.06);
+      padding: 0.5rem;
 
       &:hover {
-        @apply shadow-lg;
+        box-shadow: 0 0.125rem 1rem -0.2rem rgba(0, 0, 0, 0.1), 0 0.25rem 0.3rem -125rem rgba(0, 0, 0, 0.05);
       }
 
       .bi-port-wrapper {
-        @apply -mx-2;
+        margin-left: -0.5rem;
+        margin-right: -0.5rem;
       }
     }
   }
@@ -60,14 +75,21 @@
   // ----------------------------
   .bi-link-canvas-layer {
     pointer-events: none;
-    @apply w-full h-full z-0 absolute inset-0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
 
     // ----------------------------
     // Segment
     // ----------------------------
     .bi-diagram-segment {
       path {
-        stroke: theme('colors.default-light');
+        stroke: #dae1e7;
         stroke-width: 0.25rem;
         stroke-dasharray: 10, 2;
         fill: transparent;
@@ -75,9 +97,9 @@
       }
 
       circle {
-        stroke: theme('colors.default-light');
+        stroke: #dae1e7;
         stroke-width: 0.15rem;
-        fill: theme('colors.primary-lighter');
+        fill: #88cdff;
       }
     }
 
@@ -90,12 +112,12 @@
 
       // link path
       .bi-link-path {
-        stroke: theme('colors.default-light');
+        stroke: #dae1e7;
         stroke-width: 0.25rem;
         pointer-events: stroke;
         fill: transparent;
-
-        @apply cursor-pointer select-none;
+        cursor: pointer;
+        user-select: none;
       }
 
       // link ghost
@@ -104,13 +126,12 @@
         stroke: transparent;
         stroke-width: 1.2rem;
         fill: transparent;
-
-        @apply cursor-pointer;
+        cursor: pointer;
       }
 
       // hover
       &:hover .bi-link-path {
-        stroke: theme('colors.primary-lighter');
+        stroke: #88cdff;
         stroke-dasharray: 10, 2;
         animation: BiDashSegmentAnimation 1s linear infinite;
       }
@@ -123,12 +144,12 @@
 
         .bi-link-path {
           cursor: not-allowed;
-          stroke: theme('colors.default');
+          stroke: #b8c2cc;
           stroke-dasharray: none;
         }
 
         &:hover {
-          stroke: theme('colors.default');
+          stroke: #b8c2cc;
           stroke-dasharray: none;
           animation: none;
         }
@@ -136,14 +157,24 @@
 
       /* stylelint-disable-next-line */
       foreignObject {
-        @apply w-full h-full overflow-visible pointer-events-none;
+        width: 100%;
+        height: 100%;
+        overflow: visible;
+        pointer-events: none;
       }
 
       // ----------------------------
       // Link label
       // ----------------------------
       .bi-diagram-link-label {
-        @apply inline-block text-white bg-default-darkest rounded p-1 text-center text-sm select-none;
+        display: inline-block;
+        color: #fff;
+        background-color: #3d4852;
+        border-radius: 0.25rem;
+        padding: 0.25rem;
+        text-align: center;
+        font-size: 0.875rem;
+        user-select: none;
         min-width: 3rem;
         transform: translate(-50%, -50%);
       }

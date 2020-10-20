@@ -1,32 +1,38 @@
-import {ElementType, ReactElement, ReactNode} from "react";
+import { ElementType, ReactNode } from 'react';
 
 export type PortAlignment = 'right' | 'left' | 'top' | 'bottom';
 
 export type Port = {
-  id: string,
-  canLink: Function,
-  alignment: PortAlignment,
-}
+  id: string;
+  canLink?: Function;
+  alignment?: PortAlignment;
+};
 
-export type Node = {
-  id: string,
-  content?: ReactNode | ReactElement,
-  coordinates?: number[],
-  inputs?: Port[],
-  outputs?: Port,
-  type?: 'default',
-  renderer?: ElementType,
-  className?: string,
+export type NodeCoordinates = [number, number];
+
+export type Node<P> = {
+  id: string;
+  coordinates: NodeCoordinates;
+  content?: ReactNode;
+  inputs?: Port[];
+  outputs?: Port[];
+  type?: 'default';
+  render?: (
+    props: Omit<Node<P>, 'coordinates'>
+  ) => ElementType | ReactNode;
+  className?: string;
+  data?: P;
 };
 
 export type Link = {
-  input: string,
-  output: string,
-  label?: ReactNode,
-  readonly?: boolean,
-}
+  input: string;
+  output: string;
+  label?: ReactNode;
+  readonly?: boolean;
+  className?: string;
+};
 
-export type DiagramSchema = {
-  nodes: Node[],
-  links?: Link[],
-}
+export type DiagramSchema<P> = {
+  nodes: Node<P>[];
+  links?: Link[];
+};
