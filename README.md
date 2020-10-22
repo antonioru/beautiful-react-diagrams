@@ -66,7 +66,7 @@ To submit your custom pull request, please make sure your read our [CONTRIBUTING
 **Before submitting** a new pull request, please make sure:
 
 1. You have updated the package.json version and reported your changes into the [CHANGELOG](./CHANGELOG.md) file
-3. make sure you run `npm test` and `npm build` before submitting your merge request.
+3. make sure you run `npm run lint`, `npm build` and then `npm test` before submitting your merge request.
 4. make sure you've added the documentation of your changes.
 5. if you've changed the signature of a component, please make sure you've updated the `index.d.ts` file.
 

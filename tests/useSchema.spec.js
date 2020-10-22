@@ -3,7 +3,6 @@ import schemaReducer from '../dist/hooks/useSchema/schemaReducer';
 import createSchema from '../dist/shared/functions/createSchema';
 import { ON_CHANGE, ON_CONNECT, ON_NODE_ADD, ON_NODE_REMOVE } from '../dist/hooks/useSchema/actionTypes';
 
-
 describe('useSchema reducer', () => {
   it('should return the same state if the action is invalid', () => {
     const initialState = { foo: 'true' };
@@ -50,7 +49,6 @@ describe('useSchema reducer', () => {
     const node = { id: 'foo', coordinates: [1, 0] };
     const schema = { nodes: [node] };
     const nextSchema = schemaReducer(schema, { type: ON_NODE_REMOVE, payload: { nodeId: node.id } });
-
 
     expect(nextSchema).to.have.property('nodes');
     expect(nextSchema).to.have.property('links');

@@ -17,12 +17,11 @@ describe('useNodeUnregistration hook', () => {
     const spy = sinon.spy();
     const inputs = [{ id: 'port-foo' }];
     const outputs = [{ id: 'port-bar' }];
-    const node = { inputs, outputs };
-    const nodeId = 'node-1';
+    const node = { id: 'node-1', inputs, outputs };
     const inputPorts = getNodePortsId(node, 'inputs');
     const outputPorts = getNodePortsId(node, 'outputs');
     const TestComponent = () => {
-      useNodeUnregistration(spy, inputs, outputs, nodeId);
+      useNodeUnregistration(spy, inputs, outputs, node.id);
 
       return <div />;
     };
@@ -31,6 +30,7 @@ describe('useNodeUnregistration hook', () => {
 
     rerender(null);
     expect(spy.called).to.be.true;
-    expect(spy.calledWith(nodeId, inputPorts, outputPorts)).to.be.ok;
+    expect(spy.calledOnce).to.be.true;
+    expect(spy.calledWith(node.id, inputPorts, outputPorts)).to.be.true;
   });
 });

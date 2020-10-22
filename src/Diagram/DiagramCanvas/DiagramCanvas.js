@@ -35,9 +35,11 @@ const DiagramCanvas = (props) => {
 
   return (
     <div className={classList} ref={canvasRef} {...rest}>
-      <DiagramContext.Provider value={{ canvas: bbox, ports: portRefs, nodes: nodeRefs, _nodes: {} }}>
-        {children}
-      </DiagramContext.Provider>
+      <div className="bi-diagram-canvas">
+        <DiagramContext.Provider value={{ canvas: bbox, ports: portRefs, nodes: nodeRefs, _nodes: {} }}>
+          {children}
+        </DiagramContext.Provider>
+      </div>
     </div>
   );
 };

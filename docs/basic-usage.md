@@ -5,7 +5,7 @@ a `content` property (can be a React component) and a `coordinates` property des
 Optionally a `links` property can be set describing links between the nodes, similar to the `nodes` property it must
 be an array of valid link describing tuples, a valid link must have an `input` and an `output` property.
 
-``` jsx
+```jsx
 import Diagram, { createSchema, useSchema } from 'beautiful-react-diagrams';
 
 // the diagram model

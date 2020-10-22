@@ -99,3 +99,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - Child Nodes receive an outdated version of the schema bug
+
+
+## [0.3.1] - 2020-10-22
+
+### Fixed
+
+- Removing linked node cause 'undefined entity' error
+
+### Added 
+
+- Removing a node deletes the involved links
