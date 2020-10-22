@@ -6,6 +6,7 @@ import { usePortRegistration, useNodeRegistration } from '../../shared/internal_
 import { PortType } from '../../shared/Types';
 import portGenerator from './portGenerator';
 import useDrag from '../../shared/internal_hooks/useDrag';
+import useNodeUnregistration from '../../shared/internal_hooks/useNodeUnregistration';
 
 /**
  * A Diagram Node component displays a single diagram node, handles the drag n drop business logic and fires the
@@ -14,8 +15,8 @@ import useDrag from '../../shared/internal_hooks/useDrag';
  */
 const DiagramNode = (props) => {
   const {
-    id, content, coordinates, type, inputs, outputs, data, onPositionChange, onPortRegister, onDragNewSegment, onMount,
-    onSegmentFail, onSegmentConnect, render, className,
+    id, content, coordinates, type, inputs, outputs, data, onPositionChange, onPortRegister, onNodeRemove,
+    onDragNewSegment, onMount, onSegmentFail, onSegmentConnect, render, className,
   } = props;
   const registerPort = usePortRegistration(inputs, outputs, onPortRegister); // get the port registration method
   const { ref, onDragStart, onDrag } = useDrag({ throttleBy: 14 }); // get the drag n drop methods
@@ -35,6 +36,9 @@ const DiagramNode = (props) => {
       onPositionChange(id, nextCoords);
     }
   });
+
+  // on component unmount, remove its references
+  useNodeUnregistration(onNodeRemove, inputs, outputs, id);
 
   // perform the onMount callback when the node is allowed to register
   useNodeRegistration(ref, onMount, id);
@@ -115,6 +119,10 @@ DiagramNode.propTypes = {
    */
   onPortRegister: PropTypes.func,
   /**
+   * The callback to be fired when component unmount
+   */
+  onNodeRemove: PropTypes.func,
+  /**
    * The callback to be fired when dragging a new segment from one of the node's port
    */
   onDragNewSegment: PropTypes.func,
@@ -142,6 +150,7 @@ DiagramNode.defaultProps = {
   render: undefined,
   onMount: undefined,
   onPortRegister: undefined,
+  onNodeRemove: undefined,
   onDragNewSegment: undefined,
   onSegmentFail: undefined,
   onSegmentConnect: undefined,
