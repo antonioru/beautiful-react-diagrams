@@ -7,6 +7,7 @@ import { validateSchema } from './validators';
 const createSchema = (schema) => {
   const next = { ...schema };
 
+  next.nodes ||= [];
   next.links ||= [];
 
   next.nodes.forEach(ensureNodeId);

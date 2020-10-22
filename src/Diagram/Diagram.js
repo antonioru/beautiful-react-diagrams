@@ -34,6 +34,13 @@ const Diagram = (props) => {
     nodeRefs[nodeId] = nodeEl;
   };
 
+  // when a node is deleted, remove its references
+  const onNodeRemove = useCallback((nodeId, inputsPorts, outputsPorts) => {
+    delete nodeRefs[nodeId];
+    inputsPorts.forEach((input) => delete portRefs[input]);
+    outputsPorts.forEach((output) => delete portRefs[output]);
+  }, []);
+
   // when a new segment is dragged, save it to the local state
   const onDragNewSegment = useCallback((portId, from, to, alignment) => {
     setSegment({ id: `segment-${portId}`, from, to, alignment });
@@ -64,6 +71,7 @@ const Diagram = (props) => {
         onChange={onNodesChange}
         onNodeRegister={onNodeRegister}
         onPortRegister={onPortRegister}
+        onNodeRemove={onNodeRemove}
         onDragNewSegment={onDragNewSegment}
         onSegmentFail={onSegmentFail}
         onSegmentConnect={onSegmentConnect}

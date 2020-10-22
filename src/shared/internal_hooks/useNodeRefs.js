@@ -4,10 +4,10 @@ import DiagramContext from '../../Context/DiagramContext';
 /**
  * Returns the node references from the DiagramContext
  */
-const usePortRefs = () => {
+const useNodeRefs = () => {
   const { nodes } = useContext(DiagramContext);
 
   return nodes;
 };
 
-export default usePortRefs;
+export default useNodeRefs;

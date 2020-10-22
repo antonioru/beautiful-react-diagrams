@@ -33,4 +33,17 @@ describe('DiagramNode component', () => {
 
     expect(wrapper.getAttribute('class').split(' ')).to.include.members(['bi', 'bi-diagram-node']);
   });
+
+  it('should call onRemoveNode callback on onmount', () => {
+    const spy = sinon.spy();
+
+    const { rerender } = render(
+      <DiagramContext.Provider value={contextMock}>
+        <DiagramNode id="port-foo" content="Foo" coordinates={[10, 10]} onNodeRemove={spy} />
+      </DiagramContext.Provider>,
+    );
+
+    rerender(null);
+    expect(spy.called).to.be.true;
+  });
 });
