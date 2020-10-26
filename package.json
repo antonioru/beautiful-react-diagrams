@@ -67,7 +67,7 @@
     "postcss-fixes": "^2.0.1",
     "postcss-normalize": "^9.0.0",
     "postcss-preset-env": "^6.7.0",
-    "postcss-will-change": "3.0.0",
+    "postcss-will-change": "4.0.1",
     "postcss-will-change-transition": "^1.2.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
