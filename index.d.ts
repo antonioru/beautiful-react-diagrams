@@ -1,6 +1,6 @@
-import Diagram from './@types/Diagram';
-import useSchema from './@types/useSchema';
-import createSchema from './@types/createSchema';
+import Diagram from "./@types/Diagram";
+import useSchema from "./@types/useSchema";
+import createSchema from "./@types/createSchema";
 import {
   validateSchema,
   validatePort,
@@ -8,7 +8,7 @@ import {
   validateNodes,
   validateNode,
   validateLinks,
-} from './@types/validators';
+} from "./@types/validators";
 
 export {
   Diagram,
