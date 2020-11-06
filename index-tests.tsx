@@ -25,18 +25,17 @@ export const UncontrolledDiagram1 = () => {
   );
 };
 
-type CustomData = {
-  onDoubleClick: () => void;
-};
-
 export const UncontrolledDiagram2 = () => {
-  const [schema, { onChange, addNode, removeNode }] = useSchema<CustomData>({
+  const [schema, { onChange, addNode, removeNode }] = useSchema({
     nodes: [
       {
         id: 'node-1',
         content: 'Node 1',
         coordinates: [150, 60],
         outputs: [{ id: 'port-1', alignment: 'right' }],
+        data: {
+          onDoubleClick: () => console.warn('hello'),
+        }
       },
     ],
   });
