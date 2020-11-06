@@ -100,7 +100,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Child Nodes receive an outdated version of the schema bug
 
-
 ## [0.3.1] - 2020-10-22
 
 ### Fixed
@@ -110,3 +109,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added 
 
 - Removing a node deletes the involved links
+
+
+## [0.3.2] - 2020-11-06
+
+### Fixed
+
+- fixed `Diagram` generic types
+

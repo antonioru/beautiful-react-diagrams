@@ -1,6 +1,6 @@
 {
   "name": "beautiful-react-diagrams",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "A tiny collection of lightweight React components to build diagrams with ease",
   "main": "index.js",
   "module": "esm/index.js",
@@ -37,10 +37,10 @@
     "@babel/preset-react": "^7.12.1",
     "@babel/register": "^7.12.1",
     "@rollup/plugin-babel": "^5.2.1",
-    "@rollup/plugin-node-resolve": "^10.0.0",
+    "@rollup/plugin-node-resolve": "^9.0.0",
     "@testing-library/react": "^11.1.0",
     "@types/react": "^16.9.53",
-    "autoprefixer": "10.0.1",
+    "autoprefixer": "9.0.0",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.1.0",
     "beautiful-react-ui": "^0.56.14",
@@ -67,9 +67,9 @@
     "postcss-fixes": "^2.0.1",
     "postcss-normalize": "^9.0.0",
     "postcss-preset-env": "^6.7.0",
-    "postcss-will-change": "4.0.1",
+    "postcss-will-change": "3.0.0",
     "postcss-will-change-transition": "^1.2.0",
-    "react": "^17.0.1",
+    "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-styleguidist": "^11.1.0",
     "rollup": "^2.32.1",
@@ -83,8 +83,8 @@
     "stylelint-config-standard": "^20.0.0",
     "stylelint-scss": "^3.18.0",
     "url-loader": "^4.1.1",
-    "webpack": "^5.3.2",
-    "webpack-cli": "^4.1.0"
+    "webpack": "4.44.0",
+    "webpack-cli": "4.1.0"
   },
   "dependencies": {
     "beautiful-react-hooks": "^0.31.0",

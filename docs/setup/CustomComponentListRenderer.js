@@ -30,7 +30,7 @@ const SidebarCollapsible = (props) => {
   );
 };
 
-const SidebarItemRenderer = (props) => {
+const SidebarItemRenderer = ((props) => {
   const { sections, components, href } = props;
   const isLeaf = sections.length === 0 && components.length === 0;
   const Component = isLeaf ? SidebarItem : SidebarCollapsible;
@@ -38,9 +38,9 @@ const SidebarItemRenderer = (props) => {
   return (
     <Component {...props} key={href} />
   );
-};
+});
 
 
 const CustomComponentListRenderer = ({ items }) => items.map(SidebarItemRenderer);
 
-export default CustomComponentListRenderer;
+export default (CustomComponentListRenderer);

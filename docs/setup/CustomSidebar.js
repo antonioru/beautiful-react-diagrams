@@ -8,4 +8,4 @@ const CustomSidebar = ({ children }) => (
   </Sidebar>
 );
 
-export default CustomSidebar;
+export default (CustomSidebar);
