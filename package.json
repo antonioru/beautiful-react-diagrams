@@ -40,7 +40,7 @@
     "@rollup/plugin-node-resolve": "^10.0.0",
     "@testing-library/react": "^11.1.0",
     "@types/react": "^16.9.53",
-    "autoprefixer": "9.0.0",
+    "autoprefixer": "10.0.1",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.1.0",
     "beautiful-react-ui": "^0.56.14",
