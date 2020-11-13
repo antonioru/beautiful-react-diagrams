@@ -29,10 +29,13 @@ module.exports = {
       sectionDepth: 1,
     },
     {
-      name: 'Components',
-      components: () => [
-        '../../src/Diagram/Diagram.js',
-      ],
+      name: 'Diagram Component',
+      content: '../../src/Diagram/README.md',
+      sectionDepth: 1,
+    },
+    {
+      name: 'Schema',
+      content: '../schema.md',
       sectionDepth: 1,
     },
     {

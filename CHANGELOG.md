@@ -105,9 +105,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - Removing linked node cause 'undefined entity' error
-
-### Added 
-
 - Removing a node deletes the involved links
 
 
@@ -120,7 +117,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.3.3] - 2020-11-12
 
-### Added
+### Fixed
 
 - Typescript tests to CI
 
+## [0.4.0] - 2020-11-13
+
+### Added
+
+- Added the `disableDrag` option to node schema
+- Validator examples in the documentation

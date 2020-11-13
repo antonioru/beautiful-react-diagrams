@@ -1,7 +1,7 @@
 ```js
-import Diagram, { useSchema } from 'beautiful-react-diagrams';
+import Diagram, { useSchema, createSchema } from 'beautiful-react-diagrams';
 
-const initialSchema = {
+const initialSchema = createSchema({
   nodes: [
     {
       id: 'node-1',
@@ -55,7 +55,7 @@ const initialSchema = {
   links: [
     { input: 'port-1',  output: 'port-4' },
   ]
-};
+});
 
 const UncontrolledDiagram = () => {
   // create diagrams schema

@@ -1,6 +1,7 @@
-To start representing diagrams a valid model object shall be provided to the component via the `schema` prop.<br/>
+To start a diagram a valid schema shall be provided to the component via the `schema` prop.<br/>
 A valid model is a plain object having a `nodes` property set.<br />
-The `nodes` property must be an array of tuples (objects) described by a unique `id` (<strong>it must be unique</strong>),
+
+The `nodes` property is an array of javascript objects described by a unique `id` (<strong>it must be unique</strong>),
 a `content` property (can be a React component) and a `coordinates` property describing the node position.<br/><br/>
 Optionally a `links` property can be set describing links between the nodes, similar to the `nodes` property it must
 be an array of valid link describing tuples, a valid link must have an `input` and an `output` property.
