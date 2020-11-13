@@ -7,7 +7,7 @@ import findIndex from 'lodash.findindex';
 const updateNodeCoordinates = (nodeId, coordinates, nodes) => {
   const index = findIndex(nodes, ['id', nodeId]);
 
-  if (index > -1) {
+  if (index > -1 && !nodes[index].disableDrag) {
     // eslint-disable-next-line no-param-reassign
     nodes[index].coordinates = coordinates;
   }

@@ -16,26 +16,31 @@ import useNodeUnregistration from '../../shared/internal_hooks/useNodeUnregistra
 const DiagramNode = (props) => {
   const {
     id, content, coordinates, type, inputs, outputs, data, onPositionChange, onPortRegister, onNodeRemove,
-    onDragNewSegment, onMount, onSegmentFail, onSegmentConnect, render, className,
+    onDragNewSegment, onMount, onSegmentFail, onSegmentConnect, render, className, disableDrag,
   } = props;
   const registerPort = usePortRegistration(inputs, outputs, onPortRegister); // get the port registration method
   const { ref, onDragStart, onDrag } = useDrag({ throttleBy: 14 }); // get the drag n drop methods
   const dragStartPoint = useRef(coordinates); // keeps the drag start point in a persistent reference
 
-  // when drag starts, save the starting coordinates into the `dragStartPoint` ref
-  onDragStart(() => {
-    dragStartPoint.current = coordinates;
-  });
+  if (!disableDrag) {
+    // when drag starts, save the starting coordinates into the `dragStartPoint` ref
+    onDragStart(() => {
+      dragStartPoint.current = coordinates;
+    });
 
-  // whilst dragging calculates the next coordinates and perform the `onPositionChange` callback
-  onDrag((event, info) => {
-    if (onPositionChange) {
-      event.stopImmediatePropagation();
-      event.stopPropagation();
-      const nextCoords = [dragStartPoint.current[0] - info.offset[0], dragStartPoint.current[1] - info.offset[1]];
-      onPositionChange(id, nextCoords);
-    }
-  });
+    // whilst dragging calculates the next coordinates and perform the `onPositionChange` callback
+    onDrag((event, info) => {
+      if (onPositionChange) {
+        event.stopImmediatePropagation();
+        event.stopPropagation();
+        const nextCoords = [
+          dragStartPoint.current[0] - info.offset[0],
+          dragStartPoint.current[1] - info.offset[1],
+        ];
+        onPositionChange(id, nextCoords);
+      }
+    });
+  }
 
   // on component unmount, remove its references
   useNodeUnregistration(onNodeRemove, inputs, outputs, id);
@@ -138,6 +143,7 @@ DiagramNode.propTypes = {
    * The possible className
    */
   className: PropTypes.string,
+  disableDrag: PropTypes.bool,
 };
 
 DiagramNode.defaultProps = {
@@ -155,6 +161,7 @@ DiagramNode.defaultProps = {
   onSegmentFail: undefined,
   onSegmentConnect: undefined,
   className: '',
+  disableDrag: false,
 };
 
 export default React.memo(DiagramNode);

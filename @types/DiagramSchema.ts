@@ -13,6 +13,7 @@ export type NodeCoordinates = [number, number];
 export type Node<P> = {
   id: string;
   coordinates: NodeCoordinates;
+  disableDrag?: boolean;
   content?: ReactNode;
   inputs?: Port[];
   outputs?: Port[];

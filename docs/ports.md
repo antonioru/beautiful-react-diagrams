@@ -11,6 +11,7 @@ const initialSchema = {
         { id: 'port-1', alignment: 'right' },
         { id: 'port-2', alignment: 'right' },
       ],
+      disableDrag: true,
       data: {
         foo: 'bar',
         count: 0,
