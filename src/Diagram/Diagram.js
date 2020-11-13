@@ -21,7 +21,9 @@ const Diagram = (props) => {
 
   // when nodes change, performs the onChange callback with the new incoming data
   const onNodesChange = (nextNodes) => {
-    onChange({ nodes: nextNodes });
+    if (onChange) {
+      onChange({ nodes: nextNodes });
+    }
   };
 
   // when a port is registered, save it to the local reference
@@ -55,13 +57,17 @@ const Diagram = (props) => {
   // with the new data, then reset the segment state
   const onSegmentConnect = (input, output) => {
     const nextLinks = [...(schema.links || []), { input, output }];
-    onChange({ links: nextLinks });
+    if (onChange) {
+      onChange({ links: nextLinks });
+    }
     setSegment(undefined);
   };
 
   // when links change, performs the onChange callback with the new incoming data
   const onLinkDelete = (nextLinks) => {
-    onChange({ links: nextLinks });
+    if (onChange) {
+      onChange({ links: nextLinks });
+    }
   };
 
   return (
