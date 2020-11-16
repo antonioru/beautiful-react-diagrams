@@ -69,7 +69,7 @@
     "postcss-preset-env": "^6.7.0",
     "postcss-will-change": "3.0.0",
     "postcss-will-change-transition": "^1.2.0",
-    "react": "^16.12.0",
+    "react": "^17.0.1",
     "react-dom": "^16.12.0",
     "react-styleguidist": "^11.1.0",
     "rollup": "^2.32.1",
