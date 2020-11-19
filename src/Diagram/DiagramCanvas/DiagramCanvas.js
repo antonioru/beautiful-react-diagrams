@@ -16,7 +16,7 @@ import DiagramZoomButtons from '../DiagramZoomButtons/DiagramZoomButtons';
 const DiagramCanvas = (props) => {
   const {
     children, portRefs, nodeRefs, isDraggable, pixelToStartDragging, zoomButtonsPosition, showZoomButtons,
-    zoomOnWheel, className, style, ...rest
+    maxZoom, minZoom, zoomOnWheel, className, style, ...rest
   } = props;
   const [bbox, setBoundingBox] = useState(null);
   const canvasRef = useRef();
@@ -105,7 +105,9 @@ const DiagramCanvas = (props) => {
   onMouseLeave(useCallback(() => stopDragging(), [isDraggable]));
 
   const zoomInHandler = useCallback(() => {
-    setCanvasScale(canvasScale + 0.1);
+    if (canvasScale <= maxZoom) {
+      setCanvasScale(canvasScale + 0.1);
+    }
   }, [canvasScale]);
 
   const resetZoomHandler = useCallback(() => {
@@ -113,7 +115,7 @@ const DiagramCanvas = (props) => {
   }, [canvasScale]);
 
   const zoomOutHandler = useCallback(() => {
-    if (canvasScale > 1) {
+    if (canvasScale > minZoom) {
       setCanvasScale(canvasScale - 0.1);
     }
   }, [canvasScale]);
@@ -143,7 +145,7 @@ const DiagramCanvas = (props) => {
           onZoomIn={zoomInHandler}
           onResetZoom={resetZoomHandler}
           onZoomOut={zoomOutHandler}
-          scale={canvasScale}
+          disableZoomOutBtn={canvasScale < minZoom}
           buttonsPosition={zoomButtonsPosition}
         />
       )}
@@ -184,6 +186,8 @@ DiagramCanvas.propTypes = {
   // eslint-disable-next-line max-len
   zoomButtonsPosition: PropTypes.oneOf(['top-left', 'top-right', 'top-center', 'bottom-right', 'bottom-center', 'bottom-left']),
   className: PropTypes.string,
+  minZoom: PropTypes.number,
+  maxZoom: PropTypes.number,
 };
 
 DiagramCanvas.defaultProps = {
@@ -195,6 +199,8 @@ DiagramCanvas.defaultProps = {
   showZoomButtons: false,
   zoomOnWheel: false,
   zoomButtonsPosition: 'bottom-right',
+  minZoom: 1,
+  maxZoom: 100,
 };
 
 export default React.memo(DiagramCanvas);

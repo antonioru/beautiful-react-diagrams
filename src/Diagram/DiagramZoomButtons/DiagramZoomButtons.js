@@ -7,7 +7,7 @@ import getDiagramZoomButtonsPosition from './getDiagramZoomButtonsPosition';
 import './diagram-button.scss';
 
 const DiagramZoomButtons = (props) => {
-  const { onZoomIn, onResetZoom, onZoomOut, scale, buttonsPosition, className, ...rest } = props;
+  const { onZoomIn, onResetZoom, onZoomOut, disableZoomOutBtn, buttonsPosition, className, ...rest } = props;
   const classList = classNames('diagram-zoom-buttons', {
     'vertical-orientation': !buttonsPosition.includes('center'),
   }, className);
@@ -28,15 +28,15 @@ const DiagramZoomButtons = (props) => {
         type="button"
         aria-label="zoom-reset"
         onClick={onResetZoom}
-        className={`zoom-reset-btn ${scale === 1 ? 'disabled' : ''}`}
-        disabled={scale === 1}
+        className={`zoom-reset-btn ${disableZoomOutBtn ? 'disabled' : ''}`}
+        disabled={disableZoomOutBtn}
       />
       <button
         type="button"
         aria-label="zoom-out"
         onClick={onZoomOut}
-        className={`zoom-out-btn ${scale === 1 ? 'disabled' : ''}`}
-        disabled={scale === 1}
+        className={`zoom-out-btn ${disableZoomOutBtn ? 'disabled' : ''}`}
+        disabled={disableZoomOutBtn}
       />
     </div>
   );
@@ -56,16 +56,16 @@ DiagramZoomButtons.propTypes = {
    */
   onZoomOut: PropTypes.func.isRequired,
   /**
-   * Diagram canvas scale, it is used to enable or disable reset zoom button and out zoom button
+   * Boolean value used to disabled or not the zoom battons
    */
-  scale: PropTypes.number,
+  disableZoomOutBtn: PropTypes.bool,
   // eslint-disable-next-line max-len
   buttonsPosition: PropTypes.oneOf(['top-left', 'top-right', 'top-center', 'bottom-right', 'bottom-center', 'bottom-left']),
 
 };
 
 DiagramZoomButtons.defaultProps = {
-  scale: 1,
+  disableZoomOutBtn: false,
   buttonsPosition: 'bottom-right',
 };
 
