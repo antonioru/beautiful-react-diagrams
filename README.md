@@ -18,7 +18,7 @@
 
 <div>
   <p align="center">
-    <a href="https://antonioru.github.io/beautiful-react-diagrams/" target="_blank">
+    <a href="https://beautifulinteractions.github.io/beautiful-react-diagrams/" target="_blank">
     🌟 Live playground here 🌟
     </a>
   </p>
