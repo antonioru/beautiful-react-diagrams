@@ -1,4 +1,4 @@
-It is possible to create big diagram and navigate into it using `isDraggable` prop.
+It is possible to create big diagram and navigate into it using `draggable` prop.
 This prop will let you to move the diagram canvas in every direction till its limits.
 
 ``` jsx
@@ -25,7 +25,7 @@ const UncontrolledDiagram = () => {
 
   return (
     <div style={{ height: '22.5rem', width: '40rem'}}>
-      <Diagram schema={schema} onChange={onChange} isDraggable/>
+      <Diagram schema={schema} onChange={onChange} draggable/>
     </div>
   );
 };

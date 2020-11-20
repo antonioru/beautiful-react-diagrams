@@ -15,7 +15,7 @@ import DiagramZoomButtons from '../DiagramZoomButtons/DiagramZoomButtons';
  */
 const DiagramCanvas = (props) => {
   const {
-    children, portRefs, nodeRefs, isDraggable, pixelToStartDragging, zoomButtonsPosition, showZoomButtons,
+    children, portRefs, nodeRefs, draggable, pixelToStartDragging, zoomButtonsPosition, showZoomButtons,
     maxZoom, minZoom, zoomOnWheel, className, style, ...rest
   } = props;
   const [bbox, setBoundingBox] = useState(null);
@@ -27,7 +27,7 @@ const DiagramCanvas = (props) => {
   const [canvasTranslate, setCanvasTranslate] = useState([0, 0]);
   const [canvasScale, setCanvasScale] = useState(1);
   const classList = classNames('bi bi-diagram-canvas', {
-    'enlarge-diagram-canvas': isDraggable || showZoomButtons || zoomOnWheel,
+    'enlarge-diagram-canvas': draggable || showZoomButtons || zoomOnWheel,
   }, className);
 
   // calculate the given element bounding box and save it into the bbox state
@@ -43,7 +43,7 @@ const DiagramCanvas = (props) => {
   // and save its bounding box to be provided down to children component as a context value for future calculations.
   useEffect(() => {
     calculateBBox(canvasRef.current);
-    if (isDraggable || showZoomButtons || zoomOnWheel) {
+    if (draggable || showZoomButtons || zoomOnWheel) {
       const canvasRefDim = canvasRef.current.getBoundingClientRect();
       setCanvasTranslate([-(canvasRefDim.width / 2), -(canvasRefDim.height / 2)]);
     }
@@ -55,7 +55,7 @@ const DiagramCanvas = (props) => {
 
   // save mouse coordinated if diagram is draggable
   onMouseDown((event) => {
-    if (isDraggable) {
+    if (draggable) {
       mouseCoords.current = [event.pageX, event.pageY];
       setIsDragging(true);
     }
@@ -65,7 +65,7 @@ const DiagramCanvas = (props) => {
    * oon mouse move update diagram canvas coordinates and save the latest mouse coordinates
    */
   onMouseMove((event) => {
-    if (isDragging && isDraggable) {
+    if (isDragging && draggable) {
       const newMouseCoords = [event.pageX, event.pageY];
       const deltaXMouse = newMouseCoords[0] - mouseCoords.current[0];
       const deltaYMouse = newMouseCoords[1] - mouseCoords.current[1];
@@ -95,14 +95,14 @@ const DiagramCanvas = (props) => {
   });
 
   const stopDragging = useCallback(() => {
-    if (isDraggable) {
+    if (draggable) {
       setIsDragging(false);
       mouseCoords.current = [];
     }
   }, []);
 
-  onMouseUp(useCallback(() => stopDragging(), [isDraggable]));
-  onMouseLeave(useCallback(() => stopDragging(), [isDraggable]));
+  onMouseUp(useCallback(() => stopDragging(), [draggable]));
+  onMouseLeave(useCallback(() => stopDragging(), [draggable]));
 
   const zoomInHandler = useCallback(() => {
     if (canvasScale <= maxZoom) {
@@ -130,22 +130,22 @@ const DiagramCanvas = (props) => {
   }, [canvasScale]);
 
   const diagramStyle = useCallback(() => {
-    if (isDraggable || showZoomButtons || zoomOnWheel) {
+    if (draggable || showZoomButtons || zoomOnWheel) {
       return { ...style, ...getDiagramCanvasCoords(canvasTranslate[0], canvasTranslate[1], canvasScale) };
     }
     return { ...style };
-  }, [isDraggable, showZoomButtons, zoomOnWheel, canvasTranslate[0], canvasTranslate[1], canvasScale]);
+  }, [draggable, showZoomButtons, zoomOnWheel, canvasTranslate[0], canvasTranslate[1], canvasScale]);
 
   return (
     <div
-      className={(isDraggable || showZoomButtons || zoomOnWheel) ? 'bi bi-diagram overflow-hidden' : 'bi bi-diagram '}
+      className={(draggable || showZoomButtons || zoomOnWheel) ? 'bi bi-diagram overflow-hidden' : 'bi bi-diagram '}
     >
       {(showZoomButtons) && (
         <DiagramZoomButtons
           onZoomIn={zoomInHandler}
           onResetZoom={resetZoomHandler}
           onZoomOut={zoomOutHandler}
-          disableZoomOutBtn={canvasScale < minZoom}
+          disableZoomOutBtn={canvasScale <= minZoom}
           buttonsPosition={zoomButtonsPosition}
         />
       )}
@@ -170,7 +170,7 @@ DiagramCanvas.propTypes = {
   /**
    * Defines if the user can move the diagram canvas to reach every node
    */
-  isDraggable: PropTypes.bool,
+  draggable: PropTypes.bool,
   /**
    * Defines how many pixel the mouse should pass before dragging the diagram canvas
    */
@@ -194,7 +194,7 @@ DiagramCanvas.defaultProps = {
   portRefs: {},
   nodeRefs: {},
   className: '',
-  isDraggable: false,
+  draggable: false,
   pixelToStartDragging: 5,
   showZoomButtons: false,
   zoomOnWheel: false,
