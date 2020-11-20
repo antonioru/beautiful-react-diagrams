@@ -15,7 +15,7 @@ import DiagramZoomButtons from '../DiagramZoomButtons/DiagramZoomButtons';
  */
 const DiagramCanvas = (props) => {
   const {
-    children, portRefs, nodeRefs, draggable, pixelToStartDragging, zoomButtonsPosition, showZoomButtons,
+    children, portRefs, nodeRefs, draggable, delta, zoomButtonsPosition, showZoomButtons,
     maxZoom, minZoom, zoomOnWheel, className, style, ...rest
   } = props;
   const [bbox, setBoundingBox] = useState(null);
@@ -30,22 +30,27 @@ const DiagramCanvas = (props) => {
     'enlarge-diagram-canvas': draggable || showZoomButtons || zoomOnWheel,
   }, className);
 
+  const wrapperClassList = classNames('bi bi-diagram', {
+    isPanning: isDragging,
+    pannable: draggable || showZoomButtons || zoomOnWheel,
+  });
+
   // calculate the given element bounding box and save it into the bbox state
-  const calculateBBox = useCallback((el) => {
+  const calculateBBox = (el) => {
     if (el) {
       const nextBBox = el.getBoundingClientRect();
       if (!isEqual(nextBBox, bbox)) {
         setBoundingBox(nextBBox);
       }
     }
-  }, [setBoundingBox, bbox]);
+  };
   // when the canvas is ready and placed within the DOM, update canvasRef coordinates
   // and save its bounding box to be provided down to children component as a context value for future calculations.
   useEffect(() => {
     calculateBBox(canvasRef.current);
     if (draggable || showZoomButtons || zoomOnWheel) {
-      const canvasRefDim = canvasRef.current.getBoundingClientRect();
-      setCanvasTranslate([-(canvasRefDim.width / 2), -(canvasRefDim.height / 2)]);
+      const canvasBBox = canvasRef.current.getBoundingClientRect();
+      setCanvasTranslate([-(canvasBBox.width / 2), -(canvasBBox.height / 2)]);
     }
   }, [canvasRef.current]);
 
@@ -62,35 +67,35 @@ const DiagramCanvas = (props) => {
   });
 
   /**
-   * oon mouse move update diagram canvas coordinates and save the latest mouse coordinates
+   * on mouse move update diagram canvas coordinates and save the latest mouse coordinates
    */
   onMouseMove((event) => {
-    if (isDragging && draggable) {
-      const newMouseCoords = [event.pageX, event.pageY];
-      const deltaXMouse = newMouseCoords[0] - mouseCoords.current[0];
-      const deltaYMouse = newMouseCoords[1] - mouseCoords.current[1];
+    if (draggable && isDragging) {
+      const currentMouseCoords = [event.pageX, event.pageY];
+      const deltaXMouse = currentMouseCoords[0] - mouseCoords.current[0];
+      const deltaYMouse = currentMouseCoords[1] - mouseCoords.current[1];
       const canvasParent = canvasRef.current.parentElement;
       const canvasParentDim = [canvasParent.offsetWidth, canvasParent.offsetHeight];
       const canvasDim = [canvasRef.current.offsetWidth, canvasRef.current.offsetHeight];
       // get the canvas drag limit
       const [topLimit, rightLimit, bottomLimit, leftLimit] = getCanvasDragLimits(canvasDim, canvasParentDim);
-      // start dragging only if the mouse movement is bigger than the pixelToStartDragging prop
+      // start dragging only if the mouse movement is bigger than the delta prop
       // drag the canvas till its limits
-      if (deltaXMouse > pixelToStartDragging && canvasTranslate[0] <= leftLimit) {
+      if (deltaXMouse > delta && canvasTranslate[0] <= leftLimit) {
         setCanvasTranslate([canvasTranslate[0] + deltaXMouse, canvasTranslate[1]]);
-        mouseCoords.current = [newMouseCoords[0], mouseCoords.current[1]];
+        mouseCoords.current = [currentMouseCoords[0], mouseCoords.current[1]];
       }
-      if (deltaXMouse < -pixelToStartDragging && canvasTranslate[0] >= rightLimit) {
+      if (deltaXMouse < -delta && canvasTranslate[0] >= rightLimit) {
         setCanvasTranslate([canvasTranslate[0] + deltaXMouse, canvasTranslate[1]]);
-        mouseCoords.current = [newMouseCoords[0], mouseCoords.current[1]];
+        mouseCoords.current = [currentMouseCoords[0], mouseCoords.current[1]];
       }
-      if (deltaYMouse > pixelToStartDragging && canvasTranslate[1] <= topLimit) {
+      if (deltaYMouse > delta && canvasTranslate[1] <= topLimit) {
         setCanvasTranslate([canvasTranslate[0], canvasTranslate[1] + deltaYMouse]);
-        mouseCoords.current = [mouseCoords.current[0], newMouseCoords[1]];
+        mouseCoords.current = [mouseCoords.current[0], currentMouseCoords[1]];
       }
-      if (deltaYMouse < -pixelToStartDragging && canvasTranslate[1] >= bottomLimit) {
+      if (deltaYMouse < -delta && canvasTranslate[1] >= bottomLimit) {
         setCanvasTranslate([canvasTranslate[0], canvasTranslate[1] + deltaYMouse]);
-        mouseCoords.current = [mouseCoords.current[0], newMouseCoords[1]];
+        mouseCoords.current = [mouseCoords.current[0], currentMouseCoords[1]];
       }
     }
   });
@@ -100,26 +105,26 @@ const DiagramCanvas = (props) => {
       setIsDragging(false);
       mouseCoords.current = [];
     }
-  }, []);
+  }, [draggable, setIsDragging]);
 
-  onMouseUp(useCallback(() => stopDragging(), [draggable]));
-  onMouseLeave(useCallback(() => stopDragging(), [draggable]));
+  onMouseUp(stopDragging);
+  onMouseLeave(stopDragging);
 
   const zoomInHandler = useCallback(() => {
     if (canvasScale <= maxZoom) {
       setCanvasScale(canvasScale + 0.1);
     }
-  }, [canvasScale]);
+  }, [canvasScale, setCanvasScale, maxZoom]);
 
   const resetZoomHandler = useCallback(() => {
     setCanvasScale(1);
-  }, [canvasScale]);
+  }, [setCanvasScale]);
 
   const zoomOutHandler = useCallback(() => {
     if (canvasScale > minZoom) {
       setCanvasScale(canvasScale - 0.1);
     }
-  }, [canvasScale]);
+  }, [canvasScale, setCanvasScale, minZoom]);
 
   const zoomOnWheelHandler = useCallback((event) => {
     event.preventDefault();
@@ -128,9 +133,9 @@ const DiagramCanvas = (props) => {
     } else {
       zoomOutHandler();
     }
-  }, [canvasScale]);
+  }, [zoomOutHandler, zoomInHandler]);
 
-  const diagramStyle = useCallback(() => {
+  const getDiagramStyle = useCallback(() => {
     if (draggable || showZoomButtons || zoomOnWheel) {
       return { ...style, ...getDiagramCanvasCoords(canvasTranslate[0], canvasTranslate[1], canvasScale) };
     }
@@ -138,9 +143,7 @@ const DiagramCanvas = (props) => {
   }, [draggable, showZoomButtons, zoomOnWheel, canvasTranslate[0], canvasTranslate[1], canvasScale]);
 
   return (
-    <div
-      className={(draggable || showZoomButtons || zoomOnWheel) ? 'bi bi-diagram overflow-hidden' : 'bi bi-diagram '}
-    >
+    <div className={wrapperClassList}>
       {(showZoomButtons) && (
         <DiagramZoomButtons
           onZoomIn={zoomInHandler}
@@ -154,7 +157,7 @@ const DiagramCanvas = (props) => {
       <div
         className={classList}
         ref={canvasRef}
-        style={diagramStyle()}
+        style={getDiagramStyle()}
         onWheel={zoomOnWheel ? zoomOnWheelHandler : undefined}
         {...rest}
       >
@@ -174,9 +177,9 @@ DiagramCanvas.propTypes = {
    */
   draggable: PropTypes.bool,
   /**
-   * Defines how many pixel the mouse should pass before dragging the diagram canvas
+   * Defines how many pixels the mouse should drag before starting the canvas panning
    */
-  pixelToStartDragging: PropTypes.number,
+  delta: PropTypes.number,
   /**
    * Enable the zoom on diagram canvas and show zoom buttons
    */
@@ -197,7 +200,7 @@ DiagramCanvas.defaultProps = {
   nodeRefs: {},
   className: '',
   draggable: false,
-  pixelToStartDragging: 5,
+  delta: 5,
   showZoomButtons: false,
   zoomOnWheel: false,
   zoomButtonsPosition: 'bottom-right',
