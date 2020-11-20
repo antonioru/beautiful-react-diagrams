@@ -4,8 +4,8 @@ import isEqual from 'lodash.isequal';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import DiagramContext from '../../Context/DiagramContext';
-import getDiagramCanvasCoords from './getDiagramCanvasCoords';
-import getCanvasDragLimits from './getCanvasDragLimits';
+import getDiagramCanvasCoords from './utils/getDiagramCanvasCoords';
+import getCanvasDragLimits from './utils/getCanvasDragLimits';
 import DiagramZoomButtons from '../DiagramZoomButtons/DiagramZoomButtons';
 
 /**
@@ -31,14 +31,14 @@ const DiagramCanvas = (props) => {
   }, className);
 
   // calculate the given element bounding box and save it into the bbox state
-  const calculateBBox = (el) => {
+  const calculateBBox = useCallback((el) => {
     if (el) {
       const nextBBox = el.getBoundingClientRect();
       if (!isEqual(nextBBox, bbox)) {
         setBoundingBox(nextBBox);
       }
     }
-  };
+  }, [setBoundingBox, bbox]);
   // when the canvas is ready and placed within the DOM, update canvasRef coordinates
   // and save its bounding box to be provided down to children component as a context value for future calculations.
   useEffect(() => {
@@ -75,6 +75,7 @@ const DiagramCanvas = (props) => {
       // get the canvas drag limit
       const [topLimit, rightLimit, bottomLimit, leftLimit] = getCanvasDragLimits(canvasDim, canvasParentDim);
       // start dragging only if the mouse movement is bigger than the pixelToStartDragging prop
+      // drag the canvas till its limits
       if (deltaXMouse > pixelToStartDragging && canvasTranslate[0] <= leftLimit) {
         setCanvasTranslate([canvasTranslate[0] + deltaXMouse, canvasTranslate[1]]);
         mouseCoords.current = [newMouseCoords[0], mouseCoords.current[1]];

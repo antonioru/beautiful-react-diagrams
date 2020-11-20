@@ -20,7 +20,7 @@ describe('DiagramCanvas component', () => {
   });
 
   it('should enlarge the diagram canvas when it is draggable', () => {
-    const { container } = render(<DiagramCanvas isDraggable />);
+    const { container } = render(<DiagramCanvas draggable />);
     const wrapper = container.querySelector('.bi.bi-diagram .bi-diagram-canvas');
 
     expect(wrapper.getAttribute('class').split(' '))
