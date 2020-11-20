@@ -61,7 +61,7 @@
     "jsdom-global": "^3.0.2",
     "mini-css-extract-plugin": "^1.1.1",
     "mocha": "^8.2.0",
-    "node-sass": "^4.14.1",
+    "node-sass": "^5.0.0",
     "nyc": "^15.1.0",
     "postcss": "^8.1.2",
     "postcss-fixes": "^2.0.1",
