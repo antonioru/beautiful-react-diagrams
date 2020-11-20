@@ -147,6 +147,7 @@ const DiagramCanvas = (props) => {
           onResetZoom={resetZoomHandler}
           onZoomOut={zoomOutHandler}
           disableZoomOutBtn={canvasScale <= minZoom}
+          disableZoomInBtn={canvasScale >= maxZoom}
           buttonsPosition={zoomButtonsPosition}
         />
       )}

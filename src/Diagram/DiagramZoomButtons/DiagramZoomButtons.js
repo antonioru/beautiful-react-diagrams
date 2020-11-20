@@ -7,7 +7,9 @@ import getDiagramZoomButtonsPosition from './getDiagramZoomButtonsPosition';
 import './diagram-button.scss';
 
 const DiagramZoomButtons = (props) => {
-  const { onZoomIn, onResetZoom, onZoomOut, disableZoomOutBtn, buttonsPosition, className, ...rest } = props;
+  const {
+    onZoomIn, onResetZoom, onZoomOut, disableZoomInBtn, disableZoomOutBtn, buttonsPosition, className, ...rest
+  } = props;
   const classList = classNames('diagram-zoom-buttons', {
     'vertical-orientation': !buttonsPosition.includes('center'),
   }, className);
@@ -23,7 +25,13 @@ const DiagramZoomButtons = (props) => {
 
   return (
     <div ref={buttonsGroupRef} className={classList} style={calculateButtonsPosition(buttonsPosition)} {...rest}>
-      <button type="button" aria-label="zoom-in" onClick={onZoomIn} className="zoom-in-btn" />
+      <button
+        type="button"
+        aria-label="zoom-in"
+        onClick={onZoomIn}
+        className={`zoom-in-btn ${disableZoomInBtn ? 'disabled' : ''}`}
+        disabled={disableZoomInBtn}
+      />
       <button
         type="button"
         aria-label="zoom-reset"
@@ -56,9 +64,13 @@ DiagramZoomButtons.propTypes = {
    */
   onZoomOut: PropTypes.func.isRequired,
   /**
-   * Boolean value used to disabled or not the zoom battons
+   * Boolean value used to disabled or not the zoom buttons
    */
   disableZoomOutBtn: PropTypes.bool,
+  /**
+   * Boolean value used to disabled or not the zoom in button
+   */
+  disableZoomInBtn: PropTypes.bool,
   // eslint-disable-next-line max-len
   buttonsPosition: PropTypes.oneOf(['top-left', 'top-right', 'top-center', 'bottom-right', 'bottom-center', 'bottom-left']),
 
@@ -66,6 +78,7 @@ DiagramZoomButtons.propTypes = {
 
 DiagramZoomButtons.defaultProps = {
   disableZoomOutBtn: false,
+  disableZoomInBtn: false,
   buttonsPosition: 'bottom-right',
 };
 

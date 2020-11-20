@@ -19,6 +19,10 @@
     border-top-left-radius: 0.5rem;
     border-bottom-left-radius: 0.5rem;
     border-top-right-radius: 0;
+
+    &.disabled {
+      opacity: 0.5;
+    }
   }
 
   .zoom-out-btn {
