@@ -61,6 +61,11 @@ module.exports = {
       sectionDepth: 1,
     },
     {
+      name: 'Drag & Zoom',
+      content: '../drag&zoom.md',
+      sectionDepth: 1,
+    },
+    {
       name: 'Hooks',
       content: '../hooks.md',
       sectionDepth: 1,

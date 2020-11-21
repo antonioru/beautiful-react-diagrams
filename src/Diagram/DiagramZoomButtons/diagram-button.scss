@@ -1,0 +1,67 @@
+.diagram-zoom-buttons {
+  display: inline-flex;
+  position: absolute;
+  z-index: 9999;
+  flex-direction: row;
+  border: 0.05rem solid;
+  border-radius: 0.5rem;
+
+  > button {
+    padding: 1rem;
+    border: none;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 1.7rem;
+  }
+
+  .zoom-in-btn {
+    background-image: url('icons/zoomIn.png');
+    border-top-left-radius: 0.5rem;
+    border-bottom-left-radius: 0.5rem;
+    border-top-right-radius: 0;
+
+    &.disabled {
+      opacity: 0.5;
+    }
+  }
+
+  .zoom-out-btn {
+    background-image: url('icons/zoomOut.png');
+    border-top-right-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
+    border-bottom-left-radius: 0;
+
+    &.disabled {
+      opacity: 0.5;
+    }
+  }
+
+  .zoom-reset-btn {
+    background-image: url('icons/zoomReset.png');
+    border-left: 0.05rem solid lightgray;
+    border-right: 0.05rem solid lightgray;
+
+    &.disabled {
+      opacity: 0.5;
+    }
+  }
+
+  &.vertical-orientation {
+    flex-direction: column;
+
+    .zoom-in-btn {
+      border-top-right-radius: 0.5rem;
+      border-bottom-left-radius: 0;
+    }
+
+    .zoom-out-btn {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0.5rem;
+    }
+
+    .zoom-reset-btn {
+      border-top: 0.05rem solid lightgray;
+      border-bottom: 0.05rem solid lightgray;
+    }
+  }
+}

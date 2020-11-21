@@ -18,7 +18,7 @@
 
 <div>
   <p align="center">
-    <a href="https://antonioru.github.io/beautiful-react-diagrams/" target="_blank">
+    <a href="https://beautifulinteractions.github.io/beautiful-react-diagrams/" target="_blank">
     🌟 Live playground here 🌟
     </a>
   </p>
@@ -51,7 +51,7 @@ diagrams with ease.
 
 <div>
   <p align="center">
-    <a href="https://antonioru.github.io/beautiful-react-diagrams/" target="_blank">
+    <a href="https://beautifulinteractions.github.io/beautiful-react-diagrams/" target="_blank">
     🌟 Live playground here 🌟
     </a>
   </p>
@@ -86,4 +86,4 @@ As part of our commitment to support and contribute to the open source community
 
 ---
 
-Icon made by [Freepik](https://www.flaticon.com/authors/freepik) from [www.flaticon.com](https://www.flaticon.com/free-icon/hook_1081812)
+The icon used the create the logo is made by [Freepik](https://www.flaticon.com/authors/freepik) from [www.flaticon.com](https://www.flaticon.com/free-icon/hook_1081812)
