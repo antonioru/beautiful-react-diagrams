@@ -9,6 +9,8 @@
   background-color: #f8fafc;
   position: relative;
   overflow: hidden;
+  // Prevent touch dragging inside the diagram from scrolling the page
+  touch-action: none;
 
   // ----------------------------
   // Diagram node general wrapper
@@ -44,7 +46,6 @@
         margin-left: auto;
       }
     }
-
 
     // ----------------------------
     // Default node
@@ -101,7 +102,6 @@
         fill: #88cdff;
       }
     }
-
 
     // ----------------------------
     // Link item
@@ -180,7 +180,6 @@
     }
   }
 }
-
 
 // ----------------------------
 // Involved animations
