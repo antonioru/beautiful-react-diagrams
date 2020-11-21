@@ -4,6 +4,11 @@ import useDrag from '../../shared/internal_hooks/useDrag';
 import useCanvas from '../../shared/internal_hooks/useCanvas';
 import getRelativePoint from '../../shared/functions/getRelativePoint';
 
+const getTouchEndTarget = (event) => document.elementFromPoint(
+  event.changedTouches[0].clientX,
+  event.changedTouches[0].clientY,
+);
+
 /**
  * Port
  * @param props
@@ -32,8 +37,10 @@ const Port = (props) => {
   });
 
   onDragEnd((event) => {
-    const targetPort = event.target.getAttribute('data-port-id');
-    if (targetPort && event.target !== ref.current && canLink(id, targetPort, type) && onSegmentConnect) {
+    // There is no target defined for a touchend event and it must be computed
+    const target = event.changedTouches ? getTouchEndTarget(event) : event.target;
+    const targetPort = target.getAttribute('data-port-id');
+    if (targetPort && target !== ref.current && canLink(id, targetPort, type) && onSegmentConnect) {
       const args = type === 'input' ? [id, targetPort, type] : [targetPort, id, type];
 
       onSegmentConnect(...args);
