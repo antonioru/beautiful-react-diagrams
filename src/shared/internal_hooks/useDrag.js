@@ -19,7 +19,15 @@ const defaultOptions = {
  * @param event
  * @returns {*[]}
  */
-const getEventCoordinates = (event) => [event.clientX, event.clientY];
+const getEventCoordinates = (event) => {
+  if (event.touches) {
+    return [event.touches[0].clientX, event.touches[0].clientY];
+  }
+
+  return [event.clientX, event.clientY];
+};
+
+const getTouchEndCoordinates = (event) => [event.changedTouches[0].pageX, event.changedTouches[0].pageY];
 
 /**
  * Create a persistent callback reference that will live trough a component lifecycle
@@ -78,6 +86,8 @@ const createCallbackRef = (ref) => useCallback((callback) => {
  * }
  * ```
  */
+const isTouchEnabled = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0);
+
 const useDrag = (options = defaultOptions) => {
   const targetRef = options.ref || useRef(); // the target draggable element
   const dragStartHandlerRef = useRef(); // a ref to user's onDragStart handler
@@ -107,7 +117,12 @@ const useDrag = (options = defaultOptions) => {
    */
   const onDrag = useCallback(throttle((event) => {
     if (info.isDragging) {
-      info.offset = [info.start[0] - event.clientX, info.start[1] - event.clientY];
+      if (event.touches) {
+        // Using single touch support for now, just go with the first touch event
+        info.offset = [info.start[0] - event.touches[0].clientX, info.start[1] - event.touches[0].clientY];
+      } else {
+        info.offset = [info.start[0] - event.clientX, info.start[1] - event.clientY];
+      }
 
       if (dragHandlerRef.current) {
         dragHandlerRef.current(event, { ...info });
@@ -121,7 +136,12 @@ const useDrag = (options = defaultOptions) => {
   const onDragEnd = useCallback((event) => {
     if (info.isDragging) {
       info.isDragging = false;
-      info.end = getEventCoordinates(event);
+
+      if (event.touches) {
+        info.end = getTouchEndCoordinates(event);
+      } else {
+        info.end = getEventCoordinates(event);
+      }
 
       if (dragEndHandlerRef.current) {
         dragEndHandlerRef.current(event, { ...info });
@@ -143,6 +163,13 @@ const useDrag = (options = defaultOptions) => {
       targetRef.current.addEventListener('mousedown', _onDragStart);
       document.addEventListener('mousemove', _onDrag);
       document.addEventListener('mouseup', _onDragEnd);
+
+      // Support touch events. Keep mouse events active to support touch screen laptops.
+      if (isTouchEnabled) {
+        targetRef.current.addEventListener('touchstart', _onDragStart);
+        document.addEventListener('touchmove', _onDrag);
+        document.addEventListener('touchend', _onDragEnd);
+      }
     }
 
     return () => {
@@ -150,6 +177,13 @@ const useDrag = (options = defaultOptions) => {
         targetRef.current.removeEventListener('mousedown', _onDragStart);
         document.removeEventListener('mousemove', _onDrag);
         document.removeEventListener('mouseup', _onDragEnd);
+
+        // Support touch events. Keep mouse events active to support touch screen laptops.
+        if (isTouchEnabled) {
+          targetRef.current.addEventListener('touchstart', _onDragStart);
+          document.addEventListener('touchmove', _onDrag);
+          document.addEventListener('touchend', _onDragEnd);
+        }
       }
     };
   }, [targetRef.current]);
