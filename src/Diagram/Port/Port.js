@@ -20,7 +20,12 @@ const Port = (props) => {
       event.stopImmediatePropagation();
       event.stopPropagation();
       const from = getRelativePoint(info.start, [canvas.x, canvas.y]);
-      const to = getRelativePoint([event.clientX, event.clientY], [canvas.x, canvas.y]);
+      let to;
+      if (event.touches) {
+        to = getRelativePoint([event.touches[0].clientX, event.touches[0].clientY], [canvas.x, canvas.y]);
+      } else {
+        to = getRelativePoint([event.clientX, event.clientY], [canvas.x, canvas.y]);
+      }
 
       onDragNewSegment(id, from, to, alignment);
     }
