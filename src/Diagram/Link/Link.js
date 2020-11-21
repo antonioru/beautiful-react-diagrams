@@ -54,7 +54,7 @@ const Link = (props) => {
       onDelete(link);
     }
   }, [link.readonly, onDelete]);
-  
+
   const onTouchStart = useCallback(() => {
     const now = Date.now();
 
@@ -62,17 +62,31 @@ const Link = (props) => {
       if (onDelete && !link.readonly) {
         onDelete(link);
       }
-      longPressTimeout.current = 0
-      return
+      longPressTimeout.current = 0;
+      return;
     }
-    longPressTimeout.current = Date.now()
+    longPressTimeout.current = Date.now();
   }, [link.readonly, onDelete]);
 
   return (
     <g className={classList}>
-      {!link.readonly && (<path d={path} className="bi-link-ghost" onDoubleClick={onDoubleClick} onTouchStart={onTouchStart} />)} 
-      <path d={path} ref={pathRef} className="bi-link-path" onDoubleClick={onDoubleClick} 
-      onTouchStart={onTouchStart} />
+      {
+        !link.readonly && (
+          <path
+            d={path}
+            className="bi-link-ghost"
+            onDoubleClick={onDoubleClick}
+            onTouchStart={onTouchStart}
+          />
+        )
+      }
+      <path
+        d={path}
+        ref={pathRef}
+        className="bi-link-path"
+        onDoubleClick={onDoubleClick}
+        onTouchStart={onTouchStart}
+      />
       {link.label && labelPosition && (<LinkLabel position={labelPosition} label={link.label} />)}
     </g>
   );
