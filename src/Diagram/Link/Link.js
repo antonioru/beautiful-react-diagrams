@@ -25,6 +25,7 @@ const useContextRefs = () => {
 const Link = (props) => {
   const { input, output, link, onDelete } = props;
   const pathRef = useRef();
+  const longPressTimeout = useRef(0);
   const [labelPosition, setLabelPosition] = useState();
   const { canvas, portRefs, nodeRefs } = useContextRefs();
   const inputPoint = useMemo(() => getCoords(input, portRefs, nodeRefs, canvas), [input, portRefs, nodeRefs, canvas]);
@@ -53,11 +54,25 @@ const Link = (props) => {
       onDelete(link);
     }
   }, [link.readonly, onDelete]);
+  
+  const onTouchStart = useCallback(() => {
+    const now = Date.now();
+
+    if (now - longPressTimeout.current < 1000) {
+      if (onDelete && !link.readonly) {
+        onDelete(link);
+      }
+      longPressTimeout.current = 0
+      return
+    }
+    longPressTimeout.current = Date.now()
+  }, [link.readonly, onDelete]);
 
   return (
     <g className={classList}>
-      {!link.readonly && (<path d={path} className="bi-link-ghost" onDoubleClick={onDoubleClick} />)}
-      <path d={path} ref={pathRef} className="bi-link-path" onDoubleClick={onDoubleClick} />
+      {!link.readonly && (<path d={path} className="bi-link-ghost" onDoubleClick={onDoubleClick} onTouchStart={onTouchStart} />)} 
+      <path d={path} ref={pathRef} className="bi-link-path" onDoubleClick={onDoubleClick} 
+      onTouchStart={onTouchStart} />
       {link.label && labelPosition && (<LinkLabel position={labelPosition} label={link.label} />)}
     </g>
   );
