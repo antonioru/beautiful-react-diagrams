@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { NodeType } from '../../shared/Types';
+import { NodeType } from '../../../shared/Types';
 import DiagramNode from '../DiagramNode/DiagramNode';
 import updateNodeCoordinates from './updateNodeCoordinates';
 

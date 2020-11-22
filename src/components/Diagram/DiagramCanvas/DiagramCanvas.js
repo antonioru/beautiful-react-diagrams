@@ -3,7 +3,7 @@ import { useWindowScroll, useWindowResize, useMouseEvents } from 'beautiful-reac
 import isEqual from 'lodash.isequal';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import DiagramContext from '../../Context/DiagramContext';
+import DiagramContext from '../../../Context/DiagramContext';
 import getDiagramCanvasCoords from './utils/getDiagramCanvasCoords';
 import getCanvasDragLimits from './utils/getCanvasDragLimits';
 import DiagramZoomButtons from '../DiagramZoomButtons/DiagramZoomButtons';

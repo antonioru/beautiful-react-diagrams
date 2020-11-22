@@ -1,6 +1,7 @@
-import Diagram from './Diagram';
+import Diagram from './components/Diagram';
 
-export { default as Diagram } from './Diagram';
+export { default as Canvas } from './components/Canvas';
+export { default as Diagram } from './components/Diagram';
 export { default as useSchema } from './hooks/useSchema';
 export { default as createSchema } from './shared/functions/createSchema';
 export { validateNode } from './shared/functions/validators';

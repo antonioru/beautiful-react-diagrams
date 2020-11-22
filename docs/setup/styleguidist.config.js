@@ -29,8 +29,13 @@ module.exports = {
       sectionDepth: 1,
     },
     {
+      name: 'Canvas',
+      content: '../../src/components/Canvas/README.md',
+      sectionDepth: 1,
+    },
+    {
       name: 'Diagram Component',
-      content: '../../src/Diagram/README.md',
+      content: '../../src/components/Diagram/README.md',
       sectionDepth: 1,
     },
     {

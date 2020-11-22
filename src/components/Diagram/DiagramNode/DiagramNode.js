@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import inRange from 'lodash.inrange';
 import getDiagramNodeStyle from './getDiagramNodeStyle';
-import { usePortRegistration, useNodeRegistration } from '../../shared/internal_hooks/useContextRegistration';
-import { PortType } from '../../shared/Types';
+import { usePortRegistration, useNodeRegistration } from '../../../shared/internal_hooks/useContextRegistration';
+import { PortType } from '../../../shared/Types';
 import portGenerator from './portGenerator';
-import useDrag from '../../shared/internal_hooks/useDrag';
-import useNodeUnregistration from '../../shared/internal_hooks/useNodeUnregistration';
+import useDrag from '../../../shared/internal_hooks/useDrag';
+import useNodeUnregistration from '../../../shared/internal_hooks/useNodeUnregistration';
 
 /**
  * A Diagram Node component displays a single diagram node, handles the drag n drop business logic and fires the

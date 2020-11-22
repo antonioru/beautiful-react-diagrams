@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import DiagramCanvas from './DiagramCanvas/DiagramCanvas';
 import NodesCanvas from './NodesCanvas/NodesCanvas';
 import LinksCanvas from './LinksCanvas/LinksCanvas';
-import { SchemaType } from '../shared/Types';
+import { SchemaType } from '../../shared/Types';
 
 import './diagram.scss';
 
