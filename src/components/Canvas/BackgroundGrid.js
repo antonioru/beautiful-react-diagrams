@@ -6,7 +6,7 @@ const calcCoordinates = (x, y) => ([x * parallaxRatio, y * parallaxRatio]);
 const calcTransformation = (x, y, scale) => (`scale(${scale}) translate(${x}, ${y})`);
 
 /**
- * Canvas background
+ * TODO: document me
  */
 const BackgroundGrid = ({ translateX, translateY, scale, svgPatternColor, svgPatternOpacity }) => {
   const [x, y] = useMemo(() => calcCoordinates(translateX, translateY), [translateX, translateY]);
@@ -23,7 +23,6 @@ const BackgroundGrid = ({ translateX, translateY, scale, svgPatternColor, svgPat
             <polygon points="0.4,30 3,30 3,29.6 0.4,29.6 0.4,27 0,27 0,29.6 0,30 " />
           </g>
         </pattern>
-
       </defs>
       <rect width="100%" height="100%" fill="url(#bg-grid)" />
     </svg>

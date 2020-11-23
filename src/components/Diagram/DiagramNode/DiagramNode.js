@@ -1,7 +1,6 @@
 import React, { useMemo, useRef } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import inRange from 'lodash.inrange';
 import getDiagramNodeStyle from './getDiagramNodeStyle';
 import { usePortRegistration, useNodeRegistration } from '../../../shared/internal_hooks/useContextRegistration';
 import { PortType } from '../../../shared/Types';
@@ -17,35 +16,29 @@ import useNodeUnregistration from '../../../shared/internal_hooks/useNodeUnregis
 const DiagramNode = (props) => {
   const {
     id, content, coordinates, type, inputs, outputs, data, onPositionChange, onPortRegister, onNodeRemove,
-    onDragNewSegment, onMount, onSegmentFail, onSegmentConnect, render, className, disableDrag,
+    onDragNewSegment, onMount, onSegmentFail, onSegmentConnect, render, className,
   } = props;
   const registerPort = usePortRegistration(inputs, outputs, onPortRegister); // get the port registration method
   const { ref, onDragStart, onDrag } = useDrag({ throttleBy: 14 }); // get the drag n drop methods
   const dragStartPoint = useRef(coordinates); // keeps the drag start point in a persistent reference
 
-  if (!disableDrag) {
-    // when drag starts, save the starting coordinates into the `dragStartPoint` ref
-    onDragStart((event) => {
-      dragStartPoint.current = coordinates;
-      event.stopPropagation();
-    });
+  // when drag starts, save the starting coordinates into the `dragStartPoint` ref
+  onDragStart((event) => {
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    event.stopPropagation();
+    dragStartPoint.current = coordinates;
+  });
 
-    // whilst dragging calculates the next coordinates and perform the `onPositionChange` callback
-    onDrag((event, info) => {
-      if (onPositionChange) {
-        event.stopImmediatePropagation();
-        event.stopPropagation();
-        const nextWidth = dragStartPoint.current[0] - info.offset[0];
-        const nextHeight = dragStartPoint.current[1] - info.offset[1];
-        const parentDim = [ref.current.parentElement.offsetWidth, ref.current.parentElement.offsetHeight];
-        const refDim = [ref.current.offsetWidth, ref.current.offsetHeight];
-        if (inRange(nextWidth, 0, parentDim[0] - refDim[0]) && inRange(nextHeight, 0, parentDim[1] - refDim[1])) {
-          const nextCoords = [nextWidth, nextHeight];
-          onPositionChange(id, nextCoords);
-        }
-      }
-    });
-  }
+  // whilst dragging calculates the next coordinates and perform the `onPositionChange` callback
+  onDrag((event, info) => {
+    if (onPositionChange) {
+      event.stopImmediatePropagation();
+      event.stopPropagation();
+      const nextCoords = [dragStartPoint.current[0] - info.offset[0], dragStartPoint.current[1] - info.offset[1]];
+      onPositionChange(id, nextCoords);
+    }
+  });
 
   // on component unmount, remove its references
   useNodeUnregistration(onNodeRemove, inputs, outputs, id);
@@ -64,7 +57,7 @@ const DiagramNode = (props) => {
   const customRenderProps = { id, render, content, type, inputs: InputPorts, outputs: OutputPorts, data, className };
 
   return (
-    <div className={classList} ref={ref} style={getDiagramNodeStyle(coordinates, disableDrag)}>
+    <div className={classList} ref={ref} style={getDiagramNodeStyle(coordinates)}>
       {render && typeof render === 'function' && render(customRenderProps)}
       {!render && (
         <>
@@ -148,7 +141,6 @@ DiagramNode.propTypes = {
    * The possible className
    */
   className: PropTypes.string,
-  disableDrag: PropTypes.bool,
 };
 
 DiagramNode.defaultProps = {
@@ -166,7 +158,6 @@ DiagramNode.defaultProps = {
   onSegmentFail: undefined,
   onSegmentConnect: undefined,
   className: '',
-  disableDrag: false,
 };
 
 export default React.memo(DiagramNode);

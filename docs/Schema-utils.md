@@ -1,4 +1,4 @@
-Managing complex and large schemas could be a problem, for this reason a set of function to handle the schema object 
+Managing complex and large schemas could be a hard thing to do, for this reason a set of function to handle the schema  
 comes with the library.
 
 ### createSchema

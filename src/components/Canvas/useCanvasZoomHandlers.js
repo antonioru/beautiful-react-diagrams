@@ -1,5 +1,5 @@
-import { useState, useEffect, useCallback } from 'react';
-import Events from '../../shared/Events';
+import { useEffect, useCallback } from 'react';
+import { Events } from '../../shared/Constants';
 
 // TODO: move to the hooks library
 const useEvent = (ref, event, callback, options) => {
@@ -16,23 +16,21 @@ const useEvent = (ref, event, callback, options) => {
   }, [ref.current]);
 };
 
-const defaultOptions = { initialZoom: 1, maxZoom: 5, minZoom: 0.4 };
+const defaultOptions = { zoom: 1, maxZoom: 5, minZoom: 0.4 };
 const wheelOffset = 0.01; // TODO: document this
 
 /**
  * TODO: document this thing
  * inspired by: https://jclem.net/posts/pan-zoom-canvas-react?utm_campaign=building-a-pannable--zoomable-canvasdi
  */
-const useCanvasZoom = (ref, options = defaultOptions) => {
-  const { initialZoom, maxZoom, minZoom, zoomable, zoomOnWheel } = options;
-  const [scale, setScale] = useState(initialZoom);
+const useCanvasZoomHandlers = (ref, options = defaultOptions) => {
+  const { onZoomChange, maxZoom, minZoom, zoomOnWheel, zoomResetOnDblClick } = options;
 
   const scaleOnWheel = useCallback((event) => {
-    if (zoomable && zoomOnWheel) {
-      event.preventDefault(); // FIXME: double check on event bubbling
+    if (onZoomChange && zoomOnWheel) {
+      event.preventDefault(); // FIXME: double check the bubbling of this event you know nothing about
 
-      setScale((currentScale) => {
-        // Adjust up to or down to the maximum or minimum scale levels by `interval`.
+      onZoomChange((currentScale) => {
         if (event.deltaY > 0) {
           return (currentScale + wheelOffset < maxZoom) ? (currentScale + wheelOffset) : maxZoom;
         }
@@ -40,11 +38,17 @@ const useCanvasZoom = (ref, options = defaultOptions) => {
         return (currentScale - wheelOffset > minZoom) ? (currentScale - wheelOffset) : minZoom;
       });
     }
-  }, [zoomable, setScale, maxZoom, minZoom]);
+  }, [onZoomChange, maxZoom, minZoom]);
+
+  const resetZoom = useCallback((event) => {
+    if (onZoomChange && zoomResetOnDblClick) {
+      event.preventDefault();
+      onZoomChange(1);
+    }
+  }, []);
 
   useEvent(ref, Events.WHEEL, scaleOnWheel, { passive: false });
-
-  return [scale, setScale];
+  useEvent(ref, Events.DOUBLE_CLICK, resetZoom, { passive: false });
 };
 
-export default useCanvasZoom;
+export default useCanvasZoomHandlers;

@@ -6,9 +6,8 @@ const SidebarItem = (props) => {
 
   return (
     <>
-      {visibleName === 'Hooks' && <Sidebar.Divider />}
       <Sidebar.Item text={visibleName} current={selected} to={href} />
-      {visibleName === 'Concepts' && <Sidebar.Divider />}
+      {['Concepts', 'Dynamic nodes', 'Schema utilities', 'useCanvasState'].includes(visibleName) && <Sidebar.Divider />}
     </>
   );
 };

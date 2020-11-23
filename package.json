@@ -1,6 +1,6 @@
 {
   "name": "beautiful-react-diagrams",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "A tiny collection of lightweight React components to build diagrams with ease",
   "main": "index.js",
   "module": "esm/index.js",
@@ -90,7 +90,6 @@
     "beautiful-react-hooks": "^0.31.0",
     "classnames": "^2.2.6",
     "lodash.findindex": "^4.6.0",
-    "lodash.inrange": "3.3.6",
     "lodash.isequal": "^4.5.0",
     "lodash.throttle": "^4.1.1",
     "prop-types": "^15.7.2"
