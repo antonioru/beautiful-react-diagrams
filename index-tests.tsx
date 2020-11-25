@@ -1,4 +1,4 @@
-import * as React from "react";
+import * as React from 'react';
 import Diagram, {
   useSchema,
   createSchema,
@@ -8,22 +8,22 @@ import Diagram, {
   validateNodes,
   validatePort,
   validateSchema,
-} from ".";
-import { Button } from "beautiful-react-ui";
+} from '.';
+import { Button } from 'beautiful-react-ui';
 
 export const UncontrolledDiagram1 = () => {
   // create diagrams schema
   const [schema, { onChange }] = useSchema({
     nodes: [
-      { id: "node-1", content: "Node 1", coordinates: [250, 60] },
-      { id: "node-2", content: "Node 2", coordinates: [100, 200] },
-      { id: "node-3", content: "Node 3", coordinates: [250, 220] },
-      { id: "node-4", content: "Node 4", coordinates: [400, 200] },
+      { id: 'node-1', content: 'Node 1', coordinates: [250, 60] },
+      { id: 'node-2', content: 'Node 2', coordinates: [100, 200] },
+      { id: 'node-3', content: 'Node 3', coordinates: [250, 220] },
+      { id: 'node-4', content: 'Node 4', coordinates: [400, 200] },
     ],
     links: [
-      { input: "node-1", output: "node-2" },
-      { input: "node-1", output: "node-3" },
-      { input: "node-1", output: "node-4" },
+      { input: 'node-1', output: 'node-2' },
+      { input: 'node-1', output: 'node-3' },
+      { input: 'node-1', output: 'node-4' },
     ],
   });
 
@@ -35,7 +35,7 @@ export const UncontrolledDiagram1 = () => {
   validatePort(schema.nodes[0].outputs![0]); // returns true or throw an error
 
   return (
-    <div style={{ height: "22.5rem" }}>
+    <div style={{ height: '22.5rem' }}>
       <Diagram schema={schema} onChange={onChange} />
     </div>
   );
@@ -46,12 +46,12 @@ export const UncontrolledDiagram2 = () => {
     createSchema({
       nodes: [
         {
-          id: "node-1",
-          content: "Node 1",
+          id: 'node-1',
+          content: 'Node 1',
           coordinates: [150, 60],
-          outputs: [{ id: "port-1", alignment: "right" }],
+          outputs: [{ id: 'port-1', alignment: 'right' }],
           data: {
-            onDoubleClick: () => console.warn("hello"),
+            onDoubleClick: () => console.warn('hello'),
           },
         },
       ],
@@ -70,7 +70,7 @@ export const UncontrolledDiagram2 = () => {
         <div
           onDoubleClick={data?.onDoubleClick}
           role="button"
-          style={{ padding: "15px", background: "purple" }}
+          style={{ padding: '15px', background: 'purple' }}
         >
           {content}
         </div>
@@ -87,7 +87,7 @@ export const UncontrolledDiagram2 = () => {
   };
 
   return (
-    <div style={{ height: "22.5rem" }}>
+    <div style={{ height: '22.5rem' }}>
       <Button color="primary" icon="plus" onClick={addNewNode}>
         Add new node
       </Button>

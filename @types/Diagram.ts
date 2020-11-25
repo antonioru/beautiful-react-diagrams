@@ -1,6 +1,6 @@
 import { memo } from 'react';
 import { DiagramSchema } from './DiagramSchema';
-import type { DiagramCanvasProps } from './DiagramCanvas'
+import type { DiagramCanvasProps } from './DiagramCanvas';
 
 export type DiagramProps<P> = {
   schema?: DiagramSchema<P>;
