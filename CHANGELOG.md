@@ -134,3 +134,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - First implementation of draggable canvas
 - First implementation of zoomable canvas 
+
+## [0.6.0] - 2020-11-25
+
+### Added
+
+- Added `disconnect` function exported in `useSchema` hook
