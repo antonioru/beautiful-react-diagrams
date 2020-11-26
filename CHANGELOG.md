@@ -139,4 +139,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Canvas Component for panning and zooming
+- useCanvas hook
+- CanvasControl component
 - Added `disconnect` function exported in `useSchema` hook
+

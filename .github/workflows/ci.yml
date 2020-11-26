@@ -45,7 +45,7 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Prepare distribution
-        run: cp -r ./@types ./dist/@types && cp package.json index.d.ts README.md LICENSE CHANGELOG.md CONTRIBUTING.md CODE_OF_CONDUCT.md ./dist
+        run: cp -r ./@types ./dist/@types && cp package.json index.d.ts CanvasControls.md LICENSE CHANGELOG.md CONTRIBUTING.md CODE_OF_CONDUCT.md ./dist
 
       - name: Publish
         run: |
