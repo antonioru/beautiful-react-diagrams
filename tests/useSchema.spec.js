@@ -1,7 +1,7 @@
 import useSchema from '../dist/hooks/useSchema';
 import schemaReducer from '../dist/hooks/useSchema/schemaReducer';
 import createSchema from '../dist/shared/functions/createSchema';
-import { ON_CHANGE, ON_CONNECT, ON_NODE_ADD, ON_NODE_REMOVE } from '../dist/hooks/useSchema/actionTypes';
+import { ON_CHANGE, ON_CONNECT, ON_NODE_ADD, ON_NODE_REMOVE, ON_DISCONNECT } from '../dist/hooks/useSchema/actionTypes';
 
 describe('useSchema reducer', () => {
   it('should return the same state if the action is invalid', () => {
@@ -95,6 +95,40 @@ describe('useSchema reducer', () => {
     expect(nextSchema).to.have.property('links');
     expect(nextSchema.nodes).to.deep.equal([]);
     expect(nextSchema.links).to.deep.equal([link]);
+  });
+
+  it('should remove the link between two nodes ON_DISCONNECT action', () => {
+    const schema = createSchema({
+      nodes: [
+        {
+          id: 'node-1',
+          content: 'Node 1',
+          coordinates: [1, 0],
+          outputs: [{ id: 'port-1' }],
+        },
+        {
+          id: 'node-2',
+          content: 'Node 2',
+          coordinates: [2, 0],
+          inputs: [{ id: 'port-2' }],
+        },
+        {
+          id: 'node-3',
+          content: 'Node 3',
+          coordinates: [3, 0],
+          inputs: [{ id: 'port-3' }],
+        },
+      ],
+      links: [{ input: 'port-2', output: 'port-1' }, { input: 'port-3', output: 'port-1' }],
+    });
+    const link = { input: 'port-3', output: 'port-1' };
+
+    const nextSchema = schemaReducer(schema, { type: ON_DISCONNECT, payload: { link } });
+
+    expect(nextSchema).to.have.property('nodes');
+    expect(nextSchema).to.have.property('links');
+    expect(nextSchema.nodes).to.deep.equal(schema.nodes);
+    expect(nextSchema.links).to.deep.equal([{ input: 'port-2', output: 'port-1' }]);
   });
 });
 
