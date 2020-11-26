@@ -37,12 +37,12 @@ const initialSchema = createSchema({
 });
 
 const DiagramExample = () => {
-  const [canvasState, handlers] = useCanvasState(); // creates canvas state
+  const [canvasStates, handlers] = useCanvasState(); // creates canvas state
   const [schema, { onChange }] = useSchema(initialSchema); // creates diagrams schema
 
   return (
     <div style={{ height: '30rem' }}>
-      <Canvas {...canvasState} {...handlers}>
+      <Canvas {...canvasStates} {...handlers}>
         <Diagram schema={schema} onChange={onChange} />
         <CanvasControls />
       </Canvas>

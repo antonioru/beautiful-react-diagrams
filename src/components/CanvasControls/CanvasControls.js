@@ -32,7 +32,7 @@ const CanvasControls = (props) => {
   }, [onZoomChange]);
 
   const resetHandler = useCallback(() => {
-    onPanChange({ x: 0, y: 0 });
+    onPanChange([0, 0]);
     onZoomChange(1);
   }, [onZoomChange, onPanChange]);
 

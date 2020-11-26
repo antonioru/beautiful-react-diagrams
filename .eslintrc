@@ -7,7 +7,7 @@
     "mocha": true
   },
   "rules": {
-    "max-len": ["error", { "code": 120 }],
+    "max-len": ["error", { "code": 140 }],
     "object-curly-newline": "off",
     "react/jsx-filename-extension": [1, { "extensions": [ ".js", ".jsx" ] } ],
     "react/prop-types": [2, { "ignore":  ["className", "children", "style"] }],

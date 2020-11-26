@@ -28,7 +28,8 @@ const useCanvasZoomHandlers = (ref, options = defaultOptions) => {
 
   const scaleOnWheel = useCallback((event) => {
     if (onZoomChange && zoomOnWheel) {
-      event.preventDefault(); // FIXME: double check the bubbling of this event you know nothing about
+      event.preventDefault();
+      event.stopPropagation();
 
       onZoomChange((currentScale) => {
         if (event.deltaY > 0) {
@@ -38,17 +39,18 @@ const useCanvasZoomHandlers = (ref, options = defaultOptions) => {
         return (currentScale - wheelOffset > minZoom) ? (currentScale - wheelOffset) : minZoom;
       });
     }
-  }, [onZoomChange, maxZoom, minZoom]);
+  }, [onZoomChange, zoomOnWheel, maxZoom, minZoom]);
 
   const resetZoom = useCallback((event) => {
     if (onZoomChange && zoomResetOnDblClick) {
       event.preventDefault();
+      event.stopPropagation();
       onZoomChange(1);
     }
-  }, []);
+  }, [onZoomChange, zoomResetOnDblClick]);
 
-  useEvent(ref, Events.WHEEL, scaleOnWheel, { passive: false });
-  useEvent(ref, Events.DOUBLE_CLICK, resetZoom, { passive: false });
+  useEvent(ref, Events.WHEEL, scaleOnWheel, { passive: false, capture: true });
+  useEvent(ref, Events.DOUBLE_CLICK, resetZoom, { passive: false, capture: true });
 };
 
 export default useCanvasZoomHandlers;

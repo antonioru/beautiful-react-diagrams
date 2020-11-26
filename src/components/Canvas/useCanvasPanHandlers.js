@@ -1,11 +1,9 @@
 import { useCallback, useRef } from 'react';
-import { Events, isTouch } from '../../shared/Constants';
+import { Events } from '../../shared/Constants';
+import { getEventPoint } from '../../shared/funcs/getEventPoint';
 
 const friction = 0.8; // TODO: document this stuff
-const getMouseEventPoint = (e) => ({ x: e.pageX, y: e.pageY });
-const getTouchEventPoint = (e) => getMouseEventPoint(e.changedTouches[0]);
-const getEventPoint = isTouch ? getTouchEventPoint : getMouseEventPoint;
-const calculateDelta = (current, last) => ({ x: last.x - current.x, y: last.y - current.y });
+const calculateDelta = ([currentX, currentY], [lastX, lastY]) => ([lastX - currentX, lastY - currentY]);
 const applyInertia = (value) => (Math.abs(value) >= 0.5 ? Math.trunc(value * friction) : 0);
 
 /**
@@ -15,36 +13,40 @@ const applyInertia = (value) => (Math.abs(value) >= 0.5 ? Math.trunc(value * fri
  */
 const useCanvasPanHandlers = ({ pan, onPanChange, inertia }) => {
   const lastPointRef = useRef(pan);
-  const deltaRef = useRef({ x: null, y: null });
+  const deltaRef = useRef([0, 0]);
 
   // TODO: document this callback
   const performPan = useCallback((event) => {
     if (onPanChange) {
-      const lastPoint = { ...lastPointRef.current };
+      const lastPoint = [...lastPointRef.current];
       const point = getEventPoint(event);
-      lastPointRef.current = point;
-      onPanChange(({ x, y }) => {
-        const delta = calculateDelta(lastPoint, point);
-        deltaRef.current = { ...delta };
 
-        return { x: x + delta.x, y: y + delta.y };
+      console.log(event);
+      event.preventDefault();
+      event.stopPropagation();
+
+      lastPointRef.current = point;
+      onPanChange(([x, y]) => {
+        const delta = calculateDelta(lastPoint, point);
+        deltaRef.current = [...delta];
+        return [x + delta[0], y + delta[1]];
       });
     }
-  }, []);
+  }, [onPanChange, deltaRef.current.toString()]);
 
   // TODO: document this callback
   const performInertia = useCallback(() => {
     if (inertia) {
-      onPanChange(({ x, y }) => ({ x: x + deltaRef.current.x, y: y + deltaRef.current.y }));
+      onPanChange(([x, y]) => ([x + deltaRef.current[0], y + deltaRef.current[1]]));
 
-      deltaRef.current.x = applyInertia(deltaRef.current.x);
-      deltaRef.current.y = applyInertia(deltaRef.current.y);
+      deltaRef.current[0] = applyInertia(deltaRef.current[0]);
+      deltaRef.current[1] = applyInertia(deltaRef.current[1]);
 
-      if (Math.abs(deltaRef.current.x) > 0 || Math.abs(deltaRef.current.y) > 0) {
+      if (Math.abs(deltaRef.current[0]) > 0 || Math.abs(deltaRef.current[1]) > 0) {
         requestAnimationFrame(performInertia);
       }
     }
-  }, [inertia, deltaRef.current.x, deltaRef.current.y]);
+  }, [inertia, deltaRef.current.toString()]);
 
   // TODO: document this callback
   const endPan = useCallback(() => {
@@ -61,8 +63,11 @@ const useCanvasPanHandlers = ({ pan, onPanChange, inertia }) => {
   // TODO: document this callback
   const onPanStart = useCallback((event) => {
     if (onPanChange) {
-      document.addEventListener(Events.MOUSE_MOVE, performPan);
-      document.addEventListener(Events.MOUSE_END, endPan);
+      event.preventDefault();
+      event.stopPropagation();
+
+      document.addEventListener(Events.MOUSE_MOVE, performPan, { passive: false });
+      document.addEventListener(Events.MOUSE_END, endPan, { passive: false });
       lastPointRef.current = getEventPoint(event);
     }
   }, [onPanChange, performPan, endPan]);

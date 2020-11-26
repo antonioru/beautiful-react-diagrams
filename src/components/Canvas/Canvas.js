@@ -1,17 +1,19 @@
 import React, { useMemo, useRef } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import isEqual from 'lodash.isequal';
+import CanvasContextProvider from '../../contexts/CanvasContext';
 import useCanvasPanHandlers from './useCanvasPanHandlers';
 import useCanvasZoomHandlers from './useCanvasZoomHandlers';
 import BackgroundGrid from './BackgroundGrid';
 import { noop } from '../../shared/Constants';
 import { filterControlsOut, enrichControls } from './childrenUtils';
+import { CoordinatesType } from '../../shared/Types';
+import useRenderInfo from 'beautiful-react-hooks/useRenderInfo';
 
 import './canvas.scss';
 
-const calcTransformation = (scale = 1, { x = 0, y = 0 }) => ({
-  transform: `translate(${x}px, ${y}px) translateZ(0) scale(${scale})`,
-});
+const calcTransformation = (scale = 1, [x, y]) => ({ transform: `translate(${x}px, ${y}px) translateZ(0) scale(${scale})` });
 
 /**
  * @TODO: Document this component
@@ -23,25 +25,29 @@ const Canvas = (props) => {
   } = props;
   const elRef = useRef();
   const classList = useMemo(() => classNames('bi bi-diagram bi-diagram-canvas', className), [className]);
-  const style = useMemo(() => calcTransformation(zoom, pan), [zoom, pan.x, pan.y]);
+  const style = useMemo(() => calcTransformation(zoom, pan), [zoom, pan.toString()]);
   const startPan = useCanvasPanHandlers({ pan, onPanChange, inertia });
 
   useCanvasZoomHandlers(elRef, { onZoomChange, maxZoom, minZoom, zoomOnWheel, zoomResetOnDblClick });
 
+  useRenderInfo('Canvas');
+
   return (
-    <ElementRenderer className={classList} onMouseDown={startPan} onTouchStart={startPan} ref={elRef} {...rest}>
-      <GridRenderer translateX={pan.x} translateY={pan.y} scale={zoom} />
-      <div className="bi-canvas-content" style={style}>
-        {filterControlsOut(children)}
-      </div>
-      {debug && (
-        <div className="bi-canvas-debugger">
-          <p>{`Pan: ${pan.x}, ${pan.y}`}</p>
-          <p>{`Scale: ${zoom}`}</p>
+    <CanvasContextProvider value={{ pan, zoom }}>
+      <ElementRenderer className={classList} onMouseDown={startPan} onTouchStart={startPan} ref={elRef} {...rest}>
+        <GridRenderer translateX={pan[0]} translateY={pan[1]} scale={zoom} />
+        <div className="bi-canvas-content" style={style}>
+          {filterControlsOut(children)}
         </div>
-      )}
-      {enrichControls(children, { onPanChange, onZoomChange, minZoom, maxZoom })}
-    </ElementRenderer>
+        {debug && (
+          <div className="bi-canvas-debugger">
+            <p>{`Pan: ${pan[0]}, ${pan[1]}`}</p>
+            <p>{`Scale: ${zoom}`}</p>
+          </div>
+        )}
+        {enrichControls(children, { onPanChange, onZoomChange, minZoom, maxZoom })}
+      </ElementRenderer>
+    </CanvasContextProvider>
   );
 };
 
@@ -49,7 +55,7 @@ Canvas.propTypes = {
   /**
    * Since Canvas is a controlled component, the 'pan' prop defines the canvas panning
    */
-  pan: PropTypes.exact({ x: PropTypes.number, y: PropTypes.number }),
+  pan: CoordinatesType,
   /**
    * Since Canvas is a controlled component, the 'onPanChange' prop is the change handler of the 'pan' prop
    */
@@ -91,7 +97,7 @@ Canvas.propTypes = {
 };
 
 Canvas.defaultProps = {
-  pan: { x: 0, y: 0 },
+  pan: [0, 0],
   onPanChange: noop,
   zoom: 1,
   onZoomChange: noop,

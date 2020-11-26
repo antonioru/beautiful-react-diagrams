@@ -1,0 +1,39 @@
+.bi.bi-diagram .bi.bi-diagram-node {
+  box-sizing: content-box;
+  position: absolute;
+  z-index: 50;
+
+  cursor: no-drop;
+  transform: translateX(-50%) translateY(-50%) translateZ(0);
+
+  &.node-draggable {
+    cursor: move;
+    user-select: none;
+  }
+
+  .bi-port-wrapper {
+    display: flex;
+
+    .bi-input-ports,
+    .bi-output-ports {
+      flex: 1 1;
+
+      .bi-diagram-port {
+        transition: background-color 0.25s ease-in-out;
+        background-color: rgba(0, 0, 0, 0.08);
+        width: 1.25rem;
+        height: 1.25rem;
+        margin-bottom: 0.25rem;
+
+        &:hover {
+          background-color: rgba(0, 0, 0, 0.1);
+        }
+      }
+    }
+
+    /* stylelint-disable-next-line no-descending-specificity */
+    .bi-output-ports .bi-diagram-port {
+      margin-left: auto;
+    }
+  }
+}

@@ -1,89 +1,41 @@
-import React, { useCallback, useState, useRef } from 'react';
+import React, { useCallback } from 'react';
+import { useRenderInfo } from 'beautiful-react-hooks';
 import PropTypes from 'prop-types';
-import DiagramCanvas from './DiagramCanvas/DiagramCanvas';
-import NodesCanvas from './NodesCanvas/NodesCanvas';
-import LinksCanvas from './LinksCanvas/LinksCanvas';
+import isEqual from 'lodash.isequal';
 import { SchemaType } from '../../shared/Types';
+import DiagramContextProvider from '../../contexts/DiagramContext';
+import NodeDraggableElement from '../NodeDraggableElement';
+import updateNodeAt from './updateNodeAt';
 
 import './diagram.scss';
 
 /**
- * The Diagram component is the root-node of any diagram.<br />
- * It accepts a `schema` prop defining the current state of the diagram and emits its possible changes through the
- * `onChange` prop, allowing the developer to have the best possible control over the diagram and its interactions
- * with the user.
+ *
+ * @param schema
+ * @param onChange
+ * @returns {*}
+ * @constructor
  */
-const Diagram = (props) => {
-  const { schema, onChange, ...rest } = props;
-  const [segment, setSegment] = useState();
-  const { current: portRefs } = useRef({}); // keeps the port elements references
-  const { current: nodeRefs } = useRef({}); // keeps the node elements references
+const Diagram = ({ schema, onChange }) => {
+  useRenderInfo('Diagram');
 
-  // when nodes change, performs the onChange callback with the new incoming data
-  const onNodesChange = (nextNodes) => {
-    if (onChange) {
-      onChange({ nodes: nextNodes });
-    }
-  };
+  const onNodeChange = useCallback((nodeIndex, properties) => {
+    const nextNodes = updateNodeAt(schema.nodes, nodeIndex, properties);
+    console.log('Next nodes', nextNodes);
+    onChange({ nodes: nextNodes });
+  });
 
-  // when a port is registered, save it to the local reference
-  const onPortRegister = (portId, portEl) => {
-    portRefs[portId] = portEl;
-  };
-
-  // when a node is registered, save it to the local reference
-  const onNodeRegister = (nodeId, nodeEl) => {
-    nodeRefs[nodeId] = nodeEl;
-  };
-
-  // when a node is deleted, remove its references
-  const onNodeRemove = useCallback((nodeId, inputsPorts, outputsPorts) => {
-    delete nodeRefs[nodeId];
-    inputsPorts.forEach((input) => delete portRefs[input]);
-    outputsPorts.forEach((output) => delete portRefs[output]);
-  }, []);
-
-  // when a new segment is dragged, save it to the local state
-  const onDragNewSegment = useCallback((portId, from, to, alignment) => {
-    setSegment({ id: `segment-${portId}`, from, to, alignment });
-  }, []);
-
-  // when a segment fails to connect, reset the segment state
-  const onSegmentFail = useCallback(() => {
-    setSegment(undefined);
-  }, []);
-
-  // when a segment connects, update the links schema, perform the onChange callback
-  // with the new data, then reset the segment state
-  const onSegmentConnect = (input, output) => {
-    const nextLinks = [...(schema.links || []), { input, output }];
-    if (onChange) {
-      onChange({ links: nextLinks });
-    }
-    setSegment(undefined);
-  };
-
-  // when links change, performs the onChange callback with the new incoming data
-  const onLinkDelete = (nextLinks) => {
-    if (onChange) {
-      onChange({ links: nextLinks });
-    }
-  };
 
   return (
-    <DiagramCanvas portRefs={portRefs} nodeRefs={nodeRefs} {...rest}>
-      <NodesCanvas
-        nodes={schema.nodes}
-        onChange={onNodesChange}
-        onNodeRegister={onNodeRegister}
-        onPortRegister={onPortRegister}
-        onNodeRemove={onNodeRemove}
-        onDragNewSegment={onDragNewSegment}
-        onSegmentFail={onSegmentFail}
-        onSegmentConnect={onSegmentConnect}
-      />
-      <LinksCanvas nodes={schema.nodes} links={schema.links} segment={segment} onChange={onLinkDelete} />
-    </DiagramCanvas>
+    <DiagramContextProvider value={{ schema }}>
+      <div className="bi bi-diagram">
+        <div className="bi bi-diagram-nodes">
+          {schema.nodes.map((node, index) => (
+            <NodeDraggableElement {...node} onPositionChange={onNodeChange} key={node.id} nodeIndex={index} />
+          ))}
+        </div>
+      </div>
+    </DiagramContextProvider>
   );
 };
 

@@ -1,5 +1,15 @@
 import PropTypes from 'prop-types';
 
+export const CoordinatesType = (props, propName, componentName) => {
+  // eslint-disable-next-line react/destructuring-assignment
+  const value = props[propName];
+  if (!value || !Array.isArray(value) || value.length !== 2) {
+    return new Error(`Invalid prop \`${propName}\` supplied to \`${componentName}\`. Validation failed.`);
+  }
+
+  return null;
+};
+
 /**
  * Link
  */
@@ -27,11 +37,11 @@ export const PortType = PropTypes.shape({
  */
 export const NodeType = PropTypes.shape({
   id: PropTypes.string.isRequired,
-  coordinates: PropTypes.arrayOf(PropTypes.number).isRequired, // TODO: must be an array of 2 numbers only
+  coordinates: CoordinatesType,
+  disableDrag: PropTypes.bool,
   content: PropTypes.oneOfType([PropTypes.elementType, PropTypes.node]),
   inputs: PropTypes.arrayOf(PortType),
   outputs: PropTypes.arrayOf(PortType),
-  type: PropTypes.oneOf(['default']),
   render: PropTypes.elementType,
   className: PropTypes.string,
 });
