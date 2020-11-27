@@ -1,5 +1,6 @@
 import throttle from 'lodash.throttle';
 import { useRef, useCallback, useEffect } from 'react';
+import { Events, getEventPoint } from '../Constants';
 
 const defaultOptions = {
   /**
@@ -13,13 +14,6 @@ const defaultOptions = {
    */
   throttleBy: 0,
 };
-
-/**
- * Returns the click coordinates of a MouseEvent
- * @param event
- * @returns {*[]}
- */
-const getEventCoordinates = (event) => [event.clientX, event.clientY];
 
 /**
  * Create a persistent callback reference that will live trough a component lifecycle
@@ -94,7 +88,7 @@ const useDrag = (options = defaultOptions) => {
       info.isDragging = true;
       info.end = null;
       info.offset = null;
-      info.start = getEventCoordinates(event);
+      info.start = getEventPoint(event);
 
       if (dragStartHandlerRef.current) {
         dragStartHandlerRef.current(event, { ...info });
@@ -106,8 +100,9 @@ const useDrag = (options = defaultOptions) => {
    * Whilst dragging the element, updates the state then perform the user's onDrag handler if exists
    */
   const onDrag = useCallback(throttle((event) => {
+    const eventPoints = getEventPoint(event);
     if (info.isDragging) {
-      info.offset = [info.start[0] - event.clientX, info.start[1] - event.clientY];
+      info.offset = [info.start.x - eventPoints.x, info.start.y - eventPoints.y];
 
       if (dragHandlerRef.current) {
         dragHandlerRef.current(event, { ...info });
@@ -121,7 +116,7 @@ const useDrag = (options = defaultOptions) => {
   const onDragEnd = useCallback((event) => {
     if (info.isDragging) {
       info.isDragging = false;
-      info.end = getEventCoordinates(event);
+      info.end = getEventPoint(event);
 
       if (dragEndHandlerRef.current) {
         dragEndHandlerRef.current(event, { ...info });
@@ -140,16 +135,16 @@ const useDrag = (options = defaultOptions) => {
     /* eslint-enable no-underscore-dangle */
 
     if (targetRef.current) {
-      targetRef.current.addEventListener('mousedown', _onDragStart);
-      document.addEventListener('mousemove', _onDrag);
-      document.addEventListener('mouseup', _onDragEnd);
+      targetRef.current.addEventListener(Events.MOUSE_START, _onDragStart);
+      document.addEventListener(Events.MOUSE_MOVE, _onDrag);
+      document.addEventListener(Events.MOUSE_END, _onDragEnd);
     }
 
     return () => {
       if (targetRef.current) {
-        targetRef.current.removeEventListener('mousedown', _onDragStart);
-        document.removeEventListener('mousemove', _onDrag);
-        document.removeEventListener('mouseup', _onDragEnd);
+        targetRef.current.removeEventListener(Events.MOUSE_START, _onDragStart);
+        document.removeEventListener(Events.MOUSE_MOVE, _onDrag);
+        document.removeEventListener(Events.MOUSE_END, _onDragEnd);
       }
     };
   }, [targetRef.current]);
