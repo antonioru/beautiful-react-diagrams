@@ -1,8 +1,8 @@
-![CI/CD](https://github.com/antonioru/beautiful-react-diagrams/workflows/CI/CD/badge.svg)
+![CI/CD](https://github.com/beautifulinteractions/beautiful-react-diagrams/workflows/CI/CD/badge.svg)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Coverage Status](https://coveralls.io/repos/github/antonioru/beautiful-react-diagrams/badge.svg?branch=master)](https://coveralls.io/github/antonioru/beautiful-react-diagrams?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/beautifulinteractions/beautiful-react-diagrams/badge.svg?branch=master)](https://coveralls.io/github/antonioru/beautiful-react-diagrams?branch=master)
 ![npm](https://img.shields.io/npm/v/beautiful-react-diagrams)
-![GitHub stars](https://img.shields.io/github/stars/antonioru/beautiful-react-diagrams?style=social)
+![GitHub stars](https://img.shields.io/github/stars/beautifulinteractions/beautiful-react-diagrams?style=social)
 
 <div align="center">
   <p align="center">
@@ -69,6 +69,14 @@ To submit your custom pull request, please make sure your read our [CONTRIBUTING
 3. make sure you run `npm run lint`, `npm build` and then `npm test` before submitting your merge request.
 4. make sure you've added the documentation of your changes.
 5. if you've changed the signature of a component, please make sure you've updated the `index.d.ts` file.
+
+## Versioning
+
+This library follows the [semver](https://semver.org) versioning standard.
+Pre-release commits on the `master` branch, including merge commits, lead 
+to automated publication to NPM under the `next` tag. Pre-release version
+numbers must follow the `<major>.<minor>.<patch>-<tag>.<number>`, such as 
+`5.1.0-rc.0`. 
 
 ### Credits
 
