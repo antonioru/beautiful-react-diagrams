@@ -127,3 +127,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Added the `disableDrag` option to node schema
 - Validator examples in the documentation
+
+## [0.5.0] - 2020-11-20
+
+  ### Added
+
+  - First implementation of draggable canvas
+  - First implementation of zoomable canvas
+
+## [0.5.1] - 2020-11-27
+
+  ### Reverted
+  
+  - Reverted changes in `0.5.0` related to draggable canvas and zoomable 
+    canvas due to an uncaught bug. We will continue working on these features
+    and release them in an upcoming version. Apologies everyone! 
