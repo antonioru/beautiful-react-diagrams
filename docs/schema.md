@@ -3,7 +3,7 @@ comes with the library.
 
 ### createSchema
 
-Creates a valid diagam `schema` by validating the passed one. 
+Creates a valid diagram `schema` by validating the passed one. 
 It ensures the nodes' id by creating a random one if none is provided.
 
 ```javascript static

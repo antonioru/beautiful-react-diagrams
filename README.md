@@ -86,4 +86,4 @@ As part of our commitment to support and contribute to the open source community
 
 ---
 
-Icon made by [Freepik](https://www.flaticon.com/authors/freepik) from [www.flaticon.com](https://www.flaticon.com/free-icon/hook_1081812)
+This library logo has been created using images published by the user [Freepik](https://www.flaticon.com/authors/freepik) on [www.flaticon.com](https://www.flaticon.com/free-icon/hook_1081812)
