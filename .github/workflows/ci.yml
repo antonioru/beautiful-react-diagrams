@@ -14,6 +14,7 @@ jobs:
     if: "!contains(github.event.head_commit.message, 'skip ci')"
     runs-on: ubuntu-latest
     steps:
+      - uses: gregoranders/nodejs-project-info@v0.0.11
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
@@ -45,12 +46,14 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Prepare distribution
+        if: "contains(steps.projectinfo.outputs.version, '-')"
         run: cp -r ./@types ./dist/@types && cp package.json index.d.ts README.md LICENSE CHANGELOG.md CONTRIBUTING.md CODE_OF_CONDUCT.md ./dist
 
       - name: Publish
+        if: "contains(steps.projectinfo.outputs.version, '-')"
         run: |
           npm pack
-          npm publish
+          npm publish --tag next
         working-directory: ./dist
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
