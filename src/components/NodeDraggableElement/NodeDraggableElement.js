@@ -1,7 +1,6 @@
 import React, { useContext, useMemo, useRef } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import isEqual from 'lodash.isequal';
 import { useRenderInfo } from 'beautiful-react-hooks';
 import { CoordinatesType, PortType } from '../../shared/Types';
 import { CanvasContext } from '../../contexts/CanvasContext';
@@ -29,14 +28,23 @@ const NodeDraggableElement = (props) => {
     classNames('bi bi-diagram-node', { 'node-draggable': !disableDrag }, className)
   ), [disableDrag, className]);
   // const { pan, zoom } = useContext(CanvasContext);
-  const pan = [0, 0]; const zoom = 1;
-  const startDrag = useDragAround({ onPositionChange, disableDrag, pan, zoom, nodeIndex, coordinates, elRef });
+  const pan = [0, 0];
+  const zoom = 1;
+  const [isDragging, startDrag] = useDragAround({ onPositionChange, disableDrag, pan, zoom, nodeIndex, coordinates, elRef });
 
   useRenderInfo(`NodeDraggableElement, id: ${id}`);
 
   return (
     <ElementRender className={classList} onMouseDown={startDrag} onTouchStart={startDrag} data-node-id={id} style={style} ref={elRef}>
-      <ContentNode id={id} content={content} inputs={inputs} outputs={outputs} data={data} />
+      <ContentNode
+        id={id}
+        content={content}
+        inputs={inputs}
+        outputs={outputs}
+        data={data}
+        coordinates={coordinates}
+        isDragging={isDragging}
+      />
     </ElementRender>
   );
 };
@@ -53,7 +61,7 @@ NodeDraggableElement.propTypes = {
   /**
    * The diagram current coordinates, relative to the container
    */
-  coordinates: CoordinatesType.isRequired,
+  coordinates: CoordinatesType,
   /**
    * Defines whether the drag functionality is enabled
    */
@@ -111,6 +119,7 @@ NodeDraggableElement.propTypes = {
 NodeDraggableElement.defaultProps = {
   disableDrag: false,
   render: NodeDefault,
+  coordinates: [0, 0],
   ElementRender: 'article',
   content: null,
   data: null,

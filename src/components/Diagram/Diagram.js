@@ -21,10 +21,8 @@ const Diagram = ({ schema, onChange }) => {
 
   const onNodeChange = useCallback((nodeIndex, properties) => {
     const nextNodes = updateNodeAt(schema.nodes, nodeIndex, properties);
-    console.log('Next nodes', nextNodes);
     onChange({ nodes: nextNodes });
   });
-
 
   return (
     <DiagramContextProvider value={{ schema }}>

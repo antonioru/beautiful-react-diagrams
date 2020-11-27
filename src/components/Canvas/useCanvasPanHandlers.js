@@ -1,6 +1,7 @@
 import { useCallback, useRef } from 'react';
 import { Events } from '../../shared/Constants';
 import { getEventPoint } from '../../shared/funcs/getEventPoint';
+import stopEvent from '../../shared/funcs/stopEvent';
 
 const friction = 0.8; // TODO: document this stuff
 const calculateDelta = ([currentX, currentY], [lastX, lastY]) => ([lastX - currentX, lastY - currentY]);
@@ -17,13 +18,11 @@ const useCanvasPanHandlers = ({ pan, onPanChange, inertia }) => {
 
   // TODO: document this callback
   const performPan = useCallback((event) => {
+    stopEvent(event);
+
     if (onPanChange) {
       const lastPoint = [...lastPointRef.current];
       const point = getEventPoint(event);
-
-      console.log(event);
-      event.preventDefault();
-      event.stopPropagation();
 
       lastPointRef.current = point;
       onPanChange(([x, y]) => {
@@ -62,10 +61,9 @@ const useCanvasPanHandlers = ({ pan, onPanChange, inertia }) => {
 
   // TODO: document this callback
   const onPanStart = useCallback((event) => {
-    if (onPanChange) {
-      event.preventDefault();
-      event.stopPropagation();
+    stopEvent(event);
 
+    if (onPanChange) {
       document.addEventListener(Events.MOUSE_MOVE, performPan, { passive: false });
       document.addEventListener(Events.MOUSE_END, endPan, { passive: false });
       lastPointRef.current = getEventPoint(event);

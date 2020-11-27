@@ -1,5 +1,6 @@
 import { useEffect, useCallback } from 'react';
-import { Events } from '../../shared/Constants';
+import { Events, isTouch } from '../../shared/Constants';
+import stopEvent from '../../shared/funcs/stopEvent';
 
 // TODO: move to the hooks library
 const useEvent = (ref, event, callback, options) => {
@@ -27,10 +28,8 @@ const useCanvasZoomHandlers = (ref, options = defaultOptions) => {
   const { onZoomChange, maxZoom, minZoom, zoomOnWheel, zoomResetOnDblClick } = options;
 
   const scaleOnWheel = useCallback((event) => {
+    stopEvent(event);
     if (onZoomChange && zoomOnWheel) {
-      event.preventDefault();
-      event.stopPropagation();
-
       onZoomChange((currentScale) => {
         if (event.deltaY > 0) {
           return (currentScale + wheelOffset < maxZoom) ? (currentScale + wheelOffset) : maxZoom;
@@ -42,15 +41,16 @@ const useCanvasZoomHandlers = (ref, options = defaultOptions) => {
   }, [onZoomChange, zoomOnWheel, maxZoom, minZoom]);
 
   const resetZoom = useCallback((event) => {
+    stopEvent(event);
     if (onZoomChange && zoomResetOnDblClick) {
-      event.preventDefault();
-      event.stopPropagation();
       onZoomChange(1);
     }
   }, [onZoomChange, zoomResetOnDblClick]);
 
-  useEvent(ref, Events.WHEEL, scaleOnWheel, { passive: false, capture: true });
-  useEvent(ref, Events.DOUBLE_CLICK, resetZoom, { passive: false, capture: true });
+  if (!isTouch) {
+    useEvent(ref, Events.WHEEL, scaleOnWheel);
+    useEvent(ref, Events.DOUBLE_CLICK, resetZoom);
+  }
 };
 
 export default useCanvasZoomHandlers;

@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import isEqual from 'lodash.isequal';
 import { useRenderInfo } from 'beautiful-react-hooks';
-import { PortType } from '../../shared/Types';
+import { CoordinatesType, PortType } from '../../shared/Types';
 
 import './node-default.scss';
 
@@ -32,7 +31,7 @@ NodeDefault.propTypes = {
   /**
    * The diagram current coordinates, relative to the container
    */
-  coordinates: PropTypes.arrayOf(PropTypes.number).isRequired,
+  coordinates: CoordinatesType,
   /**
    * The diagram content
    */
@@ -80,6 +79,7 @@ NodeDefault.propTypes = {
 };
 
 NodeDefault.defaultProps = {
+  coordinates: [0, 0],
   content: null,
   data: null,
   outputs: [],
