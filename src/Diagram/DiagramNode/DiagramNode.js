@@ -1,7 +1,6 @@
 import React, { useMemo, useRef } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import inRange from 'lodash.inrange';
 import getDiagramNodeStyle from './getDiagramNodeStyle';
 import { usePortRegistration, useNodeRegistration } from '../../shared/internal_hooks/useContextRegistration';
 import { PortType } from '../../shared/Types';
@@ -25,9 +24,8 @@ const DiagramNode = (props) => {
 
   if (!disableDrag) {
     // when drag starts, save the starting coordinates into the `dragStartPoint` ref
-    onDragStart((event) => {
+    onDragStart(() => {
       dragStartPoint.current = coordinates;
-      event.stopPropagation();
     });
 
     // whilst dragging calculates the next coordinates and perform the `onPositionChange` callback
@@ -35,14 +33,11 @@ const DiagramNode = (props) => {
       if (onPositionChange) {
         event.stopImmediatePropagation();
         event.stopPropagation();
-        const nextWidth = dragStartPoint.current[0] - info.offset[0];
-        const nextHeight = dragStartPoint.current[1] - info.offset[1];
-        const parentDim = [ref.current.parentElement.offsetWidth, ref.current.parentElement.offsetHeight];
-        const refDim = [ref.current.offsetWidth, ref.current.offsetHeight];
-        if (inRange(nextWidth, 0, parentDim[0] - refDim[0]) && inRange(nextHeight, 0, parentDim[1] - refDim[1])) {
-          const nextCoords = [nextWidth, nextHeight];
-          onPositionChange(id, nextCoords);
-        }
+        const nextCoords = [
+          dragStartPoint.current[0] - info.offset[0],
+          dragStartPoint.current[1] - info.offset[1],
+        ];
+        onPositionChange(id, nextCoords);
       }
     });
   }

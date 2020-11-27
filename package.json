@@ -1,6 +1,6 @@
 {
   "name": "beautiful-react-diagrams",
-  "version": "0.5.0",
+  "version": "0.4.0",
   "description": "A tiny collection of lightweight React components to build diagrams with ease",
   "main": "index.js",
   "module": "esm/index.js",
@@ -61,7 +61,7 @@
     "jsdom-global": "^3.0.2",
     "mini-css-extract-plugin": "^1.1.1",
     "mocha": "^8.2.0",
-    "node-sass": "^5.0.0",
+    "node-sass": "^4.14.1",
     "nyc": "^15.1.0",
     "postcss": "^8.1.2",
     "postcss-fixes": "^2.0.1",
@@ -69,7 +69,7 @@
     "postcss-preset-env": "^6.7.0",
     "postcss-will-change": "3.0.0",
     "postcss-will-change-transition": "^1.2.0",
-    "react": "^17.0.1",
+    "react": "^16.14.0",
     "react-dom": "^16.12.0",
     "react-styleguidist": "^11.1.0",
     "rollup": "^2.32.1",
@@ -91,13 +91,12 @@
     "beautiful-react-hooks": "^0.31.0",
     "classnames": "^2.2.6",
     "lodash.findindex": "^4.6.0",
-    "lodash.inrange": "3.3.6",
     "lodash.isequal": "^4.5.0",
     "lodash.throttle": "^4.1.1",
     "prop-types": "^15.7.2"
   },
   "peerDependencies": {
-    "react": ">=17.0.1",
-    "react-dom": ">=17.0.1"
+    "react": ">=16.14.1",
+    "react-dom": ">=16.12.0"
   }
 }

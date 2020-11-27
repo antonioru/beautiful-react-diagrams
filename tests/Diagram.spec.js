@@ -26,21 +26,21 @@ describe('Diagram component', () => {
 
   it('should accept an "id" prop', () => {
     const { container } = render(<Diagram schema={schemaMock} id="foo" />);
-    const wrapper = container.querySelector('.bi.bi-diagram-canvas');
+    const wrapper = container.querySelector('.bi.bi-diagram');
 
     expect(wrapper.id).to.equal('foo');
   });
 
   it('should allow adding custom classes', () => {
     const { container } = render(<Diagram schema={schemaMock} className="foo" />);
-    const wrapper = container.querySelector('.bi.bi-diagram-canvas');
+    const wrapper = container.querySelector('.bi.bi-diagram');
 
     expect(wrapper.getAttribute('class').split(' ')).to.include.members(['foo']);
   });
 
   it('should allow to define custom style', () => {
     const { container } = render(<Diagram schema={schemaMock} style={{ margin: '10px' }} />);
-    const wrapper = container.querySelector('.bi.bi-diagram-canvas');
+    const wrapper = container.querySelector('.bi.bi-diagram');
 
     expect(wrapper.getAttribute('style')).to.equal('margin: 10px;');
   });
