@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import useDrag from '../../../shared/internal_hooks/useDrag';
 import useCanvas from '../../../shared/internal_hooks/useCanvas';
 import getRelativePoint from '../../../shared/functions/getRelativePoint';
-
+import { getEventPoint, getEventTarget } from '../../../shared/Constants';
 /**
  * Port
  * @param props
@@ -19,16 +19,15 @@ const Port = (props) => {
     if (onDragNewSegment) {
       event.stopImmediatePropagation();
       event.stopPropagation();
-      const from = getRelativePoint(info.start, [canvas.x, canvas.y]);
-      const to = getRelativePoint([event.clientX, event.clientY], [canvas.x, canvas.y]);
-
+      const from = getRelativePoint(info.start, { x: canvas.x, y: canvas.y });
+      const to = getRelativePoint(getEventPoint(event), { x: canvas.x, y: canvas.y });
       onDragNewSegment(id, from, to, alignment);
     }
   });
 
   onDragEnd((event) => {
-    const targetPort = event.target.getAttribute('data-port-id');
-    if (targetPort && event.target !== ref.current && canLink(id, targetPort, type) && onSegmentConnect) {
+    const targetPort = getEventTarget(event).getAttribute('data-port-id');
+    if (targetPort && getEventTarget(event) !== ref.current && canLink(id, targetPort, type) && onSegmentConnect) {
       const args = type === 'input' ? [id, targetPort, type] : [targetPort, id, type];
 
       onSegmentConnect(...args);
