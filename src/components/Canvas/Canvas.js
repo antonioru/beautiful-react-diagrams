@@ -25,7 +25,7 @@ const Canvas = (props) => {
   } = props;
   const elRef = useRef();
   const classList = useMemo(() => classNames('bi bi-diagram bi-diagram-canvas', className), [className]);
-  const style = useMemo(() => calcTransformation(zoom, pan), [zoom, pan.toString()]);
+  const style = useMemo(() => calcTransformation(zoom, pan), [zoom, pan[0], pan[1]]);
   const startPan = useCanvasPanHandlers({ pan, onPanChange, inertia });
 
   useCanvasZoomHandlers(elRef, { onZoomChange, maxZoom, minZoom, zoomOnWheel, zoomResetOnDblClick });

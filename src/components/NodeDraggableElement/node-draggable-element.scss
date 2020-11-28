@@ -4,7 +4,6 @@
   z-index: 50;
 
   cursor: no-drop;
-  transform: translateX(-50%) translateY(-50%) translateZ(0);
 
   &.node-draggable {
     cursor: move;

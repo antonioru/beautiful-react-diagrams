@@ -1,10 +1,12 @@
 import React, { useMemo, useRef } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { useRecoilValue } from 'recoil';
 import { useRenderInfo } from 'beautiful-react-hooks';
 import { CoordinatesType, PortType } from '../../shared/Types';
 import NodeDefault from '../NodeDefault';
 import useDragAround from './useDragAround';
+import { panState, zoomState } from '../../state/canvas';
 
 import './node-draggable-element.scss';
 
@@ -22,18 +24,18 @@ const NodeDraggableElement = (props) => {
     render: ContentNode, ElementRender,
   } = props;
   const elRef = useRef();
-  const style = useMemo(() => makeStyle(coordinates), [coordinates.toString()]);
+  const pan = useRecoilValue(panState);
+  const zoom = useRecoilValue(zoomState);
+  const style = useMemo(() => makeStyle(coordinates), [coordinates]);
+  const [isDragging, startDrag] = useDragAround({ onPositionChange, disableDrag, pan, zoom, nodeIndex, elRef });
   const classList = useMemo(() => (
-    classNames('bi bi-diagram-node', { 'node-draggable': !disableDrag }, className)
-  ), [disableDrag, className]);
-  const pan = [0, 0];
-  const zoom = 1;
-  const [isDragging, startDrag] = useDragAround({ onPositionChange, disableDrag, pan, zoom, nodeIndex, coordinates, elRef });
+    classNames('bi bi-diagram-node', { 'node-draggable': !disableDrag, dragging: isDragging }, className)
+  ), [disableDrag, isDragging, className]);
 
   useRenderInfo(`NodeDraggableElement, id: ${id}`);
 
   return (
-    <ElementRender className={classList} onMouseDown={startDrag} onTouchStart={startDrag} data-node-id={id} style={style} ref={elRef}>
+    <ElementRender className={classList} onMouseDown={startDrag} onTouchStart={startDrag} data-brd-id={id} style={style} ref={elRef}>
       <ContentNode
         id={id}
         content={content}
