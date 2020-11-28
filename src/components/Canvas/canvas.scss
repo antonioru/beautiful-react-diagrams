@@ -17,23 +17,13 @@
   }
 
   .bi-canvas-content {
+    will-change: transform;
+    backface-visibility: hidden;
+    perspective: 1000;
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-  }
-
-  .bi-canvas-debugger {
-    max-width: 24rem;
-    height: 3rem;
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    background: rgba(0, 0, 0, 0.1);
-
-    p {
-      margin: 0;
-    }
   }
 }

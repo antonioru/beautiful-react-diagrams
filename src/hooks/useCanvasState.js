@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import Immutable from '../shared/funcs/Immutable';
 
 const defaultInitialState = {
   pan: [0, 0],
@@ -13,7 +12,7 @@ const useCanvasState = (initialState = defaultInitialState) => {
   const [pan, onPanChange] = useState(initialState.pan);
   const [zoom, onZoomChange] = useState(initialState.zoom);
 
-  return [{ pan, zoom }, Immutable({ onPanChange, onZoomChange })];
+  return [{ pan, zoom }, { onPanChange, onZoomChange }];
 };
 
 export default useCanvasState;

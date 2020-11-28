@@ -8,6 +8,10 @@
   &.node-draggable {
     cursor: move;
     user-select: none;
+
+    will-change: transform;
+    backface-visibility: hidden;
+    perspective: 1000;
   }
 
   .bi-port-wrapper {

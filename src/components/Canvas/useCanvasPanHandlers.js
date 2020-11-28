@@ -1,39 +1,45 @@
 import { useCallback, useRef } from 'react';
 import { Events } from '../../shared/Utils';
-import { getEventPoint } from '../../shared/funcs/getEventPoint';
+import { isomorphicGetEventPoint } from '../../shared/funcs/isomorphicGetEventPoint';
 import stopEvent from '../../shared/funcs/stopEvent';
 
-const friction = 0.8; // TODO: document this stuff
+const friction = 0.9; // TODO: document this stuff
 const calculateDelta = ([currentX, currentY], [lastX, lastY]) => ([lastX - currentX, lastY - currentY]);
-const applyInertia = (value) => (Math.abs(value) >= 0.5 ? Math.trunc(value * friction) : 0);
+const applyInertia = (value) => (Math.abs(value) >= 0.1 ? Math.trunc(value * friction) : 0);
 
 /**
- * TODO: document this thing
- * Inspired by this article:
+ * Handles and incorporates the business logic of the Canvas panning.
+ * Takes the `pan` state, the `onPanChange` callback and the `inertia` flag.
+ * This implementation has been inspired by this wonderful article by Jonathan Clem:
  * https://jclem.net/posts/pan-zoom-canvas-react?utm_campaign=building-a-s--zoomable-canvasdi
  */
 const useCanvasPanHandlers = ({ pan, onPanChange, inertia }) => {
-  const lastPointRef = useRef(pan);
-  const deltaRef = useRef([0, 0]);
+  const prevPointRef = useRef(pan);
+  const deltaRef = useRef([0, 0]); // the delta between the last calculated point and the current one during the pan
 
-  // TODO: document this callback
+  /**
+   * Prevent the default behaviour of the given mouse/touch event, then calculates the next canvas coordinates
+   * from the mouse/touch ones.
+   */
   const performPan = useCallback((event) => {
     stopEvent(event);
 
     if (onPanChange) {
-      const lastPoint = [...lastPointRef.current];
-      const point = getEventPoint(event);
+      const prevPoint = [...prevPointRef.current];
+      const point = isomorphicGetEventPoint(event);
 
-      lastPointRef.current = point;
+      prevPointRef.current = point;
       onPanChange(([x, y]) => {
-        const delta = calculateDelta(lastPoint, point);
+        const delta = calculateDelta(prevPoint, point);
         deltaRef.current = [...delta];
         return [x + delta[0], y + delta[1]];
       });
     }
-  }, [onPanChange, deltaRef.current.toString()]);
+  }, [onPanChange, deltaRef]);
 
-  // TODO: document this callback
+  /**
+   * Simulates the inertia according the delta from the previous point to the last one
+   */
   const performInertia = useCallback(() => {
     if (inertia) {
       onPanChange(([x, y]) => ([x + deltaRef.current[0], y + deltaRef.current[1]]));
@@ -45,9 +51,12 @@ const useCanvasPanHandlers = ({ pan, onPanChange, inertia }) => {
         requestAnimationFrame(performInertia);
       }
     }
-  }, [inertia, onPanChange, deltaRef.current.toString()]);
+  }, [inertia, onPanChange, deltaRef]);
 
-  // TODO: document this callback
+  /**
+   * Removes the event listeners added by `onPanStart` and if the `inertia` flag is true
+   * perform the inertia simulating function
+   */
   const endPan = useCallback(() => {
     if (onPanChange) {
       document.removeEventListener(Events.MOUSE_MOVE, performPan);
@@ -59,14 +68,17 @@ const useCanvasPanHandlers = ({ pan, onPanChange, inertia }) => {
     }
   }, [performPan, inertia, performInertia, onPanChange]);
 
-  // TODO: document this callback
+  /**
+   * Prevent the default behaviour of the given mouse/touch event and adds the event listeners
+   * needed to pan the canvas
+   */
   const onPanStart = useCallback((event) => {
     stopEvent(event);
 
     if (onPanChange) {
       document.addEventListener(Events.MOUSE_MOVE, performPan, { passive: false });
       document.addEventListener(Events.MOUSE_END, endPan, { passive: false });
-      lastPointRef.current = getEventPoint(event);
+      prevPointRef.current = isomorphicGetEventPoint(event);
     }
   }, [onPanChange, performPan, endPan]);
 

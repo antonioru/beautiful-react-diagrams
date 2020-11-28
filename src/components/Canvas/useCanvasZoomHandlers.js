@@ -2,7 +2,7 @@ import { useEffect, useCallback } from 'react';
 import { Events } from '../../shared/Utils';
 import stopEvent from '../../shared/funcs/stopEvent';
 
-// TODO: move to the hooks library
+// TODO: move this to the hooks library
 const useEvent = (ref, event, callback, options) => {
   useEffect(() => {
     const el = ref.current;
@@ -16,28 +16,32 @@ const useEvent = (ref, event, callback, options) => {
         el.removeEventListener(event, callback, options);
       }
     };
-  }, [ref.current]);
+  }, [ref, callback, options, event]);
 };
 
-const defaultOptions = { zoom: 1, maxZoom: 5, minZoom: 0.4 };
-const wheelOffset = 0.01; // TODO: document this
+const wheelRatio = 0.02;
 
 /**
- * TODO: document this thing
- * inspired by: https://jclem.net/posts/pan-zoom-canvas-react?utm_campaign=building-a-pannable--zoomable-canvasdi
+ * Handles and incorporates the business logic of scaling the Canvas.
+ * This implementation has been inspired by this wonderful article by Jonathan Clem:
+ * https://jclem.net/posts/pan-zoom-canvas-react?utm_campaign=building-a-s--zoomable-canvasdi
  */
-const useCanvasZoomHandlers = (ref, options = defaultOptions) => {
+const useCanvasZoomHandlers = (ref, options) => {
   const { onZoomChange, maxZoom, minZoom, zoomOnWheel, zoomResetOnDblClick } = options;
 
+  /**
+   * Prevent the default behaviour of the given mouse/touch and calculates the Canvas scale
+   * according to the wheel movement.
+   */
   const scaleOnWheel = useCallback((event) => {
     stopEvent(event);
     if (onZoomChange && zoomOnWheel) {
       onZoomChange((currentScale) => {
-        if (event.deltaY > 0) {
-          return (currentScale + wheelOffset < maxZoom) ? (currentScale + wheelOffset) : maxZoom;
+        if (event.deltaY < 0) {
+          return (currentScale + wheelRatio < maxZoom) ? (currentScale + wheelRatio) : maxZoom;
         }
 
-        return (currentScale - wheelOffset > minZoom) ? (currentScale - wheelOffset) : minZoom;
+        return (currentScale - wheelRatio > minZoom) ? (currentScale - wheelRatio) : minZoom;
       });
     }
   }, [onZoomChange, zoomOnWheel, maxZoom, minZoom]);

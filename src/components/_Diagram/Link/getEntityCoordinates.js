@@ -1,4 +1,4 @@
-import getRelativePoint from '../../../shared/functions/getRelativePoint';
+import getRelativePoint from '../../../shared/funcs/getRelativePoint';
 
 /**
  * Return the coordinates of a given entity (node or port)

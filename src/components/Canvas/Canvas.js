@@ -13,7 +13,7 @@ import { noop } from '../../shared/Utils';
 
 import './canvas.scss';
 
-const calcTransformation = (scale = 1, [x, y]) => ({ transform: `translate(${x}px, ${y}px) translateZ(0) scale(${scale})` });
+const calcTransformation = (scale, [x, y]) => ({ transform: `translate3d(${x / 16}rem, ${y / 16}rem, 0) scale(${scale})` });
 
 /**
  * @TODO: Document this component
@@ -25,7 +25,7 @@ const Canvas = (props) => {
   } = props;
   const elRef = useRef();
   const classList = useMemo(() => classNames('bi bi-diagram bi-diagram-canvas', className), [className]);
-  const style = useMemo(() => calcTransformation(zoom, pan), [zoom, pan[0], pan[1]]);
+  const style = useMemo(() => calcTransformation(zoom, pan), [zoom, pan]);
   const startPan = useCanvasPanHandlers({ pan, onPanChange, inertia });
 
   useCanvasZoomHandlers(elRef, { onZoomChange, maxZoom, minZoom, zoomOnWheel, zoomResetOnDblClick });

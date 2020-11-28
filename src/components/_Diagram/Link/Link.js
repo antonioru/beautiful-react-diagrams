@@ -5,8 +5,8 @@ import { LinkType, NodeType, PortType } from '../../../shared/Types';
 import usePortRefs from '../../../shared/internal_hooks/usePortRefs';
 import useCanvas from '../../../shared/internal_hooks/useCanvas';
 import getCoords from './getEntityCoordinates';
-import makeSvgPath from '../../../shared/functions/makeSvgPath';
-import getPathMidpoint from '../../../shared/functions/getPathMidpoint';
+import makeSvgPath from '../../../shared/funcs/makeSvgPath';
+import getPathMidpoint from '../../../shared/funcs/getPathMidpoint';
 import useNodeRefs from '../../../shared/internal_hooks/useNodeRefs';
 import LinkLabel from './LinkLabel';
 

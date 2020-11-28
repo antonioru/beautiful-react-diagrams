@@ -1,6 +1,5 @@
 import { useReducer, useCallback } from 'react';
-import Immutable from '../../shared/funcs/Immutable';
-import ensureNodeId from '../../shared/functions/ensureNodeId';
+import ensureNodeId from '../../shared/funcs/ensureNodeId';
 import schemaReducer from './schemaReducer';
 import { ON_CHANGE, ON_CONNECT, ON_NODE_ADD, ON_NODE_REMOVE } from './actionTypes';
 
@@ -19,7 +18,7 @@ const useSchema = (initialSchema = initialState) => {
   const removeNode = useCallback((node) => dispatch({ type: ON_NODE_REMOVE, payload: { nodeId: node.id } }), []);
   const connect = useCallback((input, output) => dispatch({ type: ON_CONNECT, payload: { link: { input, output } } }), []);
 
-  return [schema, Immutable({ onChange, addNode, removeNode, connect })];
+  return [schema, { onChange, addNode, removeNode, connect }];
 };
 /* eslint-enable max-len */
 
