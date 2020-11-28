@@ -1,9 +1,7 @@
 import React, { useCallback } from 'react';
 import { useRenderInfo } from 'beautiful-react-hooks';
 import PropTypes from 'prop-types';
-import isEqual from 'lodash.isequal';
 import { SchemaType } from '../../shared/Types';
-import DiagramContextProvider from '../../contexts/DiagramContext';
 import NodeDraggableElement from '../NodeDraggableElement';
 import updateNodeAt from './updateNodeAt';
 
@@ -22,18 +20,16 @@ const Diagram = ({ schema, onChange }) => {
   const onNodeChange = useCallback((nodeIndex, properties) => {
     const nextNodes = updateNodeAt(schema.nodes, nodeIndex, properties);
     onChange({ nodes: nextNodes });
-  });
+  }, [onChange, schema.nodes]);
 
   return (
-    <DiagramContextProvider value={{ schema }}>
-      <div className="bi bi-diagram">
-        <div className="bi bi-diagram-nodes">
-          {schema.nodes.map((node, index) => (
-            <NodeDraggableElement {...node} onPositionChange={onNodeChange} key={node.id} nodeIndex={index} />
-          ))}
-        </div>
+    <div className="bi bi-diagram">
+      <div className="bi bi-diagram-nodes">
+        {schema.nodes.map((node, index) => (
+          <NodeDraggableElement {...node} onPositionChange={onNodeChange} key={node.id} nodeIndex={index} />
+        ))}
       </div>
-    </DiagramContextProvider>
+    </div>
   );
 };
 

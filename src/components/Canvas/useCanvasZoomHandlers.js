@@ -1,17 +1,19 @@
 import { useEffect, useCallback } from 'react';
-import { Events, isTouch } from '../../shared/Constants';
+import { Events } from '../../shared/Utils';
 import stopEvent from '../../shared/funcs/stopEvent';
 
 // TODO: move to the hooks library
 const useEvent = (ref, event, callback, options) => {
   useEffect(() => {
-    if (ref.current) {
+    const el = ref.current;
+
+    if (el) {
       ref.current.addEventListener(event, callback, options);
     }
 
     return () => {
-      if (ref.current) {
-        ref.current.removeEventListener(event, callback, options);
+      if (el) {
+        el.removeEventListener(event, callback, options);
       }
     };
   }, [ref.current]);
@@ -47,10 +49,8 @@ const useCanvasZoomHandlers = (ref, options = defaultOptions) => {
     }
   }, [onZoomChange, zoomResetOnDblClick]);
 
-  if (!isTouch) {
-    useEvent(ref, Events.WHEEL, scaleOnWheel);
-    useEvent(ref, Events.DOUBLE_CLICK, resetZoom);
-  }
+  useEvent(ref, Events.WHEEL, scaleOnWheel);
+  useEvent(ref, Events.DOUBLE_CLICK, resetZoom);
 };
 
 export default useCanvasZoomHandlers;

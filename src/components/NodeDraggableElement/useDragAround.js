@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import { Events } from '../../shared/Constants';
+import { Events } from '../../shared/Utils';
 import { getEventPoint } from '../../shared/funcs/getEventPoint';
 import stopEvent from '../../shared/funcs/stopEvent';
 

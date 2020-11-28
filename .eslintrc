@@ -1,7 +1,7 @@
 {
   "extends": "airbnb",
   "parser": "babel-eslint",
-  "plugins": ["chai-expect", "jsx-a11y"],
+  "plugins": ["react-hooks", "chai-expect", "jsx-a11y"],
   "env": {
     "browser": true,
     "mocha": true
@@ -11,7 +11,13 @@
     "object-curly-newline": "off",
     "react/jsx-filename-extension": [1, { "extensions": [ ".js", ".jsx" ] } ],
     "react/prop-types": [2, { "ignore":  ["className", "children", "style"] }],
-    "react/jsx-props-no-spreading": "off"
+    "react/jsx-props-no-spreading": "off",
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": [
+      "warn", {
+        "additionalHooks": "useRecoilCallback"
+      }
+    ]
   },
   "overrides": [
     {

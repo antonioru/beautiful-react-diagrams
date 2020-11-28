@@ -92,7 +92,8 @@
     "lodash.findindex": "^4.6.0",
     "lodash.isequal": "^4.5.0",
     "lodash.throttle": "^4.1.1",
-    "prop-types": "^15.7.2"
+    "prop-types": "^15.7.2",
+    "recoil": "0.1.2"
   },
   "peerDependencies": {
     "react": ">=17.0.1",

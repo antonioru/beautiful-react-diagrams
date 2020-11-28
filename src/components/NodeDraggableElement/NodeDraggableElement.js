@@ -1,9 +1,8 @@
-import React, { useContext, useMemo, useRef } from 'react';
+import React, { useMemo, useRef } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { useRenderInfo } from 'beautiful-react-hooks';
 import { CoordinatesType, PortType } from '../../shared/Types';
-import { CanvasContext } from '../../contexts/CanvasContext';
 import NodeDefault from '../NodeDefault';
 import useDragAround from './useDragAround';
 
@@ -27,7 +26,6 @@ const NodeDraggableElement = (props) => {
   const classList = useMemo(() => (
     classNames('bi bi-diagram-node', { 'node-draggable': !disableDrag }, className)
   ), [disableDrag, className]);
-  // const { pan, zoom } = useContext(CanvasContext);
   const pan = [0, 0];
   const zoom = 1;
   const [isDragging, startDrag] = useDragAround({ onPositionChange, disableDrag, pan, zoom, nodeIndex, coordinates, elRef });

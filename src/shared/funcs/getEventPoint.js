@@ -1,4 +1,4 @@
-import { isTouch } from '../Constants';
+import { isTouch } from '../Utils';
 
 export const getMouseEventPoint = (e) => ([e.clientX, e.clientY]);
 

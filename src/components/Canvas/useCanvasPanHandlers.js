@@ -1,5 +1,5 @@
 import { useCallback, useRef } from 'react';
-import { Events } from '../../shared/Constants';
+import { Events } from '../../shared/Utils';
 import { getEventPoint } from '../../shared/funcs/getEventPoint';
 import stopEvent from '../../shared/funcs/stopEvent';
 
@@ -45,7 +45,7 @@ const useCanvasPanHandlers = ({ pan, onPanChange, inertia }) => {
         requestAnimationFrame(performInertia);
       }
     }
-  }, [inertia, deltaRef.current.toString()]);
+  }, [inertia, onPanChange, deltaRef.current.toString()]);
 
   // TODO: document this callback
   const endPan = useCallback(() => {
@@ -57,7 +57,7 @@ const useCanvasPanHandlers = ({ pan, onPanChange, inertia }) => {
         requestAnimationFrame(performInertia);
       }
     }
-  }, [performPan, inertia, onPanChange]);
+  }, [performPan, inertia, performInertia, onPanChange]);
 
   // TODO: document this callback
   const onPanStart = useCallback((event) => {

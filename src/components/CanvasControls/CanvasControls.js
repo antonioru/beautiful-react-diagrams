@@ -1,10 +1,12 @@
 import React, { useMemo, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { useRecoilValue } from 'recoil';
 import PlusIcon from './IconPlus';
 import MinusIcon from './IconMinus';
 import CenterIcon from './IconCenter';
-import { noop, stopPropagation } from '../../shared/Constants';
+import { canvasCallbacks } from '../../state/canvas';
+import { stopPropagation } from '../../shared/Utils';
 
 import './canvas-controls.scss';
 
@@ -15,13 +17,15 @@ import './canvas-controls.scss';
  * @constructor
  */
 const CanvasControls = (props) => {
-  const {
-    placement, alignment, onPanChange, onZoomChange, className,
-    ElementRender, ButtonRender, ZoomInBtnRender, ZoomOutBtnRender, CenterBtnRender,
-  } = props;
+  const { placement, alignment, className, ElementRender, ButtonRender, ZoomInBtnRender, ZoomOutBtnRender, CenterBtnRender } = props;
   const classList = useMemo(() => (
     classNames('bi bi-diagram-ctrls', `bi-diagram-ctrls-${placement}`, `bi-diagram-ctrls-${alignment}`, className)
   ), [placement, className, alignment]);
+
+  const methods = useRecoilValue(canvasCallbacks);
+  const { onPanChange, onZoomChange } = methods;
+
+  console.log(methods);
 
   const zoomInHandler = useCallback(() => {
     onZoomChange((currentZoom) => (currentZoom + 0.25));
@@ -49,8 +53,6 @@ CanvasControls.propTypes = {
   // eslint-disable-next-line max-len
   placement: PropTypes.oneOf(['top-left', 'top-right', 'top-center', 'bottom-right', 'bottom-center', 'bottom-left', 'left', 'right']),
   alignment: PropTypes.oneOf(['vertical', 'horizontal']),
-  onPanChange: PropTypes.func,
-  onZoomChange: PropTypes.func,
   ButtonRender: PropTypes.elementType,
   ZoomInBtnRender: PropTypes.elementType,
   CenterBtnRender: PropTypes.elementType,
@@ -61,8 +63,6 @@ CanvasControls.propTypes = {
 CanvasControls.defaultProps = {
   placement: 'bottom-left',
   alignment: 'vertical',
-  onPanChange: noop,
-  onZoomChange: noop,
   ButtonRender: 'button',
   ZoomInBtnRender: PlusIcon,
   CenterBtnRender: CenterIcon,
