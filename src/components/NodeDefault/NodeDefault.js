@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
-import { useRenderInfo } from 'beautiful-react-hooks';
-import { CoordinatesType, PortType } from '../../shared/Types';
+import classNames from 'classnames';
+import { CoordinatesType, PortAlignment, PortType } from '../../shared/Types';
+import PortsWrapper from './PortsWrapper';
 
 import './node-default.scss';
 
@@ -12,13 +13,15 @@ import './node-default.scss';
  * @constructor
  */
 const NodeDefault = (props) => {
-  const { content, ElementRender } = props;
-
-  useRenderInfo('NodeDefault');
+  const { content, ElementRender, inputs, outputs, inputsAlignment, outputsAlignment, className } = props;
+  const classList = useMemo(() => classNames('brd-default-node', className), [className]);
 
   return (
-    <ElementRender className="bi-default-node">
-      {content}
+    <ElementRender className={classList}>
+      <div className="brd-node-content">
+        {content}
+      </div>
+      <PortsWrapper inputs={inputs} outputs={outputs} inputsAlignment={inputsAlignment} outputsAlignment={outputsAlignment} />
     </ElementRender>
   );
 };
@@ -35,15 +38,23 @@ NodeDefault.propTypes = {
   /**
    * The diagram content
    */
-  content: PropTypes.oneOfType([PropTypes.elementType, PropTypes.node]),
+  content: PropTypes.node,
   /**
    * An array of input ports
    */
   inputs: PropTypes.arrayOf(PortType),
   /**
+   * Defines the alignment of the input ports
+   */
+  inputsAlignment: PortAlignment,
+  /**
    * An array of output ports
    */
   outputs: PropTypes.arrayOf(PortType),
+  /**
+   * Defines the alignment of the output ports
+   */
+  outputsAlignment: PortAlignment,
   /**
    * An object to possibly keep data between renders
    */
@@ -84,6 +95,8 @@ NodeDefault.defaultProps = {
   data: null,
   outputs: [],
   inputs: [],
+  inputsAlignment: 'left',
+  outputsAlignment: 'right',
   ElementRender: 'div',
 };
 

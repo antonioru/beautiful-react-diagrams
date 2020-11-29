@@ -1,6 +1,7 @@
 export const isTouch = 'ontouchstart' in window;
 
 export const noop = () => undefined;
+export const stubTrue = () => true;
 
 /**
  * TODO: explain why on earth you'd do something like this
@@ -12,5 +13,3 @@ export const Events = Object.freeze({
   DOUBLE_CLICK: 'dblclick',
   WHEEL: 'wheel',
 });
-
-export const stopPropagation = (e) => e.stopPropagation();

@@ -1,4 +1,4 @@
-.bi.bi-diagram.bi-diagram-canvas {
+.brd.brd-diagram-canvas {
   position: relative;
   width: 100%;
   height: 100%;
@@ -16,7 +16,7 @@
     cursor: grabbing;
   }
 
-  .bi-canvas-content {
+  .brd-canvas-content {
     will-change: transform;
     backface-visibility: hidden;
     perspective: 1000;

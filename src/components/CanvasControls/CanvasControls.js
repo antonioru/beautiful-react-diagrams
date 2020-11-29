@@ -5,10 +5,12 @@ import { useRecoilValue } from 'recoil';
 import PlusIcon from './IconPlus';
 import MinusIcon from './IconMinus';
 import CenterIcon from './IconCenter';
-import { canvasCallbacks } from '../../state/canvas';
-import { stopPropagation } from '../../shared/Utils';
+import { canvasCallbacks, maxZoomState, minZoomState, zoomState } from '../../state/canvas';
+import stopEvent from '../../shared/funcs/stopEvent';
 
 import './canvas-controls.scss';
+
+const zoomRatio = 0.25;
 
 /**
  * TODO: document this thing
@@ -19,32 +21,44 @@ import './canvas-controls.scss';
 const CanvasControls = (props) => {
   const { placement, alignment, className, ElementRender, ButtonRender, ZoomInBtnRender, ZoomOutBtnRender, CenterBtnRender } = props;
   const classList = useMemo(() => (
-    classNames('bi bi-diagram-ctrls', `bi-diagram-ctrls-${placement}`, `bi-diagram-ctrls-${alignment}`, className)
+    classNames('brd brd-diagram-ctrls', `brd-diagram-ctrls-${placement}`, `brd-diagram-ctrls-${alignment}`, className)
   ), [placement, className, alignment]);
 
   const methods = useRecoilValue(canvasCallbacks);
-  const { onPanChange, onZoomChange } = methods;
+  const zoom = useRecoilValue(zoomState);
+  const minZoom = useRecoilValue(minZoomState);
+  const maxZoom = useRecoilValue(maxZoomState);
+  const { onZoomChange, onPanChange } = methods;
 
-  console.log(methods);
+  const zoomInHandler = useCallback((event) => {
+    const nextZoom = parseFloat((zoom + zoomRatio).toFixed(2));
+    stopEvent(event);
 
-  const zoomInHandler = useCallback(() => {
-    onZoomChange((currentZoom) => (currentZoom + 0.25));
-  }, [onZoomChange]);
+    if (nextZoom <= maxZoom) {
+      onZoomChange(nextZoom);
+    }
+  }, [onZoomChange, zoom, maxZoom]);
 
-  const zoomOutHandler = useCallback(() => {
-    onZoomChange((currentZoom) => (currentZoom - 0.25));
-  }, [onZoomChange]);
+  const zoomOutHandler = useCallback((event) => {
+    const nextZoom = parseFloat((zoom - zoomRatio).toFixed(2));
+    stopEvent(event);
 
-  const resetHandler = useCallback(() => {
+    if (nextZoom >= minZoom) {
+      onZoomChange(nextZoom);
+    }
+  }, [onZoomChange, zoom, minZoom]);
+
+  const resetHandler = useCallback((event) => {
+    stopEvent(event);
     onPanChange([0, 0]);
     onZoomChange(1);
-  }, [onZoomChange, onPanChange]);
+  }, [onPanChange, onZoomChange]);
 
   return (
-    <ElementRender className={classList} onMouseDownCapture={stopPropagation} onTouchStartCapture={stopPropagation}>
-      <ButtonRender onClick={zoomInHandler} className="bid-ctrls-btn"><ZoomInBtnRender /></ButtonRender>
-      <ButtonRender onClick={resetHandler} className="bid-ctrls-btn"><CenterBtnRender /></ButtonRender>
-      <ButtonRender onClick={zoomOutHandler} className="bid-ctrls-btn"><ZoomOutBtnRender /></ButtonRender>
+    <ElementRender className={classList}>
+      <ButtonRender onClick={zoomInHandler} className="brd-ctrls-btn" disabled={zoom >= maxZoom}><ZoomInBtnRender /></ButtonRender>
+      <ButtonRender onClick={resetHandler} className="brd-ctrls-btn"><CenterBtnRender /></ButtonRender>
+      <ButtonRender onClick={zoomOutHandler} className="brd-ctrls-btn" disabled={zoom <= minZoom}><ZoomOutBtnRender /></ButtonRender>
     </ElementRender>
   );
 };

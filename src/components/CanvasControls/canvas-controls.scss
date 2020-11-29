@@ -1,10 +1,10 @@
-.bi.bi-diagram-ctrls {
+.brd.brd-diagram-ctrls {
   box-sizing: border-box;
   position: absolute;
   padding: 0.75rem;
   display: flex;
 
-  .bid-ctrls-btn {
+  .brd-ctrls-btn {
     width: 1rem;
     height: 1rem;
     padding: 0.3rem;
@@ -13,58 +13,62 @@
     box-shadow: 0.12rem 0.24rem 1rem rgba(0, 0, 0, 0.1);
     box-sizing: content-box;
     cursor: pointer;
+
+    &[disabled] {
+      opacity: 0.5;
+    }
   }
 
   // Alignments
-  &.bi-diagram-ctrls-vertical {
+  &.brd-diagram-ctrls-vertical {
     flex-direction: column;
   }
 
-  &.bi-diagram-ctrls-horizontal {
+  &.brd-diagram-ctrls-horizontal {
     flex-direction: row;
   }
 
   // Placements
-  &.bi-diagram-ctrls-left {
+  &.brd-diagram-ctrls-left {
     left: 0;
     top: 50%;
     transform: translateY(-50%);
   }
 
-  &.bi-diagram-ctrls-right {
+  &.brd-diagram-ctrls-right {
     right: 0;
     top: 50%;
     transform: translateY(-50%);
   }
 
-  &.bi-diagram-ctrls-top-left {
+  &.brd-diagram-ctrls-top-left {
     top: 0;
     left: 0;
   }
 
-  &.bi-diagram-ctrls-top-right {
+  &.brd-diagram-ctrls-top-right {
     top: 0;
     right: 0;
   }
 
-  &.bi-diagram-ctrls-top-center {
+  &.brd-diagram-ctrls-top-center {
     top: 0;
     left: 50%;
     transform: translateX(-50%);
   }
 
-  &.bi-diagram-ctrls-bottom-right {
+  &.brd-diagram-ctrls-bottom-right {
     bottom: 0;
     right: 0;
   }
 
-  &.bi-diagram-ctrls-bottom-center {
+  &.brd-diagram-ctrls-bottom-center {
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
   }
 
-  &.bi-diagram-ctrls-bottom-left {
+  &.brd-diagram-ctrls-bottom-left {
     bottom: 0;
     left: 0;
   }

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import useDrag from '../../../shared/internal_hooks/useDrag';
-import useCanvas from '../../../shared/internal_hooks/useCanvas';
+import useDrag from '../../../shared/__internal_hooks/useDrag';
+import useCanvas from '../../../shared/__internal_hooks/useCanvas';
 import getRelativePoint from '../../../shared/funcs/getRelativePoint';
 
 /**

@@ -23,14 +23,16 @@ export const LinkType = PropTypes.shape({
 
 export const PortAlignment = PropTypes.oneOf(['right', 'left', 'top', 'bottom']);
 
+export const PortShape = {
+  id: PropTypes.string.isRequired,
+  canLink: PropTypes.func,
+};
+
 /**
  * Port
  */
-export const PortType = PropTypes.shape({
-  id: PropTypes.string.isRequired,
-  canLink: PropTypes.func,
-  alignment: PortAlignment,
-});
+export const PortType = PropTypes.shape(PortShape);
+export const PortList = PropTypes.arrayOf(PortType);
 
 /**
  * Node
@@ -39,10 +41,13 @@ export const NodeType = PropTypes.shape({
   id: PropTypes.string.isRequired,
   coordinates: CoordinatesType,
   disableDrag: PropTypes.bool,
-  content: PropTypes.oneOfType([PropTypes.elementType, PropTypes.node]),
-  inputs: PropTypes.arrayOf(PortType),
-  outputs: PropTypes.arrayOf(PortType),
+  content: PropTypes.node,
+  inputs: PortList,
+  outputs: PortList,
   render: PropTypes.elementType,
+  inputsAlignment: PortAlignment,
+  outputsAlignment: PortAlignment,
+  data: PropTypes.shape({}),
   className: PropTypes.string,
 });
 

@@ -5,7 +5,6 @@ export type PortAlignment = 'right' | 'left' | 'top' | 'bottom';
 export type Port = {
   id: string;
   canLink?: Function;
-  alignment?: PortAlignment;
 };
 
 export type NodeCoordinates = [number, number];
@@ -17,6 +16,8 @@ export type Node<P> = {
   content?: ReactNode;
   inputs?: Port[];
   outputs?: Port[];
+  inputsAlignment?: PortAlignment,
+  outputsAlignment?: PortAlignment
   render?: (props: Omit<Node<P>, 'coordinates'>) => ElementType | ReactNode;
   className?: string;
   data?: P;

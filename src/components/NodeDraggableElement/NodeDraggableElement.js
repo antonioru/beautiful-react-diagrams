@@ -2,8 +2,7 @@ import React, { useMemo, useRef } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { useRecoilValue } from 'recoil';
-import { useRenderInfo } from 'beautiful-react-hooks';
-import { CoordinatesType, PortType } from '../../shared/Types';
+import { CoordinatesType, PortAlignment, PortType } from '../../shared/Types';
 import NodeDefault from '../NodeDefault';
 import useDragAround from './useDragAround';
 import { zoomState } from '../../state/canvas';
@@ -20,18 +19,16 @@ const makeStyle = ([x, y] = [0, 0]) => ({ left: x, top: y });
  */
 const NodeDraggableElement = (props) => {
   const {
-    id, coordinates, nodeIndex, disableDrag, onPositionChange, content, inputs, outputs, data, className,
-    render: ContentNode, ElementRender,
+    id, coordinates, nodeIndex, disableDrag, onPositionChange, content, inputs, outputs, data, inputsAlignment, outputsAlignment,
+    className, render: ContentNode, ElementRender,
   } = props;
   const elRef = useRef();
   const zoom = useRecoilValue(zoomState);
   const style = useMemo(() => makeStyle(coordinates), [coordinates]);
   const [isDragging, startDrag] = useDragAround({ onPositionChange, disableDrag, zoom, nodeIndex, elRef });
   const classList = useMemo(() => (
-    classNames('bi bi-diagram-node', { 'node-draggable': !disableDrag, dragging: isDragging }, className)
-  ), [disableDrag, isDragging, className]);
-
-  useRenderInfo(`NodeDraggableElement, id: ${id}`);
+    classNames('brd-draggable-element', { 'node-is-draggable': !disableDrag, dragging: isDragging })
+  ), [disableDrag, isDragging]);
 
   return (
     <ElementRender className={classList} onMouseDown={startDrag} onTouchStart={startDrag} data-brd-id={id} style={style} ref={elRef}>
@@ -42,7 +39,9 @@ const NodeDraggableElement = (props) => {
         outputs={outputs}
         data={data}
         coordinates={coordinates}
-        isDragging={isDragging}
+        inputsAlignment={inputsAlignment}
+        outputsAlignment={outputsAlignment}
+        className={className}
       />
     </ElementRender>
   );
@@ -86,9 +85,17 @@ NodeDraggableElement.propTypes = {
    */
   inputs: PropTypes.arrayOf(PortType),
   /**
+   * Defines the alignment of the input ports
+   */
+  inputsAlignment: PortAlignment,
+  /**
    * An array of output ports
    */
   outputs: PropTypes.arrayOf(PortType),
+  /**
+   * Defines the alignment of the output ports
+   */
+  outputsAlignment: PortAlignment,
   /**
    * An object to possibly keep data between renders
    */
@@ -119,11 +126,13 @@ NodeDraggableElement.defaultProps = {
   disableDrag: false,
   render: NodeDefault,
   coordinates: [0, 0],
-  ElementRender: 'article',
-  content: null,
-  data: null,
-  outputs: [],
   inputs: [],
+  inputsAlignment: 'left',
+  outputs: [],
+  outputsAlignment: 'right',
+  content: null,
+  data: Object.create(null),
+  ElementRender: 'article',
 };
 
 export default React.memo(NodeDraggableElement);

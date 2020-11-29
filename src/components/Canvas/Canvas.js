@@ -2,11 +2,10 @@ import React, { useMemo, useRef } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { RecoilRoot } from 'recoil';
-import useRenderInfo from 'beautiful-react-hooks/useRenderInfo';
+import BackgroundGrid from './BackgroundGrid';
 import useCanvasPanHandlers from './useCanvasPanHandlers';
 import useCanvasZoomHandlers from './useCanvasZoomHandlers';
 import useRecoilStateReconciler from './useRecoilStateReconciler';
-import BackgroundGrid from './BackgroundGrid';
 import { filterControlsOut, controlsOnly } from './childrenUtils';
 import { CoordinatesType } from '../../shared/Types';
 import { noop } from '../../shared/Utils';
@@ -24,19 +23,18 @@ const Canvas = (props) => {
     ElementRenderer, GridRenderer, className, children, ...rest
   } = props;
   const elRef = useRef();
-  const classList = useMemo(() => classNames('bi bi-diagram bi-diagram-canvas', className), [className]);
+  const classList = useMemo(() => classNames('brd brd-diagram-canvas', className), [className]);
   const style = useMemo(() => calcTransformation(zoom, pan), [zoom, pan]);
   const startPan = useCanvasPanHandlers({ pan, onPanChange, inertia });
 
   useCanvasZoomHandlers(elRef, { onZoomChange, maxZoom, minZoom, zoomOnWheel, zoomResetOnDblClick });
   useRecoilStateReconciler(zoom, pan, minZoom, maxZoom, onZoomChange, onPanChange);
-  useRenderInfo('Canvas');
 
   return (
     <React.StrictMode>
       <ElementRenderer className={classList} onMouseDown={startPan} onTouchStart={startPan} ref={elRef} {...rest}>
         <GridRenderer translateX={pan[0]} translateY={pan[1]} scale={zoom} />
-        <div className="bi-canvas-content" style={style}>
+        <div className="brd-canvas-content" style={style}>
           {filterControlsOut(children)}
         </div>
         {controlsOnly(children)}

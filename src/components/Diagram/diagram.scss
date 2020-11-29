@@ -1,7 +1,11 @@
-.bi.bi-diagram {
+.brd.brd-diagram {
   box-sizing: border-box;
   width: 100%;
   height: 100%;
   // Prevent touch dragging inside the diagram from scrolling the page
   touch-action: none;
+
+  .brd-diagram-links {
+    overflow: visible;
+  }
 }

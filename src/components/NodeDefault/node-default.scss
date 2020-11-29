@@ -1,8 +1,11 @@
-.bi.bi-diagram .bi.bi-diagram-node .bi-default-node {
+.brd.brd-diagram > .brd-diagram-nodes .brd-draggable-element .brd-default-node {
   // theme this
   background: white;
-  padding: 1rem;
   border: 0.07rem solid rgba(0, 0, 0, 0.1);
   border-radius: 0.25rem;
   box-shadow: 0 0.2rem 0.2rem rgba(120, 120, 120, 0.05);
+
+  .brd-node-content {
+    padding: 1rem;
+  }
 }

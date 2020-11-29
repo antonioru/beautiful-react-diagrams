@@ -16,7 +16,7 @@ const useRecoilStateReconciler = (zoom, [x, y], minZoom, maxZoom, onZoomChange, 
     if (currentPan[0] !== x || currentPan[1] !== y) {
       setInternalPan([x, y]);
     }
-  }, [x, y, currentPan[0], currentPan[1], setInternalPan]);
+  }, [x, y, currentPan, setInternalPan]);
 
   useEffect(() => {
     if (currentZoom !== zoom) {
