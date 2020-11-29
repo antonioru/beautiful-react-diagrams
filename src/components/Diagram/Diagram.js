@@ -14,21 +14,25 @@ const Diagram = (props) => {
   const { schema, onChange } = props;
 
   const onNodeChange = useCallback((nodeIndex, properties) => {
-    // todo: update can't realy on nodeIndex as it may change during renderings, remove nodeIndex and reference nodes by id
+    // todo: update can't really on nodeIndex as it may change during renderings, remove nodeIndex and reference nodes by id
     const nextNodes = updateNodeAt(schema.nodes, nodeIndex, properties);
     onChange({ nodes: nextNodes });
   }, [onChange, schema.nodes]);
 
   return (
     <div className="brd brd-diagram">
-      <div className="brd-diagram-nodes">
-        {schema.nodes.map((node, index) => (
-          <NodeDraggableElement {...node} onPositionChange={onNodeChange} key={node.id} nodeIndex={index} />
-        ))}
-      </div>
-      <svg xmlns="http://www.w3.org/2000/svg" className="brd-diagram-links">
-        {schema.links.map((link) => <Link {...link} />)}
-      </svg>
+      {schema.nodes && schema.nodes.length > 0 && (
+        <div className="brd-diagram-nodes">
+          {schema.nodes.map((node, index) => (
+            <NodeDraggableElement {...node} onPositionChange={onNodeChange} key={node.id} nodeIndex={index} />
+          ))}
+        </div>
+      )}
+      {schema.links && schema.links.length > 0 && (
+        <svg xmlns="http://www.w3.org/2000/svg" className="brd-diagram-links">
+          {schema.links.map((link) => <Link {...link} key={`${link.input}-${link.output}`} />)}
+        </svg>
+      )}
     </div>
   );
 };

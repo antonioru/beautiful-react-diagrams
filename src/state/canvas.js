@@ -1,26 +1,26 @@
 import { atom } from 'recoil';
 
 export const panState = atom({
-  key: 'brd-canvas',
+  key: 'brdCanvas',
   default: [0, 0],
 });
 
 export const zoomState = atom({
-  key: 'brd-zoom',
+  key: 'brdZoom',
   default: 1,
 });
 
 export const minZoomState = atom({
-  key: 'brd-minZoom',
+  key: 'brdMinZoom',
   default: 0.5,
 });
 
 export const maxZoomState = atom({
-  key: 'brd-maxZoom',
+  key: 'brdMaxZoom',
   default: 2,
 });
 
 export const canvasCallbacks = atom({
-  key: 'brd-canvasCallbacks',
+  key: 'brdCanvasCallbacks',
   default: {},
 });

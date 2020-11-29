@@ -1,20 +1,16 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { getElementRect } from '../../shared/funcs/elementsUtils';
-
-const findElementCoordinates = (entityId) => {
-  const element = document.querySelector(`[data-brd-id="${entityId}"]`);
-  const rect = getElementRect(element);
-  console.log(element);
-  return [1, 1];
-};
+import { useRecoilValue } from 'recoil';
+import { entityById } from '../../state/nodes';
 
 /**
  * // TODO: document
  */
 const Link = ({ input, output }) => {
-  const [inputX, inputY] = useMemo(() => findElementCoordinates(input), [input]);
-  const [outputX, outputY] = useMemo(() => findElementCoordinates(output), [output]);
+  const inputEl = useRecoilValue(entityById(input));
+  const outputEl = useRecoilValue(entityById(output));
+
+  console.log(`${input}-${output}`, inputEl, outputEl);
 
   return (
     <g>

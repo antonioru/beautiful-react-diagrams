@@ -1,11 +1,12 @@
-import React, { useMemo, useRef } from 'react';
+import React, { useMemo, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { CoordinatesType, PortAlignment, PortType } from '../../shared/Types';
 import NodeDefault from '../NodeDefault';
 import useDragAround from './useDragAround';
 import { zoomState } from '../../state/canvas';
+import { entityById } from '../../state/nodes';
 
 import './node-draggable-element.scss';
 
@@ -29,6 +30,11 @@ const NodeDraggableElement = (props) => {
   const classList = useMemo(() => (
     classNames('brd-draggable-element', { 'node-is-draggable': !disableDrag, dragging: isDragging })
   ), [disableDrag, isDragging]);
+  const registerEntity = useSetRecoilState(entityById(id));
+
+  useEffect(() => {
+    registerEntity(coordinates);
+  }, [id, registerEntity, coordinates]);
 
   return (
     <ElementRender className={classList} onMouseDown={startDrag} onTouchStart={startDrag} data-brd-id={id} style={style} ref={elRef}>
