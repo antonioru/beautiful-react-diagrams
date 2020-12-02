@@ -1,20 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useRecoilValue } from 'recoil';
-import { entityById } from '../../state/nodes';
+import { entityCoordinatesById } from '../../state/entities';
+import makeSvgPath from '../../shared/funcs/makeSvgPath';
+
+import './link.scss';
 
 /**
  * // TODO: document
  */
 const Link = ({ input, output }) => {
-  const inputEl = useRecoilValue(entityById(input));
-  const outputEl = useRecoilValue(entityById(output));
-
-  console.log(`${input}-${output}`, inputEl, outputEl);
-
+  // const inputCoordinates = useRecoilValue(entityCoordinatesById(input));
+  // const outputCoordinates = useRecoilValue(entityCoordinatesById(output));
+  // const path = makeSvgPath(inputCoordinates, outputCoordinates);
+  console.log(`${input}-${output}`);
+  const path = 10;
   return (
-    <g>
-      <path d="M451,182 C1147,182 1147,201.5 1343,201.5" />
+    <g className="brd-line">
+      <path d={path} />
     </g>
   );
 };
@@ -24,4 +27,4 @@ Link.propTypes = {
   output: PropTypes.string.isRequired,
 };
 
-export default React.memo(Link);
+export default Link;
