@@ -5,7 +5,7 @@ import { useRecoilValue } from 'recoil';
 import PlusIcon from './IconPlus';
 import MinusIcon from './IconMinus';
 import CenterIcon from './IconCenter';
-import { canvasCallbacks, maxZoomState, minZoomState, zoomState } from '../../state/canvas';
+import { canvasCallbacks, maxZoomState, minZoomState, zoomState } from '../../states/canvas';
 import stopEvent from '../../shared/funcs/stopEvent';
 
 import './canvas-controls.scss';

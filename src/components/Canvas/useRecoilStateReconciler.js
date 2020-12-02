@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useRecoilState, useSetRecoilState } from 'recoil';
-import { panState, zoomState, minZoomState, maxZoomState, canvasCallbacks } from '../../state/canvas';
+import { panState, zoomState, minZoomState, maxZoomState, canvasCallbacks } from '../../states/canvas';
 
 /**
  * // TODO: document this thing

@@ -30,7 +30,9 @@ const Diagram = (props) => {
       )}
       {schema.links && schema.links.length > 0 && (
         <svg xmlns="http://www.w3.org/2000/svg" className="brd-diagram-links">
-          {schema.links.map((link) => <Link {...link} key={`${link.input}-${link.output}`} />)}
+          {schema.links.map((link) => (
+            <Link {...link} schema={schema} key={`${link.input}-${link.output}`} />
+          ))}
         </svg>
       )}
     </div>
