@@ -13,11 +13,11 @@ a "*content*" property (can be a React component) and a "*coordinates*" property
 Optionally a "*links*" property can be defined to define links between the nodes, similar to the "*nodes*" property it must 
 be an array of valid link describing tuples, a valid link must have an "*input*" and an "*output*" property.
 
-In order to avoid unnecessary complexity the `useSchema`, `useCanvasState` hooks have been provided together with the
+In order to avoid unnecessary complexity the `useSchema`, `useCanvas` hooks have been provided together with the
  `createSchema` utility.
 
 ```js
-import Diagram, { Canvas, createSchema, useSchema, useCanvasState, CanvasControls } from 'beautiful-react-diagrams';
+import Diagram, { Canvas, createSchema, useSchema, useCanvas } from 'beautiful-react-diagrams';
 
 // the diagram model
 const initialSchema = createSchema({
@@ -37,14 +37,13 @@ const initialSchema = createSchema({
 });
 
 const DiagramExample = () => {
-  const [canvasStates, handlers] = useCanvasState(); // creates canvas state
+  const [ canvasStates, canvasStateHandlers] = useCanvas(); // creates canvas states
   const [schema, { onChange }] = useSchema(initialSchema); // creates diagrams schema
 
   return (
     <div style={{ height: '30rem' }}>
-      <Canvas {...canvasStates} {...handlers}>
+      <Canvas {...canvasStates} {...canvasStateHandlers}>
         <Diagram schema={schema} onChange={onChange} />
-        <CanvasControls />
       </Canvas>
     </div>
   );

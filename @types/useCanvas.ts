@@ -11,6 +11,6 @@ export type CanvasStates = {
   zoom: number,
 }
 
-declare const useCanvasState: (initialStates?: CanvasStates) => [CanvasStates, CanvasMethods];
+declare const useCanvas: (initialStates?: CanvasStates) => [CanvasStates, CanvasMethods];
 
-export default useCanvasState;
+export default useCanvas;

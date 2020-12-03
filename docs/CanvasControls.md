@@ -1,5 +1,5 @@
 ```js
-import Diagram, { Canvas, createSchema, useSchema, useCanvasState, CanvasControls } from 'beautiful-react-diagrams';
+import Diagram, { Canvas, createSchema, useSchema, useCanvas, CanvasControls } from 'beautiful-react-diagrams';
 
 // the diagram model
 const initialSchema = createSchema({
@@ -19,12 +19,12 @@ const initialSchema = createSchema({
 });
 
 const DiagramExample = () => {
-  const [canvasState, handlers] = useCanvasState(); // creates canvas state
+  const [ canvasStates, canvasStateHandlers] = useCanvas(); // creates canvas states
   const [schema, { onChange }] = useSchema(initialSchema); // creates diagrams schema
 
   return (
     <div style={{ height: '30rem' }}>
-      <Canvas {...canvasState} {...handlers}>
+      <Canvas {...canvasStates} {...canvasStateHandlers}>
         <Diagram schema={schema} onChange={onChange} />
         <CanvasControls alignment="horizontal" placement="bottom-center" />
       </Canvas>

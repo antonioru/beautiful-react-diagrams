@@ -26,35 +26,35 @@ const wheelRatio = 0.02;
  * This implementation has been inspired by this wonderful article by Jonathan Clem:
  * https://jclem.net/posts/pan-zoom-canvas-react?utm_campaign=building-a-s--zoomable-canvasdi
  */
-const useCanvasZoomHandlers = (ref, options) => {
-  const { onZoomChange, maxZoom, minZoom, zoomOnWheel, zoomResetOnDblClick } = options;
+const useCanvasScaleHandlers = (ref, options) => {
+  const { onScaleChange, maxScale, minScale, scaleOnWheel, resetScaleOnDblClick } = options;
 
   /**
    * Prevent the default behaviour of the given mouse/touch and calculates the Canvas scale
    * according to the wheel movement.
    */
-  const scaleOnWheel = useCallback((event) => {
+  const performScaleOnWheel = useCallback((event) => {
     stopEvent(event);
-    if (onZoomChange && zoomOnWheel) {
-      onZoomChange((currentScale) => {
+    if (onScaleChange && scaleOnWheel) {
+      onScaleChange((currentScale) => {
         if (event.deltaY < 0) {
-          return (currentScale + wheelRatio < maxZoom) ? (currentScale + wheelRatio) : maxZoom;
+          return (currentScale + wheelRatio < maxScale) ? (currentScale + wheelRatio) : maxScale;
         }
 
-        return (currentScale - wheelRatio > minZoom) ? (currentScale - wheelRatio) : minZoom;
+        return (currentScale - wheelRatio > minScale) ? (currentScale - wheelRatio) : minScale;
       });
     }
-  }, [onZoomChange, zoomOnWheel, maxZoom, minZoom]);
+  }, [onScaleChange, scaleOnWheel, maxScale, minScale]);
 
   const resetZoom = useCallback((event) => {
     stopEvent(event);
-    if (onZoomChange && zoomResetOnDblClick) {
-      onZoomChange(1);
+    if (onScaleChange && resetScaleOnDblClick) {
+      onScaleChange(1);
     }
-  }, [onZoomChange, zoomResetOnDblClick]);
+  }, [onScaleChange, resetScaleOnDblClick]);
 
-  useEvent(ref, Events.WHEEL, scaleOnWheel);
+  useEvent(ref, Events.WHEEL, performScaleOnWheel);
   useEvent(ref, Events.DOUBLE_CLICK, resetZoom);
 };
 
-export default useCanvasZoomHandlers;
+export default useCanvasScaleHandlers;

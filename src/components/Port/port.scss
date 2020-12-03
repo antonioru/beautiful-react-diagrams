@@ -1,0 +1,19 @@
+.brd.brd-diagram > .brd-diagram-nodes .brd-draggable-element .brd-port {
+  .brd-port-handler {
+    width: 1rem;
+    height: 1rem;
+    border: 0.07rem solid white;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 100%;
+    transition: background-color 0.25s ease-in-out;
+    cursor: pointer;
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.3);
+    }
+  }
+
+  .brd-port-label {
+    font-size: 0.8rem;
+  }
+}

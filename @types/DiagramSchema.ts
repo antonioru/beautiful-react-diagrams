@@ -5,6 +5,7 @@ export type PortAlignment = 'right' | 'left' | 'top' | 'bottom';
 export type Port = {
   id: string;
   canLink?: Function;
+  label?: string,
 };
 
 export type NodeCoordinates = [number, number];

@@ -1,23 +1,19 @@
 import React, { useMemo } from 'react';
-import classList from 'classnames';
-import { createInputs, createOutputs } from '../../shared/PortFactory';
-import { PortAlignment, PortList } from '../../shared/Types';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import { PortAlignment } from '../../shared/Types';
 
-/**
- * // TODO: document this
- */
-const PortsWrapper = ({ inputs, outputs, inputAlignment, outputAlignment, }) => {
-  const Inputs = useMemo(() => createInputs(inputs), [inputs]);
-  const Outputs = useMemo(() => createOutputs(outputs), [outputs]);
-  const inputsClassList = useMemo(() => classList('brd-inputs', `brd-inputs-${inputAlignment}`), [inputAlignment]);
-  const outputClassList = useMemo(() => classList('brd-outputs', `brd-outputs-${outputAlignment}`), [outputAlignment]);
+const PortsWrapper = ({ alignment, portAlignments, Elements }) => {
+  const classList = useMemo(() => classNames('brd-ports-wrapper', `brd-ports-${alignment}`), [alignment]);
+  const { Inputs, Outputs } = Elements;
+  const { inputsAlignment, outputsAlignment } = portAlignments;
 
   return (
     <>
-      {(Inputs.length > 0 || Outputs.length > 0) && (
-        <div className="brd-node-ports">
-          {Inputs.length > 0 && <div className={inputsClassList}>{Inputs}</div>}
-          {Outputs.length > 0 && <div className={outputClassList}>{Outputs}</div>}
+      {[inputsAlignment, outputsAlignment].includes(alignment) && (
+        <div className={classList}>
+          {inputsAlignment === alignment && <>{Inputs}</>}
+          {outputsAlignment === alignment && <>{Outputs}</>}
         </div>
       )}
     </>
@@ -25,17 +21,15 @@ const PortsWrapper = ({ inputs, outputs, inputAlignment, outputAlignment, }) => 
 };
 
 PortsWrapper.propTypes = {
-  inputAlignment: PortAlignment,
-  outputAlignment: PortAlignment,
-  inputs: PortList,
-  outputs: PortList,
-};
-
-PortsWrapper.defaultProps = {
-  inputAlignment: 'left',
-  outputAlignment: 'right',
-  inputs: [],
-  outputs: [],
+  alignment: PortAlignment.isRequired,
+  portAlignments: PropTypes.exact({
+    inputsAlignment: PortAlignment,
+    outputsAlignment: PortAlignment,
+  }).isRequired,
+  Elements: PropTypes.exact({
+    Inputs: PropTypes.element,
+    Outputs: PropTypes.element,
+  }).isRequired,
 };
 
 export default React.memo(PortsWrapper);

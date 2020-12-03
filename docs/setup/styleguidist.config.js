@@ -64,8 +64,8 @@ module.exports = {
       sectionDepth: 1,
     },
     {
-      name: 'useCanvasState',
-      content: '../useCanvasState.md',
+      name: 'useCanvas',
+      content: '../useCanvas.md',
       sectionDepth: 1,
     },
     {

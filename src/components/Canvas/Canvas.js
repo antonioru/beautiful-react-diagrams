@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { RecoilRoot } from 'recoil';
 import BackgroundGrid from './BackgroundGrid';
 import useCanvasPanHandlers from './useCanvasPanHandlers';
-import useCanvasZoomHandlers from './useCanvasZoomHandlers';
+import useCanvasScaleHandlers from './useCanvasScaleHandlers';
 import useRecoilStateReconciler from './useRecoilStateReconciler';
 import { filterControlsOut, controlsOnly } from './childrenUtils';
 import { CoordinatesType } from '../../shared/Types';
@@ -15,37 +15,39 @@ import './canvas.scss';
 const calcTransformation = (scale, [x, y]) => ({ transform: `translate3d(${x / 16}rem, ${y / 16}rem, 0) scale(${scale})` });
 
 /**
- * @TODO: Document this component
+ * The Canvas component is a controlled component providing a pannable and scalable container for
+ * the Diagram component(s).
+ * It can contains only components of type Diagram or CanvasControl.
+ * Since it is a controlled component a 'pan' and a 'scale' props should be provided together with an onScaleChange
+ * and an onPanChange handler.
  */
 const Canvas = (props) => {
   const {
-    pan, onPanChange, zoom, onZoomChange, maxZoom, minZoom, zoomOnWheel, inertia, zoomResetOnDblClick,
+    pan, onPanChange, scale, onScaleChange, maxScale, minScale, scaleOnWheel, inertia, resetScaleOnDblClick,
     ElementRenderer, GridRenderer, className, children, ...rest
   } = props;
   const elRef = useRef();
   const classList = useMemo(() => classNames('brd brd-diagram-canvas', className), [className]);
-  const style = useMemo(() => calcTransformation(zoom, pan), [zoom, pan]);
+  const style = useMemo(() => calcTransformation(scale, pan), [scale, pan]);
   const startPan = useCanvasPanHandlers({ pan, onPanChange, inertia });
 
-  useCanvasZoomHandlers(elRef, { onZoomChange, maxZoom, minZoom, zoomOnWheel, zoomResetOnDblClick });
-  useRecoilStateReconciler(zoom, pan, minZoom, maxZoom, onZoomChange, onPanChange);
+  useCanvasScaleHandlers(elRef, { onScaleChange, maxScale, minScale, scaleOnWheel, resetScaleOnDblClick });
+  useRecoilStateReconciler(scale, pan, minScale, maxScale, onScaleChange, onPanChange, elRef);
 
   return (
-    <React.StrictMode>
-      <ElementRenderer className={classList} onMouseDown={startPan} onTouchStart={startPan} ref={elRef} {...rest}>
-        <GridRenderer translateX={pan[0]} translateY={pan[1]} scale={zoom} />
-        <div className="brd-canvas-content" style={style}>
-          {filterControlsOut(children)}
-        </div>
-        {controlsOnly(children)}
-      </ElementRenderer>
-    </React.StrictMode>
+    <ElementRenderer className={classList} onMouseDown={startPan} onTouchStart={startPan} ref={elRef} {...rest}>
+      <BackgroundGrid translateX={pan[0]} translateY={pan[1]} scale={scale} />
+      <div className="brd-canvas-content" style={style}>
+        {filterControlsOut(children)}
+      </div>
+      {controlsOnly(children)}
+    </ElementRenderer>
   );
 };
 
 Canvas.propTypes = {
   /**
-   * Since Canvas is a controlled component, the 'pan' prop defines the canvas panning
+   * Defines the canvas panning offset in the [x, y] format
    */
   pan: CoordinatesType,
   /**
@@ -53,29 +55,29 @@ Canvas.propTypes = {
    */
   onPanChange: PropTypes.func,
   /**
-   * Since Canvas is a controlled component, the 'zoom' prop defines its zoom level, aka: how much the canvas is scaling
+   * Defines the canvas scale level
    */
-  zoom: PropTypes.number,
+  scale: PropTypes.number,
   /**
    * Since Canvas is a controlled component, the 'onZoomChange' prop is the change handler of the 'zoom' prop
    */
-  onZoomChange: PropTypes.func,
+  onScaleChange: PropTypes.func,
   /**
-   * Allow to zoom in/out on mouse wheel
+   * Allow to scale in/out on mouse wheel
    */
-  zoomOnWheel: PropTypes.bool,
+  scaleOnWheel: PropTypes.bool,
   /**
-   * The maximum allowed zoom
+   * The maximum allowed scale lv
    */
-  maxZoom: PropTypes.number,
+  maxScale: PropTypes.number,
   /**
-   * The minimum allowed zoom
+   * The minimum allowed scale lv
    */
-  minZoom: PropTypes.number,
+  minScale: PropTypes.number,
   /**
-   * Defines whether the zoom should be reset on double click
+   * Defines whether the scale should be reset on mouse double click
    */
-  zoomResetOnDblClick: PropTypes.bool,
+  resetScaleOnDblClick: PropTypes.bool,
   /**
    * Defines whether the canvas should apply inertia when the drag is over
    */
@@ -87,17 +89,17 @@ Canvas.propTypes = {
 Canvas.defaultProps = {
   pan: [0, 0],
   onPanChange: noop,
-  zoom: 1,
-  onZoomChange: noop,
-  zoomOnWheel: true,
-  maxZoom: 2,
-  minZoom: 0.5,
-  zoomResetOnDblClick: true,
+  scale: 1,
+  onScaleChange: noop,
+  scaleOnWheel: true,
+  maxScale: 2,
+  minScale: 0.5,
+  resetScaleOnDblClick: true,
   inertia: true,
   GridRenderer: BackgroundGrid,
   ElementRenderer: 'div',
 };
 
-const MemoCanvas = React.memo(Canvas);
+const withRecoil = (Component) => (props) => <RecoilRoot><Component {...props} /></RecoilRoot>;
 
-export default React.memo((props) => <RecoilRoot><MemoCanvas {...props} /></RecoilRoot>);
+export default withRecoil(React.memo(Canvas));

@@ -25,7 +25,9 @@ export const PortAlignment = PropTypes.oneOf(['right', 'left', 'top', 'bottom'])
 
 export const PortShape = {
   id: PropTypes.string.isRequired,
+  label: PropTypes.string,
   canLink: PropTypes.func,
+  className: PropTypes.string,
 };
 
 /**

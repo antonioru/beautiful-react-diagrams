@@ -5,7 +5,7 @@ import { useRecoilValue } from 'recoil';
 import { CoordinatesType, PortAlignment, PortType } from '../../shared/Types';
 import NodeDefault from '../NodeDefault';
 import useDragAround from './useDragAround';
-import { zoomState } from '../../states/canvas';
+import { scaleState } from '../../states/canvas';
 
 import './node-draggable-element.scss';
 import { getElementRect } from '../../shared/funcs/elementsUtils';
@@ -24,7 +24,7 @@ const NodeDraggableElement = (props) => {
     className, render: ContentNode, ElementRender,
   } = props;
   const elRef = useRef();
-  const zoom = useRecoilValue(zoomState);
+  const zoom = useRecoilValue(scaleState);
   const style = useMemo(() => makeStyle(coordinates), [coordinates]);
   const [isDragging, startDrag] = useDragAround({ onPositionChange, disableDrag, zoom, nodeIndex, elRef });
   const classList = useMemo(() => (

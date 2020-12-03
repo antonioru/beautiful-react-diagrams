@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { CoordinatesType, PortAlignment, PortType } from '../../shared/Types';
+import { createInputs, createOutputs } from '../../shared/PortFactory';
 import PortsWrapper from './PortsWrapper';
 
 import './node-default.scss';
@@ -15,13 +16,20 @@ import './node-default.scss';
 const NodeDefault = (props) => {
   const { content, ElementRender, inputs, outputs, inputsAlignment, outputsAlignment, className } = props;
   const classList = useMemo(() => classNames('brd-default-node', className), [className]);
+  const Inputs = useMemo(() => createInputs(inputs), [inputs]);
+  const Outputs = useMemo(() => createOutputs(outputs), [outputs]);
 
   return (
     <ElementRender className={classList}>
-      <div className="brd-node-content">
-        {content}
+      <PortsWrapper alignment="left" portAlignments={{ outputsAlignment, inputsAlignment }} Elements={{ Inputs, Outputs }} />
+      <div className="brd-node-central-content">
+        <PortsWrapper alignment="top" portAlignments={{ outputsAlignment, inputsAlignment }} Elements={{ Inputs, Outputs }} />
+        <div className="brd-node-content">
+          {content}
+        </div>
+        <PortsWrapper alignment="bottom" portAlignments={{ outputsAlignment, inputsAlignment }} Elements={{ Inputs, Outputs }} />
       </div>
-      <PortsWrapper inputs={inputs} outputs={outputs} inputsAlignment={inputsAlignment} outputsAlignment={outputsAlignment} />
+      <PortsWrapper alignment="right" portAlignments={{ outputsAlignment, inputsAlignment }} Elements={{ Inputs, Outputs }} />
     </ElementRender>
   );
 };

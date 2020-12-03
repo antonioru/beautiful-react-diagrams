@@ -3,7 +3,7 @@ import useSchema from './@types/useSchema';
 import createSchema from './@types/createSchema';
 import Canvas from './@types/Canvas';
 import CanvasControls from './@types/CanvasControls';
-import useCanvasState from './@types/useCanvasState';
+import useCanvas from './@types/useCanvas';
 
 import {
   validateSchema,
@@ -26,6 +26,6 @@ export {
   validateLinks,
   Canvas,
   CanvasControls,
-  useCanvasState,
+  useCanvas,
 };
 export default Diagram;

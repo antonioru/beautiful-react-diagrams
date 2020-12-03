@@ -4,7 +4,7 @@ be provided with a "*pan*" and a "*zoom*" states, and an "*onPanChange*" and an 
 Being a *controlled component* allows extreme flexibility in manipulating the *Canvas* state at runtime, 
 on the other hand, the operations performed on its states are quite often the same.
 
-For this reason I've summed up the most common operations in the `useCanvasState` hook.
+For this reason I've summed up the most common operations in the `useCanvas` hook.
 
 ```typescript static
 type CanvasMethods = {
@@ -17,5 +17,5 @@ type CanvasStates = {
   zoom: number,
 }
 
-declare const useCanvasState: (initialStates: CanvasStates) => [CanvasStates, CanvasMethods];
+declare const useCanvas: (initialStates: CanvasStates) => [CanvasStates, CanvasMethods];
 ```

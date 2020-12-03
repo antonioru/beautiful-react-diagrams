@@ -4,8 +4,51 @@
   border: 0.07rem solid rgba(0, 0, 0, 0.1);
   border-radius: 0.25rem;
   box-shadow: 0 0.2rem 0.2rem rgba(120, 120, 120, 0.05);
+  display: flex;
+  flex-wrap: nowrap;
 
   .brd-node-content {
-    padding: 1rem;
+    padding: 1.25rem;
+  }
+
+  // ---------------------------
+  // PORTS ALIGNMENT LEFT/RIGHT
+  // ---------------------------
+  .brd-ports-wrapper.brd-ports-left,
+  .brd-ports-wrapper.brd-ports-right {
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+
+    .brd-port {
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  .brd-ports-wrapper.brd-ports-left .brd-port {
+    flex-direction: row-reverse;
+  }
+
+  // ---------------------------
+  // PORTS ALIGNMENT TOP/BOTTOM
+  // ---------------------------
+  .brd-ports-wrapper.brd-ports-top,
+  .brd-ports-wrapper.brd-ports-bottom {
+    display: flex;
+    flex-direction: row;
+
+    .brd-port {
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  .brd-ports-wrapper.brd-ports-top .brd-port {
+    flex-direction: column-reverse;
+  }
+
+  .brd-ports-wrapper.brd-ports-bottom .brd-port {
+    flex-direction: column;
   }
 }

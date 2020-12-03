@@ -5,7 +5,7 @@ import { useRecoilValue } from 'recoil';
 import PlusIcon from './IconPlus';
 import MinusIcon from './IconMinus';
 import CenterIcon from './IconCenter';
-import { canvasCallbacks, maxZoomState, minZoomState, zoomState } from '../../states/canvas';
+import { canvasCallbacks, maxScaleState, minScaleState, scaleState } from '../../states/canvas';
 import stopEvent from '../../shared/funcs/stopEvent';
 
 import './canvas-controls.scss';
@@ -19,46 +19,46 @@ const zoomRatio = 0.25;
  * @constructor
  */
 const CanvasControls = (props) => {
-  const { placement, alignment, className, ElementRender, ButtonRender, ZoomInBtnRender, ZoomOutBtnRender, CenterBtnRender } = props;
+  const { placement, alignment, className, ElementRender, ButtonRender, ScaleInBtnRender, ScaleOutBtnRender, CenterBtnRender } = props;
   const classList = useMemo(() => (
     classNames('brd brd-diagram-ctrls', `brd-diagram-ctrls-${placement}`, `brd-diagram-ctrls-${alignment}`, className)
   ), [placement, className, alignment]);
 
   const methods = useRecoilValue(canvasCallbacks);
-  const zoom = useRecoilValue(zoomState);
-  const minZoom = useRecoilValue(minZoomState);
-  const maxZoom = useRecoilValue(maxZoomState);
-  const { onZoomChange, onPanChange } = methods;
+  const zoom = useRecoilValue(scaleState);
+  const minScale = useRecoilValue(minScaleState);
+  const maxScale = useRecoilValue(maxScaleState);
+  const { onScaleChange, onPanChange } = methods;
 
   const zoomInHandler = useCallback((event) => {
-    const nextZoom = parseFloat((zoom + zoomRatio).toFixed(2));
+    const nextScale = parseFloat((zoom + zoomRatio).toFixed(2));
     stopEvent(event);
 
-    if (nextZoom <= maxZoom) {
-      onZoomChange(nextZoom);
+    if (nextScale <= maxScale) {
+      onScaleChange(nextScale);
     }
-  }, [onZoomChange, zoom, maxZoom]);
+  }, [onScaleChange, zoom, maxScale]);
 
   const zoomOutHandler = useCallback((event) => {
-    const nextZoom = parseFloat((zoom - zoomRatio).toFixed(2));
+    const nextScale = parseFloat((zoom - zoomRatio).toFixed(2));
     stopEvent(event);
 
-    if (nextZoom >= minZoom) {
-      onZoomChange(nextZoom);
+    if (nextScale >= minScale) {
+      onScaleChange(nextScale);
     }
-  }, [onZoomChange, zoom, minZoom]);
+  }, [onScaleChange, zoom, minScale]);
 
   const resetHandler = useCallback((event) => {
     stopEvent(event);
     onPanChange([0, 0]);
-    onZoomChange(1);
-  }, [onPanChange, onZoomChange]);
+    onScaleChange(1);
+  }, [onPanChange, onScaleChange]);
 
   return (
     <ElementRender className={classList}>
-      <ButtonRender onClick={zoomInHandler} className="brd-ctrls-btn" disabled={zoom >= maxZoom}><ZoomInBtnRender /></ButtonRender>
+      <ButtonRender onClick={zoomInHandler} className="brd-ctrls-btn" disabled={zoom >= maxScale}><ScaleInBtnRender /></ButtonRender>
       <ButtonRender onClick={resetHandler} className="brd-ctrls-btn"><CenterBtnRender /></ButtonRender>
-      <ButtonRender onClick={zoomOutHandler} className="brd-ctrls-btn" disabled={zoom <= minZoom}><ZoomOutBtnRender /></ButtonRender>
+      <ButtonRender onClick={zoomOutHandler} className="brd-ctrls-btn" disabled={zoom <= minScale}><ScaleOutBtnRender /></ButtonRender>
     </ElementRender>
   );
 };
@@ -68,9 +68,9 @@ CanvasControls.propTypes = {
   placement: PropTypes.oneOf(['top-left', 'top-right', 'top-center', 'bottom-right', 'bottom-center', 'bottom-left', 'left', 'right']),
   alignment: PropTypes.oneOf(['vertical', 'horizontal']),
   ButtonRender: PropTypes.elementType,
-  ZoomInBtnRender: PropTypes.elementType,
+  ScaleInBtnRender: PropTypes.elementType,
   CenterBtnRender: PropTypes.elementType,
-  ZoomOutBtnRender: PropTypes.elementType,
+  ScaleOutBtnRender: PropTypes.elementType,
   ElementRender: PropTypes.elementType,
 };
 
@@ -78,9 +78,9 @@ CanvasControls.defaultProps = {
   placement: 'bottom-left',
   alignment: 'vertical',
   ButtonRender: 'button',
-  ZoomInBtnRender: PlusIcon,
+  ScaleInBtnRender: PlusIcon,
   CenterBtnRender: CenterIcon,
-  ZoomOutBtnRender: MinusIcon,
+  ScaleOutBtnRender: MinusIcon,
   ElementRender: 'nav',
 };
 

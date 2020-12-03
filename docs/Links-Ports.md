@@ -1,57 +1,42 @@
 ### Ports
 
 ```js
-import Diagram, { Canvas, createSchema, useSchema, useCanvasState, CanvasControls } from 'beautiful-react-diagrams';
+import Diagram, { Canvas, createSchema, useSchema, useCanvas, CanvasControls } from 'beautiful-react-diagrams';
 
 const initialSchema = createSchema({
   nodes: [
     {
-      id: 'node-1',
       content: 'Start',
       coordinates: [100, 150],
-      outputs: [
-        { id: 'port-1', alignment: 'right' },
-        { id: 'port-2', alignment: 'right' },
-      ],
       disableDrag: true,
-      data: {
-        foo: 'bar',
-        count: 0,
-      }
+      outputs: [ 
+        { id: 'port-1', label: 'Source 1' }, 
+        { id: 'port-2', label: 'Source 2' },
+      ],
+      outputsAlignment: 'right',
     },
     {
-      id: 'node-2',
       content: 'Middle',
       coordinates: [300, 150],
       inputs: [
-        { id: 'port-3', alignment: 'left' },
-        { id: 'port-4', alignment: 'left' },
+        { id: 'port-3' },
+        { id: 'port-4' },
       ],
       outputs: [
-        { id: 'port-5', alignment: 'right' },
-        { id: 'port-6', alignment: 'right' },
+        { id: 'port-5' },
+        { id: 'port-6' },
       ],
-      data: {
-        bar: 'foo',
-      }
+      inputsAlignment: 'left',
+      outputsAlignment: 'right',
     },
     {
-      id: 'node-3',
       content: 'End',
       coordinates: [600, 150],
-      inputs: [
-        { id: 'port-7', alignment: 'left' },
-        { id: 'port-8', alignment: 'left' },
+      inputsAlignment: 'left',
+      inputs: [ 
+        { id: 'port-7', label: 'End 1' }, 
+        { id: 'port-8', label: 'End 2' },
       ],
-      data: {
-        foo: true,
-        bar: false,
-        some: {
-          deep: {
-            object: true,
-          }
-        },
-      }
     },
   ],
   links: [
@@ -60,7 +45,7 @@ const initialSchema = createSchema({
 });
 
 const UncontrolledDiagram = () => {
-  const [canvasState, handlers] = useCanvasState(); // creates canvas state
+  const [canvasState, handlers] = useCanvas(); // creates canvas state
   const [schema, { onChange }] = useSchema(initialSchema); // creates diagrams schema
 
   return (
@@ -78,8 +63,8 @@ const UncontrolledDiagram = () => {
 
 ### Readonly Links
 
-```js static
-import Diagram, { Canvas, createSchema, useSchema, useCanvasState, CanvasControls } from 'beautiful-react-diagrams';
+```js
+import Diagram, { Canvas, createSchema, useSchema, useCanvas, CanvasControls } from 'beautiful-react-diagrams';
 
 // the diagram model
 const initialSchema = createSchema({
@@ -103,12 +88,12 @@ const initialSchema = createSchema({
 });
 
 const DiagramExample = () => {
-  const [canvasState, handlers] = useCanvasState(); // creates canvas state
+  const [ canvasStates, canvasStateHandlers] = useCanvas(); // creates canvas states    
   const [schema, { onChange }] = useSchema(initialSchema); // creates diagrams schema
 
   return (
     <div style={{ height: '35rem' }}>
-      <Canvas {...canvasState} {...handlers}>
+      <Canvas {...canvasStates} {...canvasStateHandlers}>
         <Diagram schema={schema} onChange={onChange} />
         <CanvasControls />
       </Canvas>

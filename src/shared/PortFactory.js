@@ -1,7 +1,7 @@
 import React from 'react';
 import Port from '../components/Port';
 
-export const createPort = (type = 'input') => (port) => (<Port {...port} type={type} />);
+export const createPort = (type = 'input') => (port) => (<Port {...port} type={type} key={port.id} />);
 export const createPorts = (type = 'input') => (ports) => ports.map(createPort(type));
 
 export const createInputs = createPorts('input');

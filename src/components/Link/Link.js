@@ -4,13 +4,14 @@ import { useRecoilValue } from 'recoil';
 import Segment from '../Segment';
 import { SchemaType } from '../../shared/Types';
 import { getElementRect } from '../../shared/funcs/elementsUtils';
-import { zoomState } from '../../states/canvas';
+import { canvasElement, scaleState } from '../../states/canvas';
 import { transformCoordinates } from '../../shared/funcs/pointTransformations';
 
-const getEntityCoordinates = (entityId, scale) => {
+const getEntityCoordinates = (entityId, canvasEl, scale) => {
   const entity = document.querySelector(`[data-brd-id='${entityId}']`);
-  if (entity) {
-    const parentRect = getElementRect(entity.parentElement);
+
+  if (entity && canvasEl) {
+    const parentRect = getElementRect(canvasEl.querySelector('.brd-canvas-content'));  //TODO: Find a better way
     const rect = getElementRect(entity);
     const coords = [
       (rect.left + (rect.width / 2)) - parentRect.left,
@@ -25,9 +26,10 @@ const getEntityCoordinates = (entityId, scale) => {
 
 // todo: document this
 const Link = ({ schema, input, output }) => {
-  const scale = useRecoilValue(zoomState);
-  const from = getEntityCoordinates(input, scale);
-  const to = getEntityCoordinates(output, scale);
+  const scale = useRecoilValue(scaleState);
+  const canvasEl = useRecoilValue(canvasElement);
+  const from = getEntityCoordinates(input, canvasEl, scale);
+  const to = getEntityCoordinates(output, canvasEl, scale);
 
   return from && to ? (<Segment from={from} to={to} />) : null;
 };
