@@ -1,6 +1,6 @@
 ![CI/CD](https://github.com/beautifulinteractions/beautiful-react-diagrams/workflows/CI/CD/badge.svg)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Coverage Status](https://coveralls.io/repos/github/beautifulinteractions/beautiful-react-diagrams/badge.svg?branch=master)](https://coveralls.io/github/antonioru/beautiful-react-diagrams?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/beautifulinteractions/beautiful-react-diagrams/badge.svg?branch=master)](https://coveralls.io/github/beautifulinteractions/beautiful-react-diagrams?branch=master)
 ![npm](https://img.shields.io/npm/v/beautiful-react-diagrams)
 ![GitHub stars](https://img.shields.io/github/stars/beautifulinteractions/beautiful-react-diagrams?style=social)
 
@@ -32,7 +32,7 @@ Javascript diagramming libraries are often difficult to integrate in React proje
 Different patterns not always fit the React nature and having a component's state in in sync with an external
 diagramming library might be quite difficult especially when the latter had been built in a different paradigm (such as MVC, for example).
 
-For this reason we created `beautiful-react-diagrams` an easy-to-customise functional diagramming library to build 
+For this reason we created `beautiful-react-diagrams` an easy-to-customise functional diagramming library to build
 diagrams with ease.
 
 ## 🎓 Principles
@@ -59,7 +59,7 @@ diagrams with ease.
 
 ## Contributing
 
-Contributions are very welcome and wanted. 
+Contributions are very welcome and wanted.
 
 To submit your custom pull request, please make sure your read our [CONTRIBUTING](./CONTRIBUTING.md) guidelines.
 
@@ -80,7 +80,7 @@ numbers must follow the `<major>.<minor>.<patch>-<tag>.<number>`, such as
 
 ### Credits
 
-This library is provided and sponsored by: 
+This library is provided and sponsored by:
 
 <div>
   <p>
