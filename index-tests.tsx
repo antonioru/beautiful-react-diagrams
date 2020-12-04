@@ -55,8 +55,8 @@ export const UncontrolledDiagram2 = () => {
           style={{ padding: '15px', background: 'purple' }}
         >
           {content}
-          {inputs?.map((input) => (<div>{input.props.id}</div>))}
-          {outputs?.map((output) => (<div>{output.props.id}</div>))}
+          {inputs.map((input) => (<div>{input.props.id}</div>))}
+          {outputs.map((output) => (<div>{output.props.id}</div>))}
         </div>
       ),
       data: {
