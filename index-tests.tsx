@@ -1,5 +1,14 @@
 import * as React from 'react';
-import Diagram, { useSchema } from '.';
+import Diagram, {
+  useSchema,
+  createSchema,
+  validateLink,
+  validateLinks,
+  validateNode,
+  validateNodes,
+  validatePort,
+  validateSchema,
+} from '.';
 import { Button } from 'beautiful-react-ui';
 
 export const UncontrolledDiagram1 = () => {
@@ -18,6 +27,13 @@ export const UncontrolledDiagram1 = () => {
     ],
   });
 
+  validateSchema(schema); // returns true or throw an error
+  validateNodes(schema.nodes); // returns true or throw an error
+  validateNode(schema.nodes[0]); // returns true or throw an error
+  validateLinks(schema.links || []); // returns true or throw an error
+  validateLink(schema.links![0]); // returns true or throw an error
+  validatePort(schema.nodes[0].outputs![0]); // returns true or throw an error
+
   return (
     <div style={{ height: '22.5rem' }}>
       <Diagram schema={schema} onChange={onChange} />
@@ -26,19 +42,21 @@ export const UncontrolledDiagram1 = () => {
 };
 
 export const UncontrolledDiagram2 = () => {
-  const [schema, { onChange, addNode, removeNode }] = useSchema({
-    nodes: [
-      {
-        id: 'node-1',
-        content: 'Node 1',
-        coordinates: [150, 60],
-        outputs: [{ id: 'port-1', alignment: 'right' }],
-        data: {
-          onDoubleClick: () => console.warn('hello'),
-        }
-      },
-    ],
-  });
+  const [schema, { onChange, addNode, removeNode }] = useSchema(
+    createSchema({
+      nodes: [
+        {
+          id: 'node-1',
+          content: 'Node 1',
+          coordinates: [150, 60],
+          outputs: [{ id: 'port-1', alignment: 'right' }],
+          data: {
+            onDoubleClick: () => console.warn('hello'),
+          },
+        },
+      ],
+    })
+  );
 
   const addNewNode = () =>
     addNode({
@@ -51,7 +69,7 @@ export const UncontrolledDiagram2 = () => {
       render: ({ content, data }) => (
         <div
           onDoubleClick={data?.onDoubleClick}
-          role='button'
+          role="button"
           style={{ padding: '15px', background: 'purple' }}
         >
           {content}
@@ -70,13 +88,22 @@ export const UncontrolledDiagram2 = () => {
 
   return (
     <div style={{ height: '22.5rem' }}>
-      <Button color='primary' icon='plus' onClick={addNewNode}>
+      <Button color="primary" icon="plus" onClick={addNewNode}>
         Add new node
       </Button>
-      <Button color='secondary' icon='minus' onClick={removeLast}>
+      <Button color="secondary" icon="minus" onClick={removeLast}>
         Remove last node
       </Button>
-      <Diagram schema={schema} onChange={onChange} />
+      <Diagram
+        schema={schema}
+        onChange={onChange}
+        showZoomButtons
+        minZoom={100}
+        maxZoom={1}
+        delta={1}
+        draggable
+        zoomOnWheel
+      />
     </div>
   );
 };
