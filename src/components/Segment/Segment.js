@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { CoordinatesType } from '../../shared/Types';
-import makeSvgPath from '../../shared/funcs/makeSvgPath';
+import makePath from './makePath';
 
 import './segment.scss';
 
@@ -8,7 +8,7 @@ import './segment.scss';
  * // TODO: document
  */
 const Segment = ({ from, to }) => {
-  const path = useMemo(() => makeSvgPath(from, to), [from, to]);
+  const path = useMemo(() => makePath(from, to), [from, to]);
 
   return (
     <g className="brd-segment">

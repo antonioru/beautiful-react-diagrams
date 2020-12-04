@@ -11,7 +11,7 @@ const getEntityCoordinates = (entityId, canvasEl, scale) => {
   const entity = document.querySelector(`[data-brd-id='${entityId}']`);
 
   if (entity && canvasEl) {
-    const parentRect = getElementRect(canvasEl.querySelector('.brd-canvas-content'));  //TODO: Find a better way
+    const parentRect = getElementRect(canvasEl.querySelector('.brd-canvas-content')); // TODO: Find a better way
     const rect = getElementRect(entity);
     const coords = [
       (rect.left + (rect.width / 2)) - parentRect.left,
