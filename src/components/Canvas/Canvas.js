@@ -6,13 +6,11 @@ import BackgroundGrid from './BackgroundGrid';
 import useCanvasPanHandlers from './useCanvasPanHandlers';
 import useCanvasScaleHandlers from './useCanvasScaleHandlers';
 import useRecoilStateReconciler from './useRecoilStateReconciler';
-import { filterControlsOut, controlsOnly } from './childrenUtils';
+import { filterControlsOut, controlsOnly, calcTransformationStyle } from './utils';
 import { CoordinatesType } from '../../shared/Types';
 import { noop } from '../../shared/Utils';
 
 import './canvas.scss';
-
-const calcTransformation = (scale, [x, y]) => ({ transform: `translate3d(${x / 16}rem, ${y / 16}rem, 0) scale(${scale})` });
 
 /**
  * The Canvas component is a controlled component providing a pannable and scalable container for
@@ -28,7 +26,7 @@ const Canvas = (props) => {
   } = props;
   const elRef = useRef();
   const classList = useMemo(() => classNames('brd brd-diagram-canvas', className), [className]);
-  const style = useMemo(() => calcTransformation(scale, pan), [scale, pan]);
+  const style = useMemo(() => calcTransformationStyle(scale, pan), [scale, pan]);
   const startPan = useCanvasPanHandlers({ pan, onPanChange, inertia });
 
   useCanvasScaleHandlers(elRef, { onScaleChange, maxScale, minScale, scaleOnWheel, resetScaleOnDblClick });

@@ -1,37 +1,23 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { useRecoilValue } from 'recoil';
 import Segment from '../Segment';
 import { SchemaType } from '../../shared/Types';
-import { getElementRect } from '../../shared/funcs/elementsUtils';
-import { canvasElement, scaleState } from '../../states/canvas';
-import { transformCoordinates } from '../../shared/funcs/pointTransformations';
-
-const getEntityCoordinates = (entityId, canvasEl, scale) => {
-  const entity = document.querySelector(`[data-brd-id='${entityId}']`);
-
-  if (entity && canvasEl) {
-    const parentRect = getElementRect(canvasEl.querySelector('.brd-canvas-content')); // TODO: Find a better way
-    const rect = getElementRect(entity);
-    const coords = [
-      (rect.left + (rect.width / 2)) - parentRect.left,
-      (rect.top + (rect.height / 2)) - parentRect.top,
-    ];
-
-    return transformCoordinates(coords, scale);
-  }
-
-  return null;
-};
+import { canvasRelativeElement, scaleState } from '../../states/canvas';
+import { getEntityAttribute, getEntityCoordinates, getEntityElement } from './utils';
 
 // todo: document this
 const Link = ({ schema, input, output }) => {
   const scale = useRecoilValue(scaleState);
-  const canvasEl = useRecoilValue(canvasElement);
-  const from = getEntityCoordinates(input, canvasEl, scale);
-  const to = getEntityCoordinates(output, canvasEl, scale);
+  const canvasEl = useRecoilValue(canvasRelativeElement);
+  const inputEntityEl = getEntityElement(input);
+  const outputEntityEl = getEntityElement(output);
+  const inputEntityType = getEntityAttribute(inputEntityEl);
+  const outputEntityType = getEntityAttribute(outputEntityEl);
+  const from = getEntityCoordinates(inputEntityEl, canvasEl, scale);
+  const to = getEntityCoordinates(outputEntityEl, canvasEl, scale);
 
-  return from && to ? (<Segment from={from} to={to} />) : null;
+  return (from && to) ? (<Segment from={from} to={to} inputEntityType={inputEntityType} outputEntityType={outputEntityType} />) : null;
 };
 
 Link.propTypes = {

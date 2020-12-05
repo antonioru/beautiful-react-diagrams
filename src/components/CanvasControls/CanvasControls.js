@@ -13,13 +13,14 @@ import './canvas-controls.scss';
 const zoomRatio = 0.25;
 
 /**
- * TODO: document this thing
- * @param props
- * @returns {*}
- * @constructor
+ * The CanvasControls component provides a series of controls for scaling and panning to the Canvas component.
+ * It is a stateful component as it receives the state and its handlers from the Canvas component.
  */
 const CanvasControls = (props) => {
-  const { placement, alignment, className, ElementRender, ButtonRender, ScaleInBtnRender, ScaleOutBtnRender, CenterBtnRender } = props;
+  const {
+    placement, alignment, showScaleButtons, showResetButton, className,
+    ElementRender, ButtonRender, ScaleInBtnRender, ScaleOutBtnRender, CenterBtnRender,
+  } = props;
   const classList = useMemo(() => (
     classNames('brd brd-diagram-ctrls', `brd-diagram-ctrls-${placement}`, `brd-diagram-ctrls-${alignment}`, className)
   ), [placement, className, alignment]);
@@ -56,17 +57,42 @@ const CanvasControls = (props) => {
 
   return (
     <ElementRender className={classList}>
-      <ButtonRender onClick={zoomInHandler} className="brd-ctrls-btn" disabled={zoom >= maxScale}><ScaleInBtnRender /></ButtonRender>
-      <ButtonRender onClick={resetHandler} className="brd-ctrls-btn"><CenterBtnRender /></ButtonRender>
-      <ButtonRender onClick={zoomOutHandler} className="brd-ctrls-btn" disabled={zoom <= minScale}><ScaleOutBtnRender /></ButtonRender>
+      {showScaleButtons && (
+        <ButtonRender onClick={zoomInHandler} className="brd-ctrls-btn" disabled={zoom >= maxScale}>
+          <ScaleInBtnRender />
+        </ButtonRender>
+      )}
+      {showResetButton && (
+        <ButtonRender onClick={resetHandler} className="brd-ctrls-btn">
+          <CenterBtnRender />
+        </ButtonRender>
+      )}
+      {showScaleButtons && (
+        <ButtonRender onClick={zoomOutHandler} className="brd-ctrls-btn" disabled={zoom <= minScale}>
+          <ScaleOutBtnRender />
+        </ButtonRender>
+      )}
     </ElementRender>
   );
 };
 
 CanvasControls.propTypes = {
-  // eslint-disable-next-line max-len
+  /**
+   * Defines the controls placement
+   */
   placement: PropTypes.oneOf(['top-left', 'top-right', 'top-center', 'bottom-right', 'bottom-center', 'bottom-left', 'left', 'right']),
+  /**
+   * Defines the controls alignment
+   */
   alignment: PropTypes.oneOf(['vertical', 'horizontal']),
+  /**
+   * Decide whether display the scale buttons (+/-)
+   */
+  showScaleButtons: PropTypes.bool,
+  /**
+   * Decide whether display the reset button
+   */
+  showResetButton: PropTypes.bool,
   ButtonRender: PropTypes.elementType,
   ScaleInBtnRender: PropTypes.elementType,
   CenterBtnRender: PropTypes.elementType,
@@ -77,6 +103,8 @@ CanvasControls.propTypes = {
 CanvasControls.defaultProps = {
   placement: 'bottom-left',
   alignment: 'vertical',
+  showScaleButtons: true,
+  showResetButton: true,
   ButtonRender: 'button',
   ScaleInBtnRender: PlusIcon,
   CenterBtnRender: CenterIcon,

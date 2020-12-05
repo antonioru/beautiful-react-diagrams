@@ -6,9 +6,9 @@ import { CoordinatesType, PortAlignment, PortType } from '../../shared/Types';
 import NodeDefault from '../NodeDefault';
 import useDragAround from './useDragAround';
 import { scaleState } from '../../states/canvas';
+import { getElementRect } from '../../shared/funcs/elementsUtils';
 
 import './node-draggable-element.scss';
-import { getElementRect } from '../../shared/funcs/elementsUtils';
 
 const makeStyle = ([x, y] = [0, 0]) => ({ left: x, top: y });
 
@@ -34,6 +34,7 @@ const NodeDraggableElement = (props) => {
   useEffect(() => {
     if (elRef.current) {
       const rect = getElementRect(elRef.current);
+
       onPositionChange((current) => ([
         current[0] + (rect.width / 2),
         current[1] + (rect.height / 2),

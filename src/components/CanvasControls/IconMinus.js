@@ -1,9 +1,7 @@
 import React from 'react';
 
 /**
- * // TODO: document this
- * @returns {*}
- * @constructor
+ * The minus svg glyph
  */
 const IconMinus = () => (
   <svg viewBox="0 -192 469.33333 469" xmlns="http://www.w3.org/2000/svg">

@@ -1,9 +1,7 @@
 import React from 'react';
 
 /**
- * // TODO: document this
- * @returns {*}
- * @constructor
+ * The center svg glyph
  */
 const IconCenter = () => (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 384">

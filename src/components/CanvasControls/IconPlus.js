@@ -1,9 +1,7 @@
 import React from 'react';
 
 /**
- * // TODO: document this
- * @returns {*}
- * @constructor
+ * The plus svg glyph
  */
 const IconPlus = () => (
   <svg viewBox="0 0 448 448" xmlns="http://www.w3.org/2000/svg">

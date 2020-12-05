@@ -7,8 +7,17 @@
   display: flex;
   flex-wrap: nowrap;
 
+  .brd-port {
+    transition: opacity 0.25s ease-out;
+    opacity: 0.65;
+  }
+
   .brd-node-content {
     padding: 1.25rem;
+  }
+
+  &:hover .brd-port {
+    opacity: 1;
   }
 
   // ---------------------------

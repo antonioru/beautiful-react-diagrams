@@ -3,21 +3,25 @@ import PropTypes from 'prop-types';
 import { SchemaType } from '../../shared/Types';
 import NodeDraggableElement from '../NodeDraggableElement';
 import Link from '../Link';
-import updateNodeAt from './updateNodeAt';
+import { updateNodeByIndex } from './utils';
 
 import './diagram.scss';
 
 /**
- * // TODO: document
+ * The Diagram component is the root-node of any diagram.
+ * It's a controlled component that accepts a `schema`, defining the current state of the diagram, and an `onChange` handler.
+ * Being a controlled component it allows the developer to have the best possible control over the diagram and its interactions
+ * with the user.
  */
 const Diagram = (props) => {
   const { schema, onChange } = props;
 
   const onNodeChange = useCallback((nodeIndex, properties) => {
-    // todo: update can't really on nodeIndex as it may change during renderings, remove nodeIndex and reference nodes by id
-    const nextNodes = updateNodeAt(schema.nodes, nodeIndex, properties);
+    // in this case is safe to update a node by its index as the callback and the diagram
+    // will be refreshed each time the schema changes
+    const nextNodes = updateNodeByIndex(schema.nodes, nodeIndex, properties);
     onChange({ nodes: nextNodes });
-  }, [onChange, schema.nodes]);
+  }, [onChange, schema]);
 
   return (
     <div className="brd brd-diagram">

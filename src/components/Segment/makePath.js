@@ -1,8 +1,6 @@
 const DEFAULT_OFFSET_CURVE = 0.4;
 
-const makePath = (from, to, offsetCurve) => {
-  offsetCurve = typeof offsetCurve === 'undefined' ? DEFAULT_OFFSET_CURVE : offsetCurve;
-
+const makePath = (from, to, inputEntityType, outputEntityType, offsetCurve = DEFAULT_OFFSET_CURVE) => {
   const [sourceX, sourceY] = from;
   const [targetX, targetY] = to;
 

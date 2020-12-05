@@ -27,8 +27,8 @@ PortsWrapper.propTypes = {
     outputsAlignment: PortAlignment,
   }).isRequired,
   Elements: PropTypes.exact({
-    Inputs: PropTypes.element,
-    Outputs: PropTypes.element,
+    Inputs: PropTypes.arrayOf(PropTypes.element),
+    Outputs: PropTypes.arrayOf(PropTypes.element),
   }).isRequired,
 };
 

@@ -1,4 +1,4 @@
-import { atom } from 'recoil';
+import { atom, selector } from 'recoil';
 
 export const panState = atom({
   key: 'brdCanvas',
@@ -28,4 +28,13 @@ export const canvasCallbacks = atom({
 export const canvasElement = atom({
   key: 'brdCanvasElement',
   default: null,
+});
+
+export const canvasRelativeElement = selector({
+  key: 'brdCanvasRelativeElement',
+  get: ({ get }) => {
+    const canvasEl = get(canvasElement);
+
+    return canvasEl ? canvasEl.querySelector('.brd-canvas-content') : null;
+  },
 });
