@@ -1,12 +1,12 @@
-export const stopPropagation = (e) => e.stopPropagation();
-export const preventDefault = (e) => e.preventDefault();
 /**
- * Takes an event, prevent its default actions and stops its propagation.
- * @param event
+ * Takes an event, stops its propagation and prevents its default actions if preventDefault = true.
  */
-const stopEvent = (event) => {
-  stopPropagation(event);
-  preventDefault(event);
+const stopEvent = (event, preventDefault = true) => {
+  event.stopPropagation();
+
+  if (preventDefault) {
+    event.preventDefault();
+  }
 };
 
 export default stopEvent;

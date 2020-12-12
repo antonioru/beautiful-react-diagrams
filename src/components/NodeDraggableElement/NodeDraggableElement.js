@@ -31,19 +31,21 @@ const NodeDraggableElement = (props) => {
     classNames('brd-draggable-element', { 'node-is-draggable': !disableDrag, dragging: isDragging })
   ), [disableDrag, isDragging]);
 
+  // TODO: this reposition the node at the center of its coordinates, maybe find a better way?
   useEffect(() => {
     if (elRef.current) {
       const rect = getElementRect(elRef.current);
 
-      onPositionChange((current) => ([
-        current[0] + (rect.width / 2),
-        current[1] + (rect.height / 2),
-      ]));
+      onPositionChange(nodeIndex, [
+        coordinates[0] + (rect.width / 2),
+        coordinates[1] + (rect.height / 2),
+      ]);
     }
-  }, [elRef]);
+  }, [elRef, nodeIndex]);
 
   return (
-    <ElementRender className={classList} onMouseDown={startDrag} onTouchStart={startDrag} data-brd-id={id} style={style} ref={elRef}>
+    // eslint-disable-next-line max-len
+    <ElementRender className={classList} onMouseDown={startDrag} onTouchStart={startDrag} data-brd-id={id} data-brd-type="node" style={style} ref={elRef}>
       <ContentNode
         id={id}
         content={content}

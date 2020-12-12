@@ -16,10 +16,19 @@ import './diagram.scss';
 const Diagram = (props) => {
   const { schema, onChange } = props;
 
+  /**
+   * When a node changes some of its properties update the schema and
+   * performs the `onChange` callback.
+   */
   const onNodeChange = useCallback((nodeIndex, properties) => {
-    // in this case is safe to update a node by its index as the callback and the diagram
-    // will be refreshed each time the schema changes
+    /**
+     * Generally speaking, updating a node by its index could not be a good idea.
+     * However, in this precise case it's quite a safe thing to do as both the
+     * onNodeChange callback and the Node components will be re-rendered every
+     * time the schema changes.
+     */
     const nextNodes = updateNodeByIndex(schema.nodes, nodeIndex, properties);
+
     onChange({ nodes: nextNodes });
   }, [onChange, schema]);
 

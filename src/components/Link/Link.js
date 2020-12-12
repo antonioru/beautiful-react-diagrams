@@ -1,23 +1,46 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { useRecoilValue } from 'recoil';
 import Segment from '../Segment';
 import { SchemaType } from '../../shared/Types';
 import { canvasRelativeElement, scaleState } from '../../states/canvas';
-import { getEntityAttribute, getEntityCoordinates, getEntityElement } from './utils';
+import { getEntityType, getEntityCoordinates, getEntityElement, getPortAlignment, EntityTypes } from './utils';
 
-// todo: document this
+/**
+ * The Link component handles the business logic of connecting two entities together.
+ * An entity can be a Node component or one of its ports (Port component).
+ * Once all the involved entities are in place (are rendered) it gets their coordinates and alignment and
+ * pass them down to the Segment component which is responsible of drawing the line between them.
+ */
 const Link = ({ schema, input, output }) => {
-  const scale = useRecoilValue(scaleState);
-  const canvasEl = useRecoilValue(canvasRelativeElement);
-  const inputEntityEl = getEntityElement(input);
-  const outputEntityEl = getEntityElement(output);
-  const inputEntityType = getEntityAttribute(inputEntityEl);
-  const outputEntityType = getEntityAttribute(outputEntityEl);
-  const from = getEntityCoordinates(inputEntityEl, canvasEl, scale);
+  const scale = useRecoilValue(scaleState); // gets the scale state
+  const canvasEl = useRecoilValue(canvasRelativeElement); // gets the canvas DOM element (used to calculate the coordinates)
+  const inputEntityEl = getEntityElement(input); // gets the input entity DOM element (an entity is both a port or a node)
+  const outputEntityEl = getEntityElement(output); // gets the output entity DOM element
+
+  /**
+   * if one of the involved elements is not present it means it has not been rendered yet,
+   * therefore the component should not render.
+   */
+  if (!canvasEl || !inputEntityEl || !outputEntityEl) return null;
+
+  const inputEntityType = getEntityType(inputEntityEl); // gets the  input entity type
+  const outputEntityType = getEntityType(outputEntityEl); // gets the  output entity type
+  const inputAlignment = inputEntityType === EntityTypes.port ? getPortAlignment(input, schema.nodes) : null; // get the input alignment
+  const outputAlignment = outputEntityType === EntityTypes.port ? getPortAlignment(output, schema.nodes) : null; // get the output alignment
+  const from = getEntityCoordinates(inputEntityEl, canvasEl, scale); // gets the entity coordinates
   const to = getEntityCoordinates(outputEntityEl, canvasEl, scale);
 
-  return (from && to) ? (<Segment from={from} to={to} inputEntityType={inputEntityType} outputEntityType={outputEntityType} />) : null;
+  return (
+    <Segment
+      from={from}
+      to={to}
+      inputEntityType={inputEntityType}
+      inputAlignment={inputAlignment}
+      outputEntityType={outputEntityType}
+      outputAlignment={outputAlignment}
+    />
+  );
 };
 
 Link.propTypes = {

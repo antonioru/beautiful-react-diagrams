@@ -29,7 +29,7 @@ const initialSchema = createSchema({
       inputsAlignment: 'left',
       outputsAlignment: 'right',
     },
-    {
+    /*{
       content: 'End',
       coordinates: [600, 150],
       inputsAlignment: 'left',
@@ -37,7 +37,7 @@ const initialSchema = createSchema({
         { id: 'port-7', label: 'End 1' }, 
         { id: 'port-8', label: 'End 2' },
       ],
-    },
+    },*/
   ],
   links: [
     { input: 'port-1',  output: 'port-4' },
