@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, cleanup } from '@testing-library/react';
 import DiagramContext from '../dist/Context/DiagramContext';
-import DiagramLink from '../dist/Diagram/Link/Link';
+import DiagramLink from '../dist/components/Diagram/Link/Link';
 
 describe('Link component', () => {
   afterEach(cleanup);
