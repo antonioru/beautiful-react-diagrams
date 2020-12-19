@@ -25,10 +25,28 @@ const makePath = (from, to, inputEntityType, outputEntityType, inputAlignment, o
     // if both ports are vertically aligned
     // TODO: this formula is wrong, needs to be fixed
     if (isVerticalAlignment(inputAlignment) || isVerticalAlignment(outputAlignment)) {
-      const sourceCurve = sourceX + Math.abs(targetX - sourceX) * offsetCurve;
-      const targetCurve = targetX - Math.abs(targetX - sourceX) * offsetCurve;
+      // ********************** Solution with original naming convention *********************
+      // Need to identify which element has the lowest Y
+      // const sourceCurve = targetY - Math.abs(targetY - sourceY) * offsetCurve;
+      // const targetCurve = sourceY + Math.abs(targetY - sourceY) * offsetCurve;
 
-      return `M ${sourceX} ${sourceY} C ${sourceCurve} ${sourceY} ${targetCurve} ${targetY} ${targetX} ${targetY}`;
+      // return `M ${sourceX} ${sourceY} C ${sourceX} ${sourceCurve} ${targetX} ${targetCurve} ${targetX} ${targetY}`;
+
+      // ********************** Solution with proposed naming convention *********************
+      // Proposal to rename variables
+      // C accepts two control points and a target to draw the bezier.
+      let controlOffset = Math.abs(targetY - sourceY) * offsetCurve;
+      // The initial implementation assumes a source is above the target, the same
+      // goes for horizontal alignment, it assume the source is to the left of the target
+      if (targetY < sourceY) {
+        controlOffset = -controlOffset;
+      }
+      const control1X = sourceX;
+      const control1Y = targetY - controlOffset;
+      const control2X = targetX;
+      const control2Y = sourceY + controlOffset;
+
+      return `M ${sourceX} ${sourceY} C ${control1X} ${control1Y} ${control2X} ${control2Y} ${targetX} ${targetY}`;
     }
 
     // if input is vertical and output is horizontal
