@@ -33,9 +33,9 @@ const Link = (props) => {
   const outputPoint = useMemo(() => getCoords(output, portRefs, nodeRefs, canvas), [output, portRefs, nodeRefs, canvas]);
   /* eslint-enable max-len */
   const pathOptions = {
-    type: (input.type === 'port' || output.type === 'port') ? 'bezier' : 'curve',
-    inputAlignment: input.entity.alignment || null,
-    outputAlignment: output.entity.alignment || null,
+    type: (input?.type === 'port' || output?.type === 'port') ? 'bezier' : 'curve',
+    inputAlignment: input?.entity?.alignment || null,
+    outputAlignment: output?.entity?.alignment || null,
   };
   const path = useMemo(() => makeSvgPath(inputPoint, outputPoint, pathOptions), [inputPoint, outputPoint]);
 

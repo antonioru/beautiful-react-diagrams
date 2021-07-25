@@ -24,12 +24,14 @@ const schemaReducer = (state, action) => {
       let nextLinks = state.links || [];
       if (state.nodes) {
         const index = findIndex(state.nodes, ['id', action.payload.nodeId]);
-        const inputPorts = getNodePortsId(state.nodes[index], 'inputs');
-        const outputPorts = getNodePortsId(state.nodes[index], 'outputs');
-        nextLinks = nextLinks.filter(
-          (link) => !inputPorts.includes(link.input) && !outputPorts.includes(link.output),
-        );
-        state.nodes.splice(index, 1);
+        if (index >= 0) {
+          const inputPorts = getNodePortsId(state.nodes[index], 'inputs');
+          const outputPorts = getNodePortsId(state.nodes[index], 'outputs');
+          nextLinks = nextLinks.filter(
+            (link) => !inputPorts.includes(link.input) && !outputPorts.includes(link.output),
+          );
+          state.nodes.splice(index, 1);
+        }
       }
 
       return ({
