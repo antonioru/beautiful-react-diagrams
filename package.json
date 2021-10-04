@@ -59,7 +59,7 @@
     "ignore-styles": "^5.0.1",
     "jsdom": "^16.4.0",
     "jsdom-global": "^3.0.2",
-    "mini-css-extract-plugin": "^1.1.1",
+    "mini-css-extract-plugin": "^2.3.0",
     "mocha": "^8.2.0",
     "node-sass": "^4.14.1",
     "nyc": "^15.1.0",
