@@ -12,7 +12,7 @@ module.exports = {
     text: 'Fork me on GitHub',
   },
   styleguideDir: '../../dist-ghpages',
-  exampleMode: 'collapse',
+  exampleMode: 'expand',
   usageMode: 'collapse',
   pagePerSection: true,
   sortProps: props => props,
@@ -29,23 +29,18 @@ module.exports = {
       sectionDepth: 1,
     },
     {
-      name: 'Diagram Component',
-      content: '../../src/Diagram/README.md',
+      name: 'Basic Usage',
+      content: '../Basic-usage.md',
       sectionDepth: 1,
     },
     {
-      name: 'Schema',
-      content: '../schema.md',
+      name: 'Links and Ports',
+      content: '../Links-Ports.md',
       sectionDepth: 1,
     },
     {
-      name: 'Linking nodes',
-      content: '../links.md',
-      sectionDepth: 1,
-    },
-    {
-      name: 'Ports',
-      content: '../ports.md',
+      name: 'Canvas Controls',
+      content: '../CanvasControls.md',
       sectionDepth: 1,
     },
     {
@@ -53,16 +48,29 @@ module.exports = {
       content: '../customisation.md',
       sectionDepth: 1,
     },
-
-    { divider: true },
     {
       name: 'Dynamic nodes',
       content: '../dynamic-nodes.md',
       sectionDepth: 1,
     },
     {
-      name: 'Hooks',
-      content: '../hooks.md',
+      name: 'Schema utilities',
+      content: '../Schema-utils.md',
+      sectionDepth: 1,
+    },
+    {
+      name: 'useSchema',
+      content: '../useSchema.md',
+      sectionDepth: 1,
+    },
+    {
+      name: 'useCanvasState',
+      content: '../useCanvasState.md',
+      sectionDepth: 1,
+    },
+    {
+      name: 'Other libraries',
+      content: '../other-libraries.md',
       sectionDepth: 1,
     },
   ],

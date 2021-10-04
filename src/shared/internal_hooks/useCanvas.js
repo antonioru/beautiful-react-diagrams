@@ -5,9 +5,9 @@ import DiagramContext from '../../Context/DiagramContext';
  * Returns the canvas bounding box from the DiagramContext
  */
 const useCanvas = () => {
-  const { canvas } = useContext(DiagramContext);
+  const { canvas, panVal, scaleVal } = useContext(DiagramContext);
 
-  return canvas;
+  return { canvas, panVal, scaleVal };
 };
 
 export default useCanvas;
