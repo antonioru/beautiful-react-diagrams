@@ -65,7 +65,7 @@
     "nyc": "^15.1.0",
     "postcss": "^8.1.2",
     "postcss-fixes": "^2.0.1",
-    "postcss-normalize": "^9.0.0",
+    "postcss-normalize": "^10.0.1",
     "postcss-preset-env": "^6.7.0",
     "postcss-will-change": "3.0.0",
     "postcss-will-change-transition": "^1.2.0",
