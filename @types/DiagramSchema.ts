@@ -1,4 +1,4 @@
-import { ElementType, ReactNode } from 'react';
+import { ElementType, HTMLAttributes, ReactElement, ReactNode } from 'react';
 
 export type PortAlignment = 'right' | 'left' | 'top' | 'bottom';
 
@@ -18,11 +18,17 @@ export type Node<P> = {
   inputs?: Port[];
   outputs?: Port[];
   type?: 'default';
-  render?: (
-    props: Omit<Node<P>, 'coordinates'>
-  ) => ElementType | ReactNode;
+  render?: (props: NodeRenderProps<P>) => ElementType | ReactNode;
   className?: string;
   data?: P;
+};
+
+export type NodeRenderProps<P> = Omit<
+  Node<P>,
+  'coordinates' | 'disableDrag' | 'inputs' | 'outputs'
+> & {
+  inputs: ReactElement<Port & HTMLAttributes<HTMLDivElement>>[];
+  outputs: ReactElement<Port & HTMLAttributes<HTMLDivElement>>[];
 };
 
 export type Link = {

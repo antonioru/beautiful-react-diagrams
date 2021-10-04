@@ -48,19 +48,22 @@ export const UncontrolledDiagram2 = () => {
         schema.nodes[schema.nodes.length - 1].coordinates[0] + 10,
         schema.nodes[schema.nodes.length - 1].coordinates[1] + 20,
       ],
-      render: ({ content, data }) => (
+      render: ({ content, data, inputs, outputs }) => (
         <div
           onDoubleClick={data?.onDoubleClick}
           role='button'
           style={{ padding: '15px', background: 'purple' }}
         >
           {content}
+          {inputs.map((input) => (<div>{input.props.id}</div>))}
+          {outputs.map((output) => (<div>{output.props.id}</div>))}
         </div>
       ),
       data: {
         onDoubleClick: () => alert(`Schema length is: ${schema.nodes.length}`),
       },
       inputs: [{ id: `port-${schema.nodes.length + 1}` }],
+      outputs: [{ id: `port-${schema.nodes.length + 1}` }],
     });
 
   const removeLast = () => {
