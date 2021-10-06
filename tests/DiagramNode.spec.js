@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, cleanup } from '@testing-library/react';
 import DiagramContext from '../dist/Context/DiagramContext';
-import DiagramNode from '../dist/Diagram/DiagramNode/DiagramNode';
+import DiagramNode from '../dist/components/Diagram/DiagramNode/DiagramNode';
 
 describe('DiagramNode component', () => {
   afterEach(cleanup);

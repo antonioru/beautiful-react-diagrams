@@ -6,25 +6,16 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const sourcePath = path.resolve(__dirname, '../..', 'src');
 
 module.exports = () => ({
-  entry: [
-    `${sourcePath}/theme/index.scss`,
-    `${sourcePath}/index.js`,
-  ],
   devtool: 'inline-source-map',
-  output: {
-    filename: 'beautiful-react-diagrams.dev.js',
-  },
   resolve: {
     extensions: ['.js', '.jsx', 'scss'],
     alias: { 'beautiful-react-diagrams': sourcePath },
   },
   devServer: {
+    contentBase: sourcePath,
     open: true,
-    hot: false,
-    liveReload: true,
-    watchContentBase: true,
+    hot: true,
   },
-  mode: 'development',
   module: {
     rules: [
       {
@@ -32,21 +23,18 @@ module.exports = () => ({
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
+          options: {
+            presets: [
+              '@babel/preset-env',
+              '@babel/preset-react'
+            ]
+          }
         },
       },
       {
         test: /\.(css|scss)$/,
         exclude: /node_modules/,
-        use: [
-          MiniCssExtractPlugin.loader,
-          {
-            loader: 'css-loader',
-            options: {
-              importLoaders: 2,
-            },
-          },
-          { loader: 'sass-loader' },
-        ],
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
       },
       {
         test: /\.png$/,
