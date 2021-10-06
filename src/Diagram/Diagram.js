@@ -19,13 +19,6 @@ const Diagram = (props) => {
   const { current: portRefs } = useRef({}); // keeps the port elements references
   const { current: nodeRefs } = useRef({}); // keeps the node elements references
 
-  // when nodes change, performs the onChange callback with the new incoming data
-  const onNodesChange = (nextNodes) => {
-    if (onChange) {
-      onChange({ nodes: nextNodes });
-    }
-  };
-
   // when a port is registered, save it to the local reference
   const onPortRegister = (portId, portEl) => {
     portRefs[portId] = portEl;
@@ -74,7 +67,7 @@ const Diagram = (props) => {
     <DiagramCanvas portRefs={portRefs} nodeRefs={nodeRefs} {...rest}>
       <NodesCanvas
         nodes={schema.nodes}
-        onChange={onNodesChange}
+        onChange={onChange}
         onNodeRegister={onNodeRegister}
         onPortRegister={onPortRegister}
         onNodeRemove={onNodeRemove}
