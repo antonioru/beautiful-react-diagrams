@@ -29,7 +29,7 @@ const Port = (props) => {
   onDragEnd((event) => {
     const targetPort = event.target.getAttribute('data-port-id');
     if (targetPort && event.target !== ref.current && canLink(id, targetPort, type) && onSegmentConnect) {
-      const args = type === 'input' ? [id, targetPort, type] : [targetPort, id, type];
+      const args = type === 'output' ? [id, targetPort, type] : [targetPort, id, type];
 
       onSegmentConnect(...args);
       return;
