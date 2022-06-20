@@ -70,7 +70,7 @@
     "postcss-will-change": "3.0.0",
     "postcss-will-change-transition": "^1.2.0",
     "react": "^16.14.0",
-    "react-dom": "^16.12.0",
+    "react-dom": "^18.2.0",
     "react-styleguidist": "^11.1.0",
     "rollup": "^2.32.1",
     "rollup-plugin-postcss": "^3.1.8",
