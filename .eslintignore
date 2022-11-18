@@ -1,4 +1,3 @@
-/docs
-/dist
-/@types
-index.d.ts
+scripts/
+dist/
+storybook-static/

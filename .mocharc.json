@@ -1,9 +1,0 @@
-{
-  "require": [
-    "@babel/register",
-    "@babel/polyfill",
-    "jsdom-global/register",
-    "ignore-styles",
-    "./tests/_setup.js"
-  ]
-}

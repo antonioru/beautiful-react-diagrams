@@ -1,56 +1,94 @@
-import glob from 'glob';
-import babel from '@rollup/plugin-babel';
-import resolve from '@rollup/plugin-node-resolve';
-import postcss from 'rollup-plugin-postcss';
-import { version, dependencies, peerDependencies } from './package.json';
+import path from 'path'
+import glob from 'glob'
+import resolve from '@rollup/plugin-node-resolve'
+import babel from '@rollup/plugin-babel'
+import commonjs from '@rollup/plugin-commonjs'
+import del from 'rollup-plugin-delete'
+import postcss from 'rollup-plugin-postcss'
+import typescript from '@rollup/plugin-typescript'
+import ignoreImport from 'rollup-plugin-ignore-import'
+import { peerDependencies, version } from './package.json'
 
-const name = 'beautiful-react-diagrams';
-const banner = `/* ${name} version: ${version} */`;
+const libName = 'beautiful-react-diagrams'
+const banner = `/* ${libName} version: ${version} */`
+const srcFolder = path.join(__dirname, 'src')
+const distFolder = path.join(__dirname, 'dist')
+const files = glob.sync(`${srcFolder}/**/*.+(ts|tsx)`)
+const externals = Object.keys(peerDependencies)
+const extensions = ['.js', '.jsx', '.ts', '.tsx']
 
-const standardJSModulesOpts = {
-  name,
-  banner,
-  exports: 'named',
-  minifyInternalExports: true,
-  preserveModules: true,
-  globals: { react: 'React' },
-};
-
-// CommonJS (for Node) and ES module (for bundlers) build.
-// (We could have three entries in the configuration array
-// instead of two, but it's quicker to generate multiple
-// builds from a single configuration where possible, using
-// an array for the `output` option, where we can specify
-// `file` and `format` for each target)
-const config = [
+export default [
+  /**
+   * The following configuration transpiles typescript files
+   * into JS files using Babel as well as produces a single
+   * style bundle.
+   * Keep in mind this configuration does not type check your code.
+   * The type checking script is defined in package.json file.
+   */
   {
-    input: glob.sync('./src/**/*.js'),
-    strictDeprecations: true,
-    output: [
-      {
-        ...standardJSModulesOpts,
-        dir: 'dist',
-        format: 'cjs',
-      },
-      {
-        ...standardJSModulesOpts,
-        dir: 'dist/esm',
-        format: 'esm',
-      },
-    ],
-    external: Object.keys({ ...dependencies, ...peerDependencies }),
+    input: files,
+    external: externals,
+    output: {
+      banner,
+      name: libName,
+      dir: distFolder,
+      format: 'es',
+      preserveModules: true,
+      preserveModulesRoot: 'src',
+      sourcemap: true
+    },
     plugins: [
-      resolve(),
+      del({ targets: 'dist/*' }),
+      resolve({ extensions }),
+      commonjs(),
       babel({
-        comments: false,
         babelHelpers: 'bundled',
-        presets: ['@babel/preset-env', '@babel/preset-react'],
+        extensions,
+        presets: [
+          '@babel/preset-env',
+          '@babel/preset-react',
+          '@babel/preset-typescript'
+        ],
+        plugins: ['babel-plugin-jsx-remove-data-test-id']
       }),
       postcss({
+        extensions: ['.css', '.scss'],
         use: ['sass'],
-        extract: 'styles.css',
-      }),
-    ],
-  }];
-
-export default config;
+        minimize: true,
+        extract: 'styles.bundle.css'
+      })
+    ]
+  },
+  /**
+   * The following configuration generates typescript declaration files
+   * only (.t.ds) whilst ignoring the scss/css files.
+   * The produced declaration files include the style imports.
+   * Stripping out the style imports (in case you want to) is out of the
+   * following configuration scope.
+   */
+  {
+    input: files,
+    external: externals,
+    output: {
+      banner,
+      name: libName,
+      dir: distFolder,
+      format: 'es',
+      preserveModules: true,
+      preserveModulesRoot: 'src',
+      sourcemap: true
+    },
+    plugins: [
+      resolve({ extensions }),
+      commonjs(),
+      ignoreImport({ include: ['**/*.scss', '**/*.css'] }),
+      typescript({
+        compilerOptions: {
+          declaration: true,
+          emitDeclarationOnly: true,
+          declarationDir: './dist'
+        }
+      })
+    ]
+  }
+]
