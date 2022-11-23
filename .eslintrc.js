@@ -36,7 +36,8 @@ module.exports = {
     'react/jsx-props-no-spreading': 'off',
     'import/extensions': 'off',
     'react/jsx-filename-extension': [1, { extensions: ['.tsx'] }],
-    'react/function-component-definition': [2, { namedComponents: 'arrow-function' }]
+    'react/function-component-definition': [2, { namedComponents: 'arrow-function' }],
+    'no-unused-vars': 'off',
   },
   overrides: [
     /**

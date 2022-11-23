@@ -1,7 +1,7 @@
 import { HTMLAttributes, ReactNode } from 'react';
 import { ComponentRenderer } from './commonTypes';
 
-export interface DiagramNodeCoordinates {
+export interface Coordinates {
   x: number,
   y: number
 }
@@ -17,7 +17,7 @@ export interface NodePort {
 
 export interface DiagramNode<TData> {
   id: string,
-  coordinates: DiagramNodeCoordinates,
+  coordinates: Coordinates,
   inputs?: NodePort[],
   inputsAlignment?: PortAlignment,
   outputs?: NodePort[],
