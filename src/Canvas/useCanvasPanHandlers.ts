@@ -5,8 +5,11 @@ import { calculateCoordinatesDelta, getMouseEventPoint } from '../utils/fns'
 type UseCanvasPanHandlersOptions = {
   pan: Coordinates,
   onPanChange: Dispatch<SetStateAction<Coordinates>>,
-  inertia?: number,
+  inertia?: boolean,
 }
+
+const friction = 0.9
+const applyInertia = (value: number) => (Math.abs(value) >= 0.1 ? Math.trunc(value * friction) : 0)
 
 /**
  * Handles and incorporates the business logic of the Canvas panning.
@@ -15,7 +18,7 @@ type UseCanvasPanHandlersOptions = {
  * https://jclem.net/posts/pan-zoom-canvas-react?utm_campaign=building-a-s--zoomable-canvasdi
  */
 const useCanvasPanHandlers = <TElement extends HTMLElement>(options: UseCanvasPanHandlersOptions) => {
-  const { pan, onPanChange } = options
+  const { pan, onPanChange, inertia } = options
   const prevPointRef = useRef(pan)
   const deltaRef = useRef({ x: 0, y: 0 })
 
@@ -38,10 +41,27 @@ const useCanvasPanHandlers = <TElement extends HTMLElement>(options: UseCanvasPa
     }
   }, [])
 
+  const performInertia = useCallback(() => {
+    if (inertia) {
+      onPanChange(({ x, y }) => ({ x: x + deltaRef.current.x, y: y + deltaRef.current.y }))
+
+      deltaRef.current.x = applyInertia(deltaRef.current.x)
+      deltaRef.current.y = applyInertia(deltaRef.current.y)
+
+      if (Math.abs(deltaRef.current.x) > 0 || Math.abs(deltaRef.current.y) > 0) {
+        requestAnimationFrame(performInertia)
+      }
+    }
+  }, [inertia])
+
   const endPan = useCallback(() => {
     document.removeEventListener('mousemove', performPan)
     document.removeEventListener('mouseup', endPan)
-  }, [])
+
+    if (inertia) {
+      requestAnimationFrame(performInertia)
+    }
+  }, [inertia])
 
   const onPanStart: MouseEventHandler<TElement> = useCallback((event) => {
     event.preventDefault()

@@ -16,7 +16,7 @@ import './Canvas.style.scss'
  */
 const Canvas: FC<CanvasProps> = (props) => {
   const { pan, onPanChange, className, children, ...rest } = props
-  const onPanStart = useCanvasPanHandlers<HTMLDivElement>({ pan, onPanChange, inertia: 0 })
+  const onPanStart = useCanvasPanHandlers<HTMLDivElement>({ pan, onPanChange, inertia: true })
   const classList = clsx('brd-diagram-canvas', className)
   const style = calcCanvasStyle(1, pan)
   const elRef = useRef<HTMLDivElement>(null)
