@@ -1,3 +1,5 @@
 scripts/
 dist/
 storybook-static/
+___src_old
+___tests_old

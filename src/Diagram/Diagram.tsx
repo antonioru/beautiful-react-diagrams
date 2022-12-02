@@ -13,7 +13,7 @@ const Diagram: FC<TestProps<any>> = ({ onChange, schema, className, ...rest }) =
   </div>
 )
 
-export interface TestProps<TData> extends HTMLAttributes<HTMLElement> {
+export interface TestProps<TData> extends Pick<HTMLAttributes<HTMLElement>, 'style' | 'className'> {
   /**
    * The diagram current schema
    */

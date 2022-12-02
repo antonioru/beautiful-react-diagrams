@@ -1,9 +1,9 @@
 import React, { FC, useMemo } from 'react'
 
-const parallaxRatio = 1.25
-const calcCoordinates = (x: number, y: number) => ({ x: x * parallaxRatio, y: y * parallaxRatio })
-const calcTransformation = (x: number, y: number, scale: number) => (`scale(${scale}) translate(${x}, ${y})`)
-
+/**
+ * This component displays the Canvas component SVG background.
+ * It's meant for internal usage only.
+ */
 const CanvasGridBackground: FC<CanvasGridBackgroundProps> = ({ translateX, translateY, scale }) => {
   const { x, y } = useMemo(() => calcCoordinates(translateX, translateY), [translateX, translateY])
   const transformation = useMemo(() => calcTransformation(x, y, scale), [x, y, scale])
@@ -25,10 +25,18 @@ const CanvasGridBackground: FC<CanvasGridBackgroundProps> = ({ translateX, trans
   )
 }
 
+const parallaxRatio = 1.25
+const calcCoordinates = (x: number, y: number) => ({ x: x * parallaxRatio, y: y * parallaxRatio })
+const calcTransformation = (x: number, y: number, scale = 1) => (`scale(${scale}) translate(${x}, ${y})`)
+
 export interface CanvasGridBackgroundProps {
   translateX: number,
   translateY: number,
-  scale: number,
+  scale?: number,
+}
+
+CanvasGridBackground.defaultProps = {
+  scale: 1
 }
 
 export default React.memo(CanvasGridBackground)

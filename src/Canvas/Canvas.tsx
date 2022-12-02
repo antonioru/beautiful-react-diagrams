@@ -4,6 +4,7 @@ import { Coordinates } from '../utils/SchemaType'
 import useCanvasPanHandlers from './useCanvasPanHandlers'
 import { calcCanvasStyle } from '../utils/fns'
 import CanvasGridBackground from './CanvasGridBackground'
+import useCanvasScale from './useCanvasScale'
 
 import './Canvas.style.scss'
 
@@ -15,15 +16,17 @@ import './Canvas.style.scss'
  * and an onPanChange handler.
  */
 const Canvas: FC<CanvasProps> = (props) => {
-  const { pan, onPanChange, className, children, ...rest } = props
-  const onPanStart = useCanvasPanHandlers<HTMLDivElement>({ pan, onPanChange, inertia: true })
-  const classList = clsx('brd-diagram-canvas', className)
-  const style = calcCanvasStyle(1, pan)
+  const { pan, onPanChange, inertia, scale, onScaleChange, resetScaleOnDblClick, className, children, ...rest } = props
   const elRef = useRef<HTMLDivElement>(null)
+  const onPanStart = useCanvasPanHandlers<HTMLDivElement>({ pan, onPanChange, inertia })
+  const classList = clsx('brd-diagram-canvas', className)
+  const style = calcCanvasStyle(scale || 1, pan)
+
+  useCanvasScale(elRef, { onScaleChange, resetScaleOnDblClick })
 
   return (
     <div className={classList} {...rest} ref={elRef} role="none" onMouseDown={onPanStart}>
-      <CanvasGridBackground translateX={pan.x} translateY={pan.y} scale={1} />
+      <CanvasGridBackground translateX={pan.x} translateY={pan.y} scale={scale} />
       <div className="brd-canvas-content" style={style}>
         {children}
       </div>
@@ -39,7 +42,30 @@ export interface CanvasProps extends HTMLAttributes<HTMLElement> {
   /**
    * Since Canvas is a controlled component, the 'onPanChange' prop is the change handler of the 'pan' prop
    */
-  onPanChange: Dispatch<SetStateAction<Coordinates>>
+  onPanChange: Dispatch<SetStateAction<Coordinates>>,
+  /**
+   * Defines the canvas scale level
+   */
+  scale?: number,
+  /**
+   * Since Canvas is a controlled component, the 'onZoomChange' prop is the change handler of the 'zoom' prop
+   */
+  onScaleChange?: Dispatch<SetStateAction<number>>,
+  /**
+   * Defines whether the scale should be reset on when double click
+   */
+  resetScaleOnDblClick?: boolean,
+  /**
+   * Defines whether the canvas should apply an inertia effect when the panning is over
+   */
+  inertia?: boolean,
+}
+
+Canvas.defaultProps = {
+  inertia: true,
+  scale: 1,
+  onScaleChange: undefined,
+  resetScaleOnDblClick: true
 }
 
 export default React.memo(Canvas)
